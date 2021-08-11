@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mr'Xu">
+    <meta name="Description" content="WebSite Desc">
+    <meta name="keywords" content="search keyword">
+    <meta name="website" content="http://www.xumeijie.com/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title id="site_title"> 🤍登录要趁早💖 </title>
+    <link rel="stylesheet" href="{% static 'users/forgotPwd.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'users/signin.css' %}">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+
+<div class="tips" style="color: #ff6651;">▼</div>
+<div class="navbar">
+    <input type="checkbox"/>
+    <span></span>
+    <span></span>
+    <ul>
+        <li><a class="animsition-link" href="{% url 'blog:home' %}">首页</a></li>
+        <li><a class="animsition-link" href="{% url 'essay:essay' %}">随笔</a></li>
+        <li><a class="animsition-link" href="{% url 'blog:leavemsg' %}">留言</a></li>
+        <li><a class="animsition-link" href="{% url 'blog:enshi' %}">硒都</a></li>
+        <li><a class="animsition-link" href="{% url 'blog:about' %}">关于</a></li>
+    </ul>
+</div>
+<div class="container right-panel-active animsition">
+    <!-- 注册 -->
+    <div class="container__form container--signup">
+        <form class="form" id="form1">
+            <h2 class="form__title">注册账号</h2>
+            <hr style="color: #0d85d1;width: 80%;margin: 0 auto;margin-bottom: 10px;">
+            <p style="text-align: center;font-size: 18px;"><span style="color: #ff6651">Or</span>&nbsp;使用
+                <a href="#" class="QQlogin">QQ</a>登录—
+            </p>
+            <div class="wrapper">
+                <div class="input-data">
+                    <input type="text" required id="register-user-name" class="input"
+                           maxlength="8"
+                           onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+                    <div class="underline"></div>
+                    <label>UserName</label>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="input-data">
+                    <input type="password" required id="register-user-pwd" class="input"
+                           maxlength="18"
+                           onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+                    <div class="underline"></div>
+                    <label>PassWord</label>
+                </div>
+            </div>
+            <button class="btn" id="submitBtn-register">点击注册</button>
+        </form>
+    </div>
+
+    <!-- 登录 -->
+    <div class="container__form container--signin">
+        {% csrf_token %}
+        <form class="form" id="form2">
+            <h2 class="form__title">欢迎登录</h2>
+            <hr style="color: #0d85d1;width: 80%;margin: 0 auto;margin-bottom: 10px;">
+            <p style="text-align: center;font-size: 18px;">使用<a href="#" class="QQlogin">QQ</a>登录— </p>
+            <div class="wrapper">
+                <div class="input-data">
+                    <input type="text" required id="signin-user-name" class="input" maxlength="8"
+                           onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+                    <div class="underline"></div>
+                    <label>Username</label>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="input-data">
+                    <input type="password" required id="signin-user-pwd" class="input"
+                           maxlength="18" onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+                    <div class="underline"></div>
+                    <label>PassWord</label>
+                </div>
+            </div>
+            <button class="btn" id="submitBtn-signin">登&nbsp;&nbsp;录</button>
+            <div class="theme-buy" style="margin: 10px 0"><a class="link btn-large theme-login"
+                                                             href="javascript:forgot();">忘记密码?</a></div>
+        </form>
+    </div>
+
+    <!-- 叠加部分 -->
+    <div class="container__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+                <button class="btn" id="signIn">已有账号?点击登录</button>
+            </div>
+            <div class="overlay__panel overlay--right">
+                <button class="btn" id="signUp">没有账号?点击注册</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 忘记密码弹出框 -->
+<div class="theme-popover">
+    <div class="theme-poptit"><a href="javascript:close();" title="关闭" class="close">x</a>
+        <h3>忘记记过去，才能拥抱未来</h3></div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin">
+            <ol>
+                <li>
+                    <h4>重新设定您的密码！</h4>
+                </li>
+                <li><strong>用户名：</strong><input class="ipt" type="text" id="forgotName" maxlength="8"/></li>
+                <li><strong>新密码：</strong><input class="ipt" type="password" id="forgotPwd"
+                                                maxlength="18" onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+                </li>
+                <li><a class="btn-primary" href="javascript:submitNewPwd();">确 定</a></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+</body>
+<script src="{% static 'users/signin.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $(".animsition").animsition({
+            inClass: 'fade-in',
+            outClass: 'fade-out-down',
+            inDuration: 1500,
+            outDuration: 800,
+            linkElement: '.animsition-link',
+            // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+            loading: true,
+            loadingParentElement: 'body', //animsition wrapper element
+            loadingClass: 'animsition-loading',
+            loadingInner: '', // e.g '<img src="loading.svg" />'
+            timeout: false,
+            timeoutCountdown: 5000,
+            onLoadEvent: true,
+            browser: ['animation-duration', '-webkit-animation-duration'],
+            // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+            // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+            overlay: false,
+            overlayClass: 'animsition-overlay-slide',
+            overlayParentElement: 'body',
+            transition: function (url) {
+                window.location.href = url;
+            }
+        });
+    });
+</script>
+</html>

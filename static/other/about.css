@@ -1,0 +1,28 @@
+.content p {
+	font-size: 20px;
+	color: #666;
+	margin: 0 auto;
+}
+
+.end {
+	font-size: 40px;
+	margin-top: 0;
+	z-index: 1000;
+    display: block;
+    text-decoration: none;
+    line-height: 50px;
+    background: -webkit-linear-gradient(left, deepskyblue, #FFD700 25%, deepskyblue 50%, #FFD700 75%, deepskyblue);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-size: 200% 100%;
+    animation: masked-animation 3s infinite linear;
+}
+
+@-webkit-keyframes masked-animation {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}

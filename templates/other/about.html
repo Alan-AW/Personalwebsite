@@ -1,0 +1,94 @@
+{% extends 'AboutLeaveBase.html' %}
+{% load static %}
+{% block title %}
+    <link rel="stylesheet" href="{% static 'other/about.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/payforme.css' %}">
+{% endblock %}
+
+<!-- 导肮 -->
+{% block nav %}
+    <div class="navigation">
+        <ul class="nav-bar">
+            <li><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
+            <li><a href="{% url 'blog:leavemsg' %}" class="animsition-link">留言板</a></li>
+            <li><a href="{% url 'blog:home' %}" title="请输入密码访问" class="animsition-link">一个普通男孩的十年</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="about-content animsition">
+        <h1 style="margin-bottom: 20px;color: indianred;">关于</h1>
+        <p style="color: orangered;">🟣一首诗 - - - - - - - - - - - - - - - - - - - - - - </p><br>
+        <p>"我是你头顶的云"</p>
+        <p>"是你耳畔的风"</p>
+        <p>"是你涉过潮来潮去"</p>
+        <p>"是你眼中烂漫山花"</p>
+        <p>"亦是你行过的万里山河"</p>
+        <p>"此刻"</p>
+        <p>"我亦在你眼中"</p>
+        <p style="color: deepskyblue;margin-top: 10px;">🟣关于我 - - - - - - - - - - - - - - - - - - - - - - </p><br/>
+        <p>&nbsp;&nbsp;<strong>【徐同学~】</strong>是一名95后;现阶段是一枚资深打工人，喜欢折腾各种新事物，充满了好奇心，一心只想好好学习。本人目前对于
+            C、C++、Java、Python、PHP、node.js、JavaScript、HTML/CSS、MATLAB、Visual Basic、PL/SQL 等编程语言全不精通, 并且已经完全掌握各国语言
+            Chinese、English、German、French、Russian、Japanese、Spanish、Italian、Greek、Latin、Polish、Dutch、Arabic、Hindi、Korean、Malay
+            的单词拼写、中文释义及正确发音(主要依赖于强大的Google搜索引擎及翻译服务)🤡</p>
+        <br/>
+        <p>&nbsp;&nbsp;<strong>【打工人：】</strong>作为一名非<strong>二九</strong>大学毕业生。步入社会才发现，梦想总是遥不可及，资本是一切的前提！
+            不过我没有消沉，而是选择了奋斗！作为一个小小男子汉，就应该<span style="color: orangered">不屈不挠</span>、
+            <span style="color: deepskyblue">刚正不阿</span>、<span style="color: #4dc14c">坚定不移</span>，直面人生的挑战。
+            有梦想就要去努力，去奋斗，去实现！尽人事听天命，努力了不一定有结果，但是不努力，就一定没结果！
+            😊</p>
+        <br/>
+        <p>&nbsp;&nbsp;<strong>【成长史：】</strong>自2020年4月8日起，每天坚持白天上班，晚上学习，别人把酒言欢的时候，我在敲代码。别人花前月下的时候
+            我在敲代码。别人鼾声如雷的时候，我在敲代码。别人“输出全靠吼”的时候，我还在敲代码。从未停止，从未放弃。我坚信码农会有“前程似锦”的未来，
+            敲出一个一日千里，敲出一个虎虎生风，敲出一个远大前程🦄</p>
+
+        <p style="color: deepskyblue;margin-top: 10px;">🟣关于栈 - - - - - - - - - - - - - - - - - - - - - - </p><br/>
+        <p>&nbsp;&nbsp;<strong>【背景：】</strong>本栈基于Django框架开发，原身是学习过程中项目考核仿博客园用户开放式网站，后来随着学习的深入，经过n多次修修改改最终成型个人博客网站，原计划
+            上线到New Jersey私人服务器，并且已经买了一个国外的域名：<a
+                    style="color: #ff6651;">www.xumeijie.com</a>，上线之后效果不甚满意，后上线阿里云。已经备案。<br/>
+            <br/>&nbsp;&nbsp;<strong>【初衷？】</strong>做这个网站的一是本着深入学习的态度，将其作为全栈开发攻城狮的实践项目，深入了解建栈的整体逻辑和细节把握，
+            二是随着时间的推移所学知识越来越多，精力有限。打算将自己所学整理成册，更新到服务器，做一个知识和技术的分享和传递平台，记录生活，记录一切，贯彻落实终身学习观念。
+        </p>
+        <p style="color: green;margin-top: 10px;">🟣那个啥 - - - - - - - - - - - - - - - - - - - - - - </p><br/>
+        <p style="font-size: 26px;color: #ff6651">祝：</p>
+        <p>"国之大家：繁荣昌盛、年富力强"</p>
+        <p>"民之小家：平安喜乐、幸福安康"</p>
+        <pre class="end" style="font-family: 'Ink Free';text-align: center;">That's All </pre>
+        <p style="text-align: center">💘</p>
+        <div class="payForMe">
+            <!-- 要钱 -->
+            <div class="tip-to-pay" style="text-align: center;margin-top: 20px;">
+                <p><span>如果有被</span>
+                    <span style="color: #09ebfc;">栈长</span>
+                    的故事<span style="color: #ff6651;"> 鼓励到 </span><span>的话，能不能支持一下栈长~（づ￣3￣）づ╭</span>
+                    <span style="color: red;">❤</span>～
+                </p>
+            </div>
+            <div class="payforme">
+                <ul class="payforme-ul" style="width: 38%;">
+                    <li class="payforme-li" style="margin-right: 3.125rem;">
+                        <button class="payforme-btn"
+                                style="background-color: rgb(59,179,79); color: whitesmoke;"><strong>微微信</strong>
+                        </button>
+                        <div class="content" style="left: -4.68rem;">
+                            <div id="payforwechat"></div>
+                        </div>
+                    </li>
+                    <li class="payforme-li">
+                        <button class="payforme-btn"
+                                style="background-color: rgb(24,120,254);color: whitesmoke;"><strong>支付宝</strong>
+                        </button>
+                        <div class="content" style="left: -4.68rem;">
+                            <div id="payforzfb"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'blog/js/animsition.js' %}"></script>
+{% endblock %}

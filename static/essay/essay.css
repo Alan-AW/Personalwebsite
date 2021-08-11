@@ -1,0 +1,73 @@
+.essay_body,
+.essay_detail_body {
+    background-color: rgba(245, 245, 245, .8);
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.essay_body:hover,
+.essay_detail_body:hover{
+    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
+                rgba(17, 17, 26, 0.1) 0 16px 56px,
+                rgba(17, 17, 26, 0.1) 0 24px 80px;
+
+}
+
+
+.essay_body {
+    border: 1px green dotted;
+    /*box-shadow: 5px 10px 15px rgba(0, 0, 0, .6);*/
+}
+
+.essay_body h1 {
+    margin-bottom: 10px;
+}
+
+.essay_body p {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.essay_body .rgb-bg {
+    display: block;
+    text-decoration: none;
+    line-height: 50px;
+    font-size: 25px;
+    text-align: left;
+    background: -webkit-linear-gradient(left, deepskyblue, #FFD700 25%, deepskyblue 50%, #FFD700 75%, deepskyblue);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-size: 200% 100%;
+    animation: masked-animation 3s infinite linear;
+}
+
+@-webkit-keyframes masked-animation {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+.essay_detail_body {
+    border: 1px solid #5EAF6F;
+}
+
+.essayDetail {
+    padding: 20px 0;
+    border-bottom: 1px dotted #666;
+    width: 100%;
+    background: url("/static/img/bg/ds.png") no-repeat right border-box;
+}
+
+.table-keys {
+    margin-left: 5%;
+    font-size: 22px;
+    width: 80%;
+    height: 100%;
+}

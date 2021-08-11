@@ -1,0 +1,238 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 楷体;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+p {
+	font-size: 1.5rem;
+}
+
+html,body {
+	width: 100%;
+	/* background-color: rgba(240, 240, 240, .7); */
+	background: url("/static/img/bg/enshi-bg.jpg") no-repeat center center fixed;
+	background-size: cover;
+}
+
+/* 鼠标选中文本背景色改变 */
+::selection {
+	background: #72d0eb;
+	color: #fff;
+	text-shadow: none
+}
+
+::-moz-selection {
+	background: #72d0eb;
+	color: #fff;
+	text-shadow: none
+}
+
+/* 导航 */
+.nav {
+	width: 100%;
+	height: 3.75rem;
+	background-color: rgba(240, 240, 240, .9);
+	transition: all 0.3s;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .3);
+	z-index: 999;
+}
+
+.nav-content {
+	width: 70%;
+	margin: 0 auto;
+}
+
+#starry {
+	display: block;
+	height: 3.75rem;
+	line-height: 3.75rem;
+	color: aqua;
+	font-size: 1.5rem;
+	float: left;
+	font-family: Ink Free;
+}
+
+.nav .nav-ul {
+	float: right;
+	width: 45%;
+	height: 100%;
+	margin: 0 auto;
+	line-height: 3.75rem;
+}
+
+.nav-ul-li {
+	float: left;
+	width: 20%;
+	text-align: center;
+	line-height: 3.75rem;
+	font-size: 1.3rem;
+}
+
+.nav-ul-li a {
+	color: blueviolet;
+	transition: all 0.3s;
+	font-size: 1.6rem;
+}
+
+.nav-ul-li a:hover {
+	font-size: 1.9rem;
+}
+
+/* 中间主体部分 */
+.center {
+	width: 70%;
+	margin: 1.25rem auto;
+}
+
+.left-nav {
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+/* 左侧导航 */
+.left-nav {
+	width: 20%;
+	float: left;
+	text-align: center;
+	margin-top: 2.9rem;
+	padding: 1.875rem;
+	border-radius: 0.5rem;
+	background-color: rgba(240,240,240,.8);
+}
+
+.left-nav h1 {
+	margin-bottom: 1.25rem;
+	color: orangered;
+}
+
+.left-nav ul {
+	width: 100%;
+}
+
+.left-nav ul li {
+	width: 100%;
+	height: 3rem;
+	cursor: pointer;
+	margin: 0.625rem 0;
+	font-size: 1.5rem;
+	line-height: 3rem;
+	border-radius: 2rem;
+	transition: all 0.5s;
+}
+
+.left-nav ul li:hover {
+	background-color: rgba(240,240,240,.7);
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.left-nav ul li a {
+	color: #000;
+}
+
+/* 右侧内容 */
+.content {
+	width: 80%;
+	height: 100%;
+	float: right;
+	padding: 1.25rem;
+	overflow: hidden;
+}
+
+.float-bg {
+	background: -webkit-linear-gradient(45deg, deepskyblue, #FFD700 25%, deepskyblue 50%, #FFD700 75%, deepskyblue);
+	color: transparent;
+	-webkit-background-clip: text;
+	background-size: 200% 100%;
+	animation: masked-animation 3s infinite linear;
+}
+
+@-webkit-keyframes masked-animation {
+	0% {
+		background-position: 0 0;
+	}
+
+	100% {
+		background-position: -100% 0;
+	}
+}
+
+.content img {
+	max-width: 100%;
+}
+
+.padding-5 {
+	padding-left: 10%;
+}
+
+.boxsd {
+	transition: all 0.4s;
+	background-color: rgba(240,240,240,.9);
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.boxsd:hover {
+	box-shadow: aquamarine 0px 5px 15px 0px;
+}
+
+.person-enshi,
+.map-enshi,
+.eating-enshi,
+.scenery-enshi,
+.night-enshi {
+	width: 98%;
+	border-radius: 0.5rem;
+	margin: 1.25rem 1.875rem;
+	padding: 1.9rem 1.2rem;
+	border-radius: 0.5rem;
+	overflow: hidden;
+}
+
+.map-title,
+.person-title,
+.eating-title,
+.scenery-title,
+.night-title {
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.scenery-title-span {
+	border: 1px solid whitesmoke;
+	border-radius: 50%;
+	padding: 6px 10px;
+	background-color: limegreen;
+	color: #C71585;
+}
+
+.scenery-content img {
+	width: 100%;
+	margin: 10px 0;
+}
+
+.scenery-show-img {
+	margin: 2rem 0;
+}
+
+/* footer */
+.footer {
+	clear: both;
+	width: 100%;
+	height: 12.5rem;
+	padding: 1.25rem 0;
+	box-sizing: border-box;
+	background-color: rgba(230, 230, 230, .8);
+}
+
+.footer p {
+	margin: 1.125rem auto;
+	text-align: center;
+}

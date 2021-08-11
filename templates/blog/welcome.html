@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mr'Xu">
+    <meta name="Description" content="WebSite Desc">
+    <meta name="keywords" content="search keyword">
+    <meta name="website" content="http://www.xumeijie.com/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title> 🔴花有重开日🤍人无再少年💖 </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/welcome.css' %}">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eGoFmU42VgXFh2OjzSjcPgd5PunNWu6p"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<!-- 百度地图API容器 -->
+<div id="allmap"></div>
+<!-- canvas -->
+<canvas class="cavs" width="1575" height="1337">这是漂亮的canvas星空动画，如果您看到此消息，表示您的浏览器可能不支持此动画的显示</canvas>
+
+<!-- 欢迎语 -->
+<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自“<span id="your-city"></span>”的朋友</p>
+<div class="autotype" id="autotype">
+    <p class="one">：柴米油盐沁透着星辰大海,</p>
+    <p class="two">：锅碗瓢盆盛满了诗和远方</p>
+    <p class="three">：有趣的人生，</p>
+    <p class="four">：一半柴米油盐，一半星辰大海，</p>
+    <p class="five">：一半诗和远方，一半人间烟火。</p>
+</div>
+<!-- 导航 -->
+<div class="nav animsition">
+    <ul class="nav-ul">
+        <li title="进入首页"><a href="{% url 'blog:home' %}" class="animsition-link">
+            <img src="{% static 'img/nav/home.png' %}"
+                style="width: 3.125rem;"></a></li>
+        <li title="GitHub"><a href="https://github.com/xumeijie?tab=repositories" class="animsition-link">
+            <img src="{% static 'img/nav/GitHub.jpg' %}"
+                style="width: 3.125rem;"></a></li>
+        <li title="我们美丽的家乡：世界硒都">
+            <a href="{% url 'blog:enshi' %}" class="animsition-link">
+                <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/59/01/5c/59015cd8-c4f1-b602-e54b-ab2b25d4c94c/source/512x512bb.jpg"
+                    style="width: 3.125rem;border-radius: 12px"></a></li>
+        <li title="关于站长"><a href="{% url 'blog:about' %}" class="animsition-link">
+            <img src="{% static 'img/nav/about.jpg' %}" style="width: 3.125rem;"></a></li>
+    </ul>
+</div>
+
+</body>
+
+<script src="{% static 'blog/js/welcome.js' %}"></script>
+<script src="{% static 'blog/js/animsition.js' %}"></script>
+</html>

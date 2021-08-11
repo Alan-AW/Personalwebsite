@@ -1,0 +1,440 @@
+* {
+    /* 页面初始化 清除页面元素原有的内外边距 */
+    padding: 0;
+    margin: 0;
+}
+
+/* :root根伪类 --为自定义属性 方便我们重复使用同一个属性 自定义属性使用var(--white);进行调用 */
+:root {
+    /* 颜色 */
+    --white: #e9e9e9;
+    --gray: #333;
+    --blue: #0367a6;
+    --lightblue: #008997;
+    /* 外边框圆角属性 */
+    --button-radius: 0.7rem;
+    /* 最大宽、高 的值*/
+    --max-width: 758px;
+    --max-height: 420px;
+    /* 全局背景图片 */
+    --background-image: url('/static/img/bg/nice_.jpg');
+    /*  字体样式  */
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+    /* 弹性盒子 垂直居中	 */
+    align-items: center;
+    /* 背景颜色为自定义属性 --white	 */
+    background-color: var(--white);
+    /* 背景图片	 */
+    background: var(--background-image);
+    /* 	背景固定。即使一个元素拥有滚动机制，背景也不会随着元素的内容滚动。 */
+    background-attachment: fixed;
+    /* 	图片居中 */
+    background-position: center;
+    /* 	background-repeat定义背景图像的重复方式，no-repeat背景图像将仅显示一次 */
+    background-repeat: no-repeat;
+    /* 把背景图片放大到适合元素容器的尺寸	 */
+    background-size: cover;
+    /* 网格布局	 */
+    display: grid;
+    /* 设置height:100vh，能够保证元素无论是否有没有内容，高度都等于屏幕高度。	 */
+    height: 100vh;
+    /* 沿着对齐容器的中心对齐。	 */
+    place-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 漂浮提示 */
+.tips {
+    position: absolute;
+    top: 19%;
+    left: 39.5%;
+    font-size: 22px;
+    color: #666;
+    cursor: pointer;
+    animation: floating 1.5s infinite ease-in-out;
+}
+
+@keyframes floating {
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.navbar,
+.navbar ul {
+    /* 三个元素都需要弹性布局 写一块 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    /* 相对定位 */
+    position: absolute;
+    top: 20%;
+    left: 38%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.navbar input {
+    width: 40px;
+    height: 40px;
+    /* 鼠标移入变小手 */
+    cursor: pointer;
+    /* 不透明度为0 直接变透明 */
+    opacity: 0;
+}
+
+.navbar span {
+    /* 绝对定位 */
+    position: absolute;
+    left: 25px;
+    /* 现将两条线都放到一起 然后单独设置第二条线的位置 calc方法可以自动计算数值 */
+    top: calc(50% - 10px);
+    width: 30px;
+    height: 4px;
+    border-radius: 15px;
+    background-color: deepskyblue;
+    /* 这里在解决一个问题 现在span覆盖着复选框 我们鼠标放到span点不中复选框  写这个属性就能解决这个问题 即便鼠标放到span上点击也能够选中或者未选中复选框*/
+    /*pointer-events: none;*/
+    /* 收回来的时候过渡刚好相反 */
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
+}
+
+/* 因为第二条线在navbar这个元素内的第三个位置 所以这里写3 */
+.navbar span:nth-child(3) {
+    top: calc(50% + 6px);
+}
+
+.navbar ul {
+    width: 0;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 现在这个盒子是扁的 待会解决这个问题 */
+    /* 这个问题出现的原因是 文字被换行显示了 两个汉字竖着排列了 就撑大盒子了 */
+    /* 这个属性可以让文字就在一行排列 不换行 */
+    white-space: nowrap;
+    transition: all 0.5s;
+}
+
+.navbar ul li {
+    list-style: none;
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    /* 取消下划线 */
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    transition: all 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #fb7299;
+}
+
+/* :checked是当选中的复选框的时候 ~\> 是 兄弟\后代 选择器 查找同一级的ul */
+.navbar:hover > ul,
+.navbar ul:hover {
+    width: 350px;
+}
+
+.navbar:hover > span:nth-child(2) {
+    top: calc(50% - 2px);
+    transform: rotate(-45deg);
+    background-color: #fb7299;
+    /* 现在速度太快了 加个过渡 */
+    /* 这是先执行top 然后.3s后执行transform */
+    transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+}
+
+.navbar:hover > span:nth-child(3) {
+    top: calc(50% - 2px);
+    transform: rotate(45deg);
+    background-color: #fb7299;
+    transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+}
+
+/* 表单部分样式 */
+.QQlogin {
+    color: #09ebfc;
+    margin: 0 10px;
+    text-shadow: 3px 3px rgba(0, 0, 0, .5);
+}
+
+/* 标题 */
+.form__title {
+    /* 字体粗细 */
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 1.25rem;
+}
+
+/* 忘记密码字体样式 */
+.link {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin: 1.5rem 0;
+    text-decoration: none;
+}
+
+/* 主体DIV样式 */
+.container {
+    /* ↓ 也设置成body一样的背景，视觉效果更棒 */
+    background-color: var(--lightblue);
+    background: var(--background-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* ↑ 也设置成body一样的背景，视觉效果更棒 */
+
+    border-radius: var(--button-radius);
+    /* 添加阴影效果 */
+    box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+    0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+
+    height: var(--max-height);
+    max-width: var(--max-width);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* 登录、注册框部分 */
+.container__form {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.6s ease-in-out;
+}
+
+.container--signin {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.right-panel-active .container--signin {
+    transform: translateX(100%);
+}
+
+.container--signup {
+    left: 0;
+    opacity: 0;
+    width: 50%;
+    z-index: 1;
+}
+
+.container.right-panel-active .container--signup {
+    animation: show 0.6s;
+    opacity: 1;
+    transform: translateX(100%);
+    z-index: 5;
+}
+
+/* 叠加部分样式 */
+.container__overlay {
+    height: 100%;
+    left: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transition: transform 0.6s ease-in-out;
+    width: 50%;
+    z-index: 100;
+}
+
+.container.right-panel-active .container__overlay {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background-color: var(--lightblue);
+    background: var(--background-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    left: -100%;
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    width: 200%;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay__panel {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    width: 50%;
+}
+
+.overlay--left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay--left {
+    transform: translateX(0);
+}
+
+.overlay--right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay--right {
+    transform: translateX(20%);
+}
+
+/* 按钮设置 */
+.btn {
+    outline: none;
+    /*background-color: var(--blue);*/
+    /*background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);*/
+    background-color: pink;
+    background-image: linear-gradient(-135deg, skyblue, transparent);
+    border-radius: 30px;
+    border: none;
+    /*border: 1px solid var(--blue);*/
+    color: var(--white);
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    padding: 0.9rem 4rem;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.form > .btn {
+    margin-top: 1.5rem;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+/* 表单样式 */
+.form {
+    /*background-color: var(--white);*/
+    /*background-image: linear-gradient(to top, rgba(0, 191, 255, .53), transparent);*/
+    background-color: pink;
+    background-image: linear-gradient(45deg, skyblue, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 3rem;
+    height: 100%;
+    text-align: center;
+}
+
+/* 用户名&密码输入框 */
+.wrapper {
+    width: 100%;
+    /*background: linear-gradient(45deg, skyblue, transparent);*/
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px;
+    margin-top: 10px;
+    /*box-shadow: 0 0 10px rgba(0,0,0,.1);*/
+}
+
+.wrapper .input-data {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.wrapper .input-data input {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 0 10px;
+    font-size: 18px;
+    /*border-bottom: 2px solid silver;*/
+}
+
+.input-data input:focus ~ label,
+.input-data input:valid ~ label {
+    transform: translateY(-20px);
+    font-size: 15px;
+    color: hotpink;
+}
+
+.wrapper .input-data label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.wrapper .input-data .underline {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    height: 2px;
+    width: 100%;
+}
+
+.input-data .underline:before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: #03a9f4;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline:before,
+.input-data input:valid ~ .underline:before {
+    transform: scaleX(1);
+}
+
+@keyframes show {
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}

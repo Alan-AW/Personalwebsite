@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mr'Xu">
+    <meta name="Description" content="WebSite Desc">
+    <meta name="keywords" content="search keyword">
+    <meta name="website" content="http://www.xumeijie.com/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title id="site_title">(´▽`ʃ♡ƪ)爱你哟❤</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'other/AboutLeaveBase.css' %}">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    {% block title %}
+
+    {% endblock %}
+
+</head>
+<body>
+
+<!-- 导肮 -->
+{% block nav %}
+    <div class="navigation animsition">
+        <ul class="nav-bar">
+            <li><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
+            <li><a href="{% url 'blog:leavemsg' %}" class="animsition-link">留言板</a></li>
+            <li><a href="{% url 'blog:home' %}" title="请输入密码访问" class="animsition-link">一个普通男孩的十年</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+<!-- 头部 -->
+<div class="header">
+    <h1 style="font-family: 'Ink Free'">GO!</h1>
+    <p style="font-family: 'Ink Free'">Make yourself a better person, You are the best! May the force be with you!!</p>
+
+    <!-- 放个自己的圆形头像 -->
+    <div id="icon">
+        <img style="width: 100%;object-fit: scale-down;" src="{% static 'img/about/me.jpg' %}">
+    </div>
+
+    <!-- 几句话 -->
+    <div id="say">
+        <div class="heart"></div>
+        <p class="life">“知足且上进,温柔而坚定”</p>
+        <p class="life">“寒江孤影，江湖故人，相逢何必曾相识”</p>
+    </div>
+</div>
+
+
+<!-- 波浪画布 -->
+<div class="canvas-wrap">
+    <canvas id="canvas"></canvas>
+</div>
+
+<!-- 中间主体 -->
+<div class="all-center">
+    <!-- 左侧时钟 -->
+    <div class="my-canvas-bk animsition">
+        <canvas id="myCanvas">
+            该浏览器不支持canvas
+        </canvas>
+    </div>
+    <div class="content">
+        {% block main %}
+
+        {% endblock %}
+    </div>
+</div>
+<!-- 底部信息 -->
+<div class="foot animsition">
+    <div id="ct">
+        <div class="msg" id="lef">
+            <span>微💘信</span><br>
+            <img src="{% static 'img/about/wecat.PNG' %}" style="object-fit: inherit;">
+        </div>
+
+        <div class="msg" id="cent">
+            <br>
+            <p style="font-size: 18px;font-family: 'Ink Free'">There used to be a sincere love in front of me. I did
+                not cherish it. I regretted it when I lost it. If God could give me another chance, I would
+                definitely say "I love you" to any girl. If a deadline is to be added, I hope it will be 10,000
+                years</p>
+        </div>
+
+        <div class="msg" id="rig">
+            <span>Q💘Q</span><br>
+            <img src="{% static 'img/about/QQ.PNG' %}" style="object-fit: inherit;">
+        </div>
+    </div>
+</div>
+<!-- 返回顶部 -->
+<div class="back-to-top" id="back-top" title="返回顶部"></div>
+
+</body>
+
+<script src="{% static 'other/AboutLeaveBase.js' %}"></script>
+{% block script %}
+
+{% endblock %}
+</html>

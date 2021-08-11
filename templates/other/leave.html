@@ -1,0 +1,258 @@
+{% extends 'AboutLeaveBase.html' %}
+{% load static %}
+
+{% block title %}
+    <link rel="stylesheet" href="{% static 'other/leave.css' %}">
+    <link rel="stylesheet" href="{% static 'comment/emoji.css' %}">
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=eGoFmU42VgXFh2OjzSjcPgd5PunNWu6p"></script>
+    <script src="{% static 'blog/js/addMessage.js' %}"></script>
+{% endblock %}
+
+<!-- 导肮 -->
+{% block nav %}
+    <div class="navigation">
+        <ul class="nav-bar">
+            <li><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
+            <li><a href="{% url 'blog:about' %}" class="animsition-link">关于我</a></li>
+            <li><a href="{% url 'blog:home' %}" title="请输入密码访问" class="animsition-link">一个普通男孩的十年</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="leave-content animsition">
+        {% csrf_token %}
+        <!-- 百度地图API容器 -->
+        <div id="allmap"></div>
+        <input type="hidden" id="baidumap">
+        <!-- 提示 -->
+        <div id="message_info" class="growl" style="display:none;">
+            <div id="message_content" class="growl-item alert message_error"></div>
+        </div>
+        <div class="leave-title">
+            <h2><span style="color: #09ebfc;">灯火星星</span>，<span style="color: #ff6651;">人声杳杳</span>，<span
+                    style="color: #ffb351">歌不尽乱世烽火</span>。</h2>
+            <h2><span style="color: #5197ff">笔墨点点</span>，<span style="color: #a551ff">信纸琳琅</span>，<span
+                    style="color: #ff5163">书不完人生百态</span>。</h2>
+            <h2>有什么想问的</h2>
+            <h2>有什么想说的</h2>
+            <h2>都可以告诉我哦，我都会在第一时间回复哒😚</h2>
+            <p>因为我知道<span style="color: #09ebfc">有些人</span>、<span style="color: #ff6651">有些话</span>一旦错过了，就<span
+                    style="color: #4dc14c">永远</span>错过了😒
+            </p>
+        </div>
+        <div class="userMsg">
+            {% if request.user.is_authenticated %}
+                <input type="text" id="nickname" class="LeaveUserName" value="{{ user.username }}"
+                       onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                       maxlength="20">
+            {% else %}
+                <input type="text" id="nickname" placeholder="来将可留姓名?" class="LeaveUserName"
+                       onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                       maxlength="20">
+            {% endif %}
+            <input type="text" id="emailAttr" placeholder="回调邮箱?" class="LeaveUserName userEmail"
+                   onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                   maxlength="30">
+            <input type="text" id="site" placeholder="网址?" class="LeaveUserName"
+                   onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                   maxlength="30">
+        </div>
+
+        <div class="input_leavemsg">
+            <div id="reply_content_container" style="display:none;margin-top: 20px">
+                <p style="margin: 10px 0;color: #09ebfc;font-size: 18px">Ta 说：</p>
+                <p id="reply_user" style="color: #666;font-size: 20px"></p>
+                <input type="text" id="reply_pk" hidden value="">
+                <p style="margin-top: 10px"><a href="javascript:cancelReply()" class="cancelReply">取消</a></p>
+            </div>
+
+            <textarea class="emotion" id="content" rows="3"
+                      maxlength="500"
+                      onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                      placeholder="还是说点什么吧，o(￣ヘ￣o＃)哼..."></textarea>
+            <span id="face" class="face-icon"><strong>☺</strong></span>
+            <a href="javascript:submitLeaveMsg()" id="default_comment_button" class="sub_leave_msg">留&nbsp;言</a>
+        </div>
+        {% if leaveCount %}
+            <div class="leaveCount" style="margin: 20px 0;">已捕获&nbsp;<span id="leaveCount"
+                                                                           style="color: #ff6651;">{{ leaveCount }}</span>&nbsp;只小可爱的留言
+            </div>
+        {% else %}
+            <p id="nothaveleave" style="margin: 10px 0">来都来了!确定不抢个沙发？</p>
+        {% endif %}
+        <div class="leave_area">
+            {% for leave in allLeave %}
+                <div class="allLeaveShow">
+                    <div class="leavemsg" id="root_{{ leave.pk }}">
+                        <p><span class="leave-name">{{ leave.name }}</span>:<span
+                                class="browserId">{{ leave.browserId }}</span>
+                        </p>
+                        <p class="leave-content" id="leave_{{ leave.pk }}">{{ leave.content|safe }}</p>
+                        <span class="leave-time">{{ leave.createTime }}</span><span class="city">{{ leave.city }}</span><a
+                            href="javascript:clickReplay({{ leave.pk }})" class="replayLeave">回复Ta</a>
+                        <div class="allSonLeave">
+                            {% for replay in leave.rootleave.all %}
+                                <div class="sonleavemsg" style="margin-left: 3em">
+                                    <p><span class="zzId">{{ replay.name }}</span>回复:<span
+                                            class="leave-name">{{ replay.replayTo.name }}</span><span
+                                            class="browserId">{{ replay.browserId }}</span></p>
+                                    <p class="leave-content" id="leave_{{ replay.pk }}">{{ replay.content|safe }}</p>
+                                    <span class="leave-time">{{ replay.createTime }}</span><span
+                                        class="city">{{ replay.city }}</span><a
+                                        href="javascript:clickReplay({{ replay.pk }})" class="replayLeave">回复Ta</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'blog/js/animsition.js' %}"></script>
+    <script src="{% static 'other/leave.js' %}"></script>
+    <script src="{% static 'comment/textareaEmoji.js' %}"></script>
+    <script>
+        // 提交根留言
+        function submitLeaveMsg() {
+            var content = $('#content').val();
+            var nickname = $('#nickname').val();
+            if (!content) {
+                addMessage('fail', '哇哦，少侠你总得说点什么吧!');
+                return false;
+            } else if (!nickname) {
+                addMessage('fail', '朋友!贵姓啊？');
+                return false;
+            }
+            $('#content').val('');
+            var emailAttr = $('#emailAttr').val();
+            var site = $('#site').val();
+            var subContent = AnalyticEmotion(content + '[]');
+            var showContent = subContent.substring(0, subContent.length - 2);
+            var city = $('#baidumap').val();
+            var browserId = userBrowser + userBrowserVer;
+            var myDate = new Date();
+            var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+            var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+            var Today = myDate.getDate();  // 获取今天的日期
+            var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+            var token = $("[name='csrfmiddlewaretoken']").val();
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: {
+                    'nickname': nickname,
+                    'emailAttr': emailAttr,
+                    'site': site,
+                    'content': subContent,
+                    'city': city,
+                    'browserId': browserId,
+                    'csrfmiddlewaretoken': token
+                },
+                success: function (data) {
+                    var status = JSON.parse(data);
+                    if (status.success) {
+                        addMessage('success', 'nice!已收到您的留言!小徐同学正在赶来！！')
+                        var leaveNone = $('#nothaveleave');
+                        var allCount = parseInt($('#leaveCount').text());
+                        if (leaveNone) {
+                            $('#nothaveleave').remove();
+                        }
+                        $('#reply_content_container').hide();
+                        $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
+                        var html = `<div class="leavemsg"><p><span class="leave-name">${nickname}</span>:<span class="browserId">${browserId}</span></p><p class="leave-content">${showContent}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`
+                        $('.leave_area').append(html);
+                        $('#leaveCount').text(allCount + 1);
+                    } else {
+                        addMessage('fail', '啊哦~留言失败了，亲稍后再来吧~');
+                    }
+                }
+            })
+
+        }
+
+        // 提交回复
+        function submitReply() {
+            var content = $('#content').val();
+            var nickname = $('#nickname').val();
+            if (!content) {
+                addMessage('fail', '哇哦，少侠你总得说点什么吧!');
+                return false;
+            } else if (!nickname) {
+                addMessage('fail', '朋友!贵姓啊？');
+                return false;
+            }
+            $('#content').val('');
+            var subLeave = AnalyticEmotion(content + '[]');
+            var rootId = $('#reply_pk').val();
+            var showLeave = subLeave.substring(0, subLeave.length - 2);
+            var city = $('#baidumap').val();
+            var browserId = userBrowser + userBrowserVer;
+            var emailAttr = $('#emailAttr').val();
+            var site = $('#site').val();
+            var myDate = new Date();
+            var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+            var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+            var Today = myDate.getDate();  // 获取今天的日期
+            var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+            var token = $("[name='csrfmiddlewaretoken']").val();
+            $.ajax({
+                url: '/blog/addNewLeave/',
+                type: 'post',
+                data: {
+                    'rootId': rootId,
+                    'name': nickname,
+                    'city': city,
+                    'browserId': browserId,
+                    'email': emailAttr,
+                    'site': site,
+                    'content': showLeave,
+                    'csrfmiddlewaretoken': token
+                },
+                success: function (data) {
+                    var status = JSON.parse(data);
+                    if (status.success) {
+                        $('#default_comment_button').attr('href', 'javascript:submitLeaveMsg()');
+                        $('#reply_content_container').hide();
+                        $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
+                        addMessage('success', 'nice~回复成功咯');
+                        var replyTo = status.replyToUser;
+                        var rootPk = status.rootId;
+                        var allCount = parseInt($('#leaveCount').text());
+                        var html = `<div class="sonleavemsg" style="margin-left: 3em"><p><span class="zzId">我&nbsp;</span>回复:<span class="leave-name">${replyTo}</span><span class="browserId">${browserId}</span></p><p class="leave-content">${showLeave}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`;
+                        $('#root_' + rootPk).append(html);
+                        $('#leaveCount').text(allCount + 1);
+                    }
+                }
+            })
+        }
+
+        // 点击回复
+        function clickReplay(replay_pk) {
+            $('#reply_pk').val(replay_pk);
+            var html = $("#leave_" + replay_pk).html();
+            $('#reply_user').html(html);
+            $('#reply_content_container').show();
+            $('html').animate({scrollTop: $('#content').offset().top - 400}, 500, function () {  // 将textarea定位到top 200 位置
+                $('#content').focus();  // 文本框获得焦点
+                $("#content").attr("placeholder", "我说：");
+            });
+            $('#default_comment_button').attr('href', 'javascript:submitReply()');
+        }
+
+        // 取消回复
+        function cancelReply() {
+            $("#content").attr("placeholder", "真的不说点什么嘛？ (～￣▽￣)～...");
+            setTimeout(function () {
+                $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
+            }, 3000);
+            $('#reply_content_container').css('display', 'none');
+            $('#default_comment_button').attr('href', 'javascript:submitLeaveMsg()');
+        }
+    </script>
+{% endblock %}

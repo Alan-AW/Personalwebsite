@@ -1,0 +1,356 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 楷体;
+}
+
+html, body {
+    width: 100%;
+    background: url(/static/img/bg/likes-bg.png) fixed center center no-repeat;
+    background-size: cover;
+    cursor: url(/static/img/bg/S1.cur), auto !important; /* 鼠标移入改变鼠标样式 */
+}
+
+a, button, input, select, textarea {
+    cursor: url(/static/img/bg/S2.cur), auto !important;
+}
+
+::selection {
+    background: #72d0eb;
+    color: #fff;
+    text-shadow: none
+}
+
+::-moz-selection {
+    background: #72d0eb;
+    color: #fff;
+    text-shadow: none
+}
+
+#icon {
+    transition: transform .5s;
+}
+
+/*  头像抖动 */
+#icon:hover {
+    /* 抖动 */
+    -webkit-animation: sucaijiayuan 1s .1s ease both;
+    -moz-animation: tada 1s .1s ease both;
+    /* 旋转 */
+    /*transform: rotate(360deg);*/
+}
+
+@-webkit-keyframes sucaijiayuan {
+    0% {
+        -webkit-transform: scale(1)
+    }
+    10%, 20% {
+        -webkit-transform: scale(0.8) rotate(-2deg)
+    }
+    30%, 50%, 70%, 90% {
+        -webkit-transform: scale(1.1) rotate(2deg)
+    }
+    40%, 60%, 80% {
+        -webkit-transform: scale(1.1) rotate(-2deg)
+    }
+    100% {
+        -webkit-transform: scale(1) rotate(0)
+    }
+}
+
+/* 心跳 */
+.heart {
+    animation: heartbeat 1s infinite;
+    -webkit-animation: heartbeat 1s infinite;
+    /* Safari 和 Chrome */
+    width: 20px;
+    height: 20px;
+    background: #f00;
+    position: relative;
+    filter: drop-shadow(0px 0px 20px rgb(255, 20, 20));
+    transform: rotate(45deg);
+    margin: 0 auto;
+    /*left: 200px;*/
+    /*top: 50px;*/
+}
+
+.heart:before, .heart:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #f00;
+    border-radius: 10px;
+}
+
+.heart:before {
+    left: -10px;
+}
+
+.heart:after {
+    left: 0;
+    top: -10px;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: rotate(45deg) scale(0.8, 0.8);
+        opacity: 1;
+    }
+    25% {
+        transform: rotate(45deg) scale(1, 1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: rotate(45deg) scale(0.8, 0.8);
+        opacity: 1;
+    }
+}
+
+/* 导航栏 */
+.navigation {
+    z-index: 1;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 3.4375rem;
+    line-height: 3.75rem;
+    border: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .3);
+    overflow: hidden;
+    transition: all .5s;
+}
+
+.navigation::before {
+    content: '';
+    width: 100%;
+    height: 3.125rem;
+    filter: blur(0.25rem);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+ul li {
+    line-height: 3.75rem;
+    list-style: none;
+}
+
+.nav-bar {
+
+    margin-left: 18.75rem;
+}
+
+.nav-bar > li {
+    position: relative;
+    margin-right: 0.3125rem;
+}
+
+.nav-bar > li {
+    float: left;
+    height: inherit;
+    text-align: center;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    display: block;
+    line-height: 3.75rem;
+    font-size: 24px;
+    padding: 0 10px;
+    color: #FFD700;
+    transition: all .3s;
+}
+
+.nav-bar > li:hover a {
+    color: lightblue;
+    transform: scale(1.2);
+
+}
+
+/* 头部 */
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: pink;
+    background-image: linear-gradient(to bottom, rgba(0, 191, 255, .9), transparent); /* 向下渐变 */
+    /*background-color: skyblue;*/
+    /*background-image: linear-gradient(to bottom, rgba(255, 192, 203, 1), transparent);*/
+    height: 400px;
+    z-index: -10;
+}
+
+.header h1, .header p {
+    text-align: center;
+    color: deeppink;
+}
+
+/* 头像 */
+#icon {
+    width: 12.5rem;
+    height: 12.5rem;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 5px dotted rgba(255, 248, 255, .8);
+    z-index: 555;
+    overflow: hidden;
+}
+
+/* 寄语 */
+#say {
+    margin: 0 auto;
+    width: 31.25rem;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.life {
+    color: deeppink;
+    font-size: 26px;
+}
+
+/* 波浪 */
+.canvas-wrap {
+    margin-top: 400px;
+    width: 100%;
+    overflow: hidden;
+    z-index: -10;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: 3.125rem;
+    overflow: hidden;
+    z-index: -10;
+}
+
+/* 时钟 */
+#myCanvas {
+    position: fixed;
+    top: 25rem;
+    left: -30px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    z-index: 1000;
+}
+
+/* 中间主体 */
+.all-center {
+    width: 100%;
+}
+
+.content {
+    margin: 0 auto;
+    width: 50%;
+    left: 25%;
+    /*background-color: rgba(152, 248, 255,.4); */
+    background-color: rgba(245, 245, 245, .9);
+    min-height: 200px;
+    padding: 2rem;
+    max-width: 50%;
+    z-index: -10;
+    text-align: left;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.content:hover {
+    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
+                rgba(17, 17, 26, 0.1) 0 16px 56px,
+                rgba(17, 17, 26, 0.1) 0 24px 80px;
+
+}
+
+/* 最底部 */
+.foot {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 12.5rem;
+    background-color: rgba(10, 10, 10, .5);
+}
+
+.msg {
+    float: left;
+    text-align: center;
+    font-size: 24px;
+    width: 33%;
+    height: 100%;
+}
+
+#ct {
+    width: 55%;
+    height: 100%;
+    color: whitesmoke;
+    /* background-color: red; */
+    margin: 0 auto;
+}
+
+#lef, #cent {
+    border-right: 1px solid #87CEEB;
+    text-align: center;
+}
+
+#rig img {
+    border-radius: 0.625rem;
+    height: 10rem;
+}
+
+#lef img {
+    border-radius: 0.625rem;
+    height: 10rem;
+}
+
+/* 返回顶部 */
+.back-to-top {
+    background-image: url("https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/space-to-top.png");
+    width: 62px;
+    height: 88px;
+    position: fixed;
+    bottom: 3.125rem;
+    right: 3.125rem;
+}
+
+.back-to-top:hover {
+    animation: to-top-fly .4s steps(1) infinite;
+}
+
+@keyframes to-top-fly {
+    0% {
+        background-position-x: -142.5px;
+    }
+
+    16.5% {
+        background-position-x: -284.5px;
+    }
+
+    33% {
+        background-position-x: -429.5px;
+    }
+
+    49.5% {
+        background-position-x: -570.5px;
+    }
+
+    66% {
+        background-position-x: -714.5px;
+    }
+
+    82.5% {
+        background-position-x: -856.5px;
+    }
+
+    100% {
+        background-position-x: 0;
+    }
+}

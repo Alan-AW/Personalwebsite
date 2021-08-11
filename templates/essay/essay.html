@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <link rel="stylesheet" type="text/css" href="{% static 'essay/essay.css' %}">
+{% endblock %}
+
+{% block center %}
+    <div class="essay_body animsition">
+        <span class="rgb-bg" style="text-align: center">“总有人间一两风，载我十万八千梦”</span>
+        <h1>“随笔”</h1>
+        <h3>一种散文体裁，篇幅短小，形式多样，可以抒情、叙事或议论，多以借题发挥、夹叙夹议为特点。</h3>
+        <h3> 「五四以来， 随笔十分流行」</h3>
+        <p>一个人要做一件忠于自己的事情，这一路必定会有无限的孤独。</p>
+        <p>人生总不能尽如人意，但我相信“事在人为”</p>
+    </div>
+    <div class="essay_detail_body animsition" style="margin-top: 20px">
+        {% for essay in essayObj %}
+            <div class="essayDetail">
+                <div class="squre"></div>
+                <h2>{{ essay.date }}</h2>
+                <div class="table-keys">
+                    <p>{{ essay.title }}</p>
+                    <p>{{ essay.body }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'essay/essay.js' %}"></script>
+{% endblock %}

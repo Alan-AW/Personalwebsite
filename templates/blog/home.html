@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
+{% endblock %}
+
+{% block center %}
+{% for article in pageObj %}
+<div class="article-list animsition">
+	<h1><a href="/blog/articles/{{ article.pk }}" class="animsition-link">{{ article.title }}</a></h1>
+	<div class="article-desc">
+		<p><span>【话说】</span><a href="/blog/home/articles/{{ article.pk }}"
+				class="article_desc_a  ">{{ article.desc }}...</a>
+		</p>
+	</div>
+	<p class="article-msg">
+		分类:<span style="color: orangered">{{ article.category }}</span>
+		&nbsp;浏览:<span style="color: greenyellow">{{ article.views }}</span>
+		&nbsp;点赞:<span style="color: skyblue">{{ article.greatCount }}</span>
+		&nbsp;发布日期:<span style="color: darkgreen">{{ article.created_time|date:'Y年m月d日' }}</span>
+	</p>
+</div>
+{% endfor %}
+<div class="pagination animsition">
+	<span class="step-links">
+		{% if pageObj.has_previous %}
+		<a href="?page=1" class="page_button">&laquo;首 页</a>
+		<a href="?page={{ pageObj.previous_page_number }}" class="page_button">上一页</a>
+		{% endif %}
+
+		<span class="current">
+			第 {{ pageObj.number }} 页， 共 {{ pageObj.paginator.num_pages }} 页
+		</span>
+
+		{% if pageObj.has_next %}
+		<a href="?page={{ pageObj.next_page_number }}" class="page_button">下一页</a>
+		<a href="?page={{ pageObj.paginator.num_pages }}" class="page_button">尾 页&raquo;</a>
+		{% endif %}
+	</span>
+</div>
+{% endblock %}
+
+{% block right %}
+<div class="das-box animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
+	data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
+	<div class="left-tip" style="background-color: rgba(0,0,0,0);">💛</div>
+	<div class="left-welcome">
+		<h2>档案室</h2>
+	</div>
+</div>
+<div class="category-box animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
+	data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
+	<div class="right-tip"><strong>!</strong></div>
+	<h3>分类</h3>
+	<div class="show_msg">
+		{% for cate in category %}
+		<a href="/blog/home/category/{{ cate.0 }}" class="animsition-link">{{ cate.0 }}-({{ cate.1 }})</a>
+		{% endfor %}
+	</div>
+</div>
+<div class="tags-box animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
+	data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
+	<div class="right-tip"><strong>!</strong></div>
+	<h3>标签</h3>
+	<div class="show_msg">
+		{% for tag in tags %}
+		<a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">{{ tag.0 }}-({{ tag.1 }})</a>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="date-box animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
+	data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
+	<div class="right-tip"><strong>!</strong></div>
+	<h3>看爆Top5</h3>
+	<div class="show_msg">
+		{% for t in Top %}
+		<p>{{ t }}</p>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!-- 子页面js引入 -->
+{% endblock %}

@@ -1,0 +1,537 @@
+cenos7环境的虚拟机配置过程依次往下
+
+vi /etc/sysconfig/network-scripts/ifcfg-ens33
+
+修改ONBOOT=no为ONBOOT=yes
+
+退出vi编辑器
+
+鼠标右键点击虚拟机，选择设置，然后选择网络适配器，然后选择桥接模式，勾选复制物理网络连接状态
+
+重启网络服务：
+service network restart
+
+检测修改是否有效：
+
+等一会儿，当root输入行出来时输入ping www.baidu.com     #ping后面的可以时任何一个网址
+如果进入网址刷新检测，那么说明修改成功，可以正常上网
+
+ctrl+c退出网址刷新检测，然后输入ip addr查看虚拟机ip
+查看inet 192.xxx.xx.xx/xx其中，192.xxx.xx.xx为ip
+192.168.31.53/24
+
+用这个ip连接远程代码工具ssh
+然后安装yum工具
+命令：yum -y install net tools
+
+创建一个新的用户useradd ymwh
+创建密码：passwd ymwh    xp317522
+
+vi /etc/sudoers
+
+ready状态下输入/ALL，然后回车查找，找到root  ALL=(ALL)  ALL这句话，然后在下面添加新建的用户,ymwh  ALL=(ALL)  ALL
+
+禁止root用户远程登录：vi /etc/ssh/sshd_config
+用/PermitRootLogin找到PermitRootLogin这一行，取消它的注释，并且把yes改成no
+
+禁止防火墙：
+sudo 命令是让某个用户临时拥有超级用户的权限
+sudo systemctl stop firewalld.service
+sudo systemctl disable firewalld.service
+
+查看防火墙状态：
+firewall-cmd --state
+如果为not running，那么防火墙关闭成功
+
+修改contos7自带的安全模式
+sudo vi /etc/selinux/config
+找到SELINUX=enforcing,将它改成SELINUX=disabled
+
+安装python
+系统自带了python2.7.5，但是有时候我们会用其他版本的python，所以如何安装呢？
+首先，安装wget:sudo yum -y install wget
+然后进入到新建的用户的下面下载python
+cd /home
+cd ymwh/
+mkdir src
+cd src
+sudo wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
+
+sudo wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz
+
+按alt+p进入数据包发送界面
+先查询Linux系统下现在的目录:pwd
+然后进入创建好的src目录下：cd src
+然后查询本地（Windows）是在哪个目录下：lpwd
+然后进入到文件包所在的目录：lcd d:/
+然后使用put Python-2.7.15.tgz将该数据包从本机（Windows）发送到远程系统（Linux）
+然后在ymwh用户下查看src目录下是否有上传的数据包：cd /home/ymwh/src/
+ll
+
+如果数据包传入成功，那么开始安装
+
+解压：
+sudo tar --no-same-owner -xvf Python-2.7.15.tgz
+
+sudo tar --no-same-owner -xvf Python-3.6.3.tar.xz
+创建一个安装用的文件：
+sudo mkdir -p /usr/local/python2.7.15/lib
+注意：mkdir -p 是创建多级目录
+
+查看是否创建成功：
+cd /usr/local/python2.7.15/lib/
+
+返回src目录，进入Python2.7.15目录下准备开始安装
+（这里有个坑，安装python之前，要安装c语言编辑器，不然会安装失败）
+
+报错大概是这样的：
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for python2.7... python2.7
+checking for --enable-universalsdk... no
+checking for --with-universal-archs... no
+checking MACHDEP... linux2
+checking EXTRAPLATDIR... 
+checking for --without-gcc... no
+checking for --with-icc... no
+checking for gcc... gcc
+checking whether the C compiler works... no
+configure: error: in `/home/ymwh/src/Python-2.7.15':
+configure: error: C compiler cannot create executables
+See `config.log' for more details
+
+解析python源码(这里有个坑：--with-ssl 指定ssl，如果python3不指定，那么后面的pip安装和使用会出错)：
+sudo ./configure --with-ssl --enable-shared --prefix=/usr/local/python2.7.15 LDFLAGS="-Wl,-rpath /usr/local/python2.7.15/lib"
+
+sudo ./configure --with-ssl --enable-shared --prefix=/usr/local/python3.6.3 LDFLAGS="-Wl,-rpath /usr/local/python3.6.3/lib"
+
+如果安装失败，那么可能是未安装c语言编辑器
+安装c语言编辑器：sudo yum -y install gcc gcc-c++
+
+安装完了继续安装python
+编译源码：(有坑，可能最后会报错)
+sudo make && make install
+
+如果这个报错了（最后几句应该有：错误 1），那么就切换到root下面，使用root权限安装：make && make install
+
+修改咱们安装的python的名字，避免和原系统上的python冲突：
+ln -s /usr/local/python2.7.15/bin/python2.7 /usr/bin/pythonnew2
+
+安装pip：
+先去目录下看看有没有pip：
+cd /usr/local/python3.6.3/bin/
+
+如果有，那么就给pip弄个超链接，如同上面给python弄的超链接一样（python3自带了pip）
+
+如果没有，那么首先在这个python里面安装wget(我前面已经装了)：
+yum -y install wget
+
+下载pip(巨坑警告，会重装python)：
+进入src目录下，然后输入命令：
+wget https://bootstrap.pypa.io/get-pip.py
+
+然后要安装一下zlib*(pip会使用这个东西):
+yum -y install zlib*
+yum install zlib zlib-devel或者yum install zlib zlib*（如果提示最新，那么不用管，执行下一个）
+yum install openssl openssl-devel
+
+
+安装uwsgi解释器
+
+yum install -y gcc* pcre-devel openssl-devel
+yum install -y python-devel
+
+
+回到Python-2.7.15目录下重新执行下面这句，解析源码：
+./configure --with-ssl --enable-shared --prefix=/usr/local/python2.7.15 LDFLAGS="-Wl,-rpath /usr/local/python2.7.15/lib"
+
+重新安装：
+make && make install（这是坑）
+改一下：
+sudo make
+sudo make install
+
+安装pip：
+pythonnew2 get-pip.py
+(如果没报错，那么恭喜你，安装pip应该成功了，当然，如果报错，那么也恭喜你，可以重新安装python了)
+
+建立pip超链接：
+ln -s /usr/local/python2.7.15/bin/pip /usr/bin/pipnew2
+ln -s /usr/local/python3.6.3/bin/pip3 /usr/bin/pip36
+
+使用pip安装虚拟环境插件：
+pipnew2 install virtualenv
+
+pip36 install virtualenv(这是坑，这里会报错，原因是权限不够)
+解决方案：
+首先，python3自带的pip是9.x的，可以用pip36 --version查询版本号
+
+然后咱们得升级pip3，sudo pip36 install --upgrade pip
+
+然后安装virtualenv：
+sudo pip36 install virtualenv
+
+解决!!!!
+
+安装mysql:
+
+检测是否安装了mariadb
+rpm -qa|grep mariadb*
+
+卸载mariadb
+sudo rpm -e --nodeps mariadb-libs-5.5.60-1.el7_5.x86_64或者
+yum remover mariadb-libs-5.5.60-1.el7_5.x86_64
+
+检测是否安装了mysql
+rpm -qa|grep mysql*
+
+如果检测没有，那么可以安装一个mysql：
+首先切换成ymwh用户并且进入到ymwh用户下的src目录里面
+cd /home/ymwh/src/
+
+然后开始下载mysql：
+
+mysql5.7版本的：
+wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+
+mysql8.0版本的：
+wget https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
+
+下载完成后开始yum源安装：
+sudo rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+
+sudo rpm -ivh mysql80-community-release-el7-1.noarch.rpm
+
+如果版本安装错误试试卸载并且删除所有依赖：
+sudo rpm -e --nodeps mysql57-community-release-el7-11.noarch.rpm
+
+sudo rpm -e --nodeps mysql80-community-release-el7-1.noarch.rpm
+
+查看mysql的yum源是否下载下来了：
+yum repolist enabled | grep "mysql.*-community.*"
+
+如果yum源下载成功了的，那么会有橘红色的字出来，总共是三行：
+5.7：
+mysql-connectors-community/x86_64       MySQL Connectors Community            9
+mysql-tools-community/x86_64            MySQL Tools Community                 8
+mysql57-community/x86_64                MySQL 5.7 Community Server           32
+
+8.0：
+mysql-connectors-community/x86_64       MySQL Connectors Community            9
+mysql-tools-community/x86_64            MySQL Tools Community                 8
+mysql80-community/x86_64                MySQL 8.0 Community Server            8
+
+查看MySQL版本：
+yum repolist all | grep mysql
+
+安装mysql
+sudo yum -y install mysql-community-server
+
+启动mysql服务：
+systemctl start mysqld或者service mysqld start
+
+停止mysql服务：
+sudo service mysqld stop
+
+重启mysql服务：
+sudo service mysqld restart
+
+查看已启动的计算机服务：
+netstat -tulpn
+
+刚刚开始安装的mysql是自带密码的或者没有密码的：
+登录方法：
+一：修改配置文件，进行无密码登录，进入后再设置密码
+vi /etc/my.cnf
+然后找到[mysqld]的段中加上一句：
+skip-grant-tables
+
+二：以不检查权限的方式启动mysql：
+mysql --user=root --skip-grant-tables
+
+然后就可以登录MySQL了
+但是现在是无用户登录，所以先给root修改密码，然后再创建一个新的用户进行管理
+
+
+修改密码的时候如果出现关于密码安全性和长度的报错，那么可以执行以下三条命令就可以设置简单的密码了：
+
+set global validate_password_policy=0;#忽略字符数字等等验证规则
+set global validate_password_length=4;#长度限制为4，默认为8
+alter user 'root'@'localhost' identified by '123456';
+
+修改root密码：
+5.7:
+UPDATE mysql.user SET authentication_string=PASSWORD('123456') where USER='root';
+
+8.0:
+方法一：
+use mysql;
+
+把之前密码清空：
+
+update user set authentication_string=''  where user='root';
+
+刷新一下：
+
+flush privileges;
+
+真正设置密码：
+
+ALTER user 'root'@'localhost' IDENTIFIED BY 'LGTlovexp@317';
+#原来MySQL5.6.6版本之后增加了密码强度验证插件validate_password，相关参数设置的较为严格。
+使用了该插件会检查设置的密码是否符合当前设置的强度规则，若不满足则拒绝设置。
+
+刷新一下：
+
+flush privileges;
+
+
+方法二：
+
+1：//免密码登陆
+
+找到mysql配置文件:my.cnf，
+
+在【mysqld】模块添加：skip-grant-tables   保存退出；
+
+ 
+
+2：//使配置生效
+
+重启mysql服务：  service mysqld restart；
+
+ 
+
+3：//将旧密码置空
+
+mysql -u root -p    //提示输入密码时直接敲回车。
+
+//选择数据库
+
+use mysql
+
+//将密码置空
+
+update user set authentication_string = '' where user = 'root';
+
+//退出
+
+quit
+
+ 
+
+4://去除免密码登陆
+
+删掉步骤1的语句  skip-grant-tables
+
+重启服务  service mysqld restart
+
+ 
+
+5：//修改密码
+
+mysql -u root -p  //提示输入密码时直接敲回车，刚刚已经将密码置空了
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'abc123@xxx';//'abc123@xxx'  密码形式过于简单则会报错
+LGTlovexp@317522
+ 
+
+ps：mysql5.7.6版本后 废弃user表中 password字段 和 password（）方法，所以旧方法重置密码对mysql8.0版本是行不通的
+
+
+创建一个新的用户：
+CREATE USER 'ymwh'@'%' IDENTIFIED BY 'yueYing_web@163';
+'LVGAOTAI1996522_xp'
+
+授权：
+GRANT ALL PRIVILEGES ON * . * TO 'ymwh'@'%';
+
+设置为超级用户
+GRANT ALL ON *.* TO 'ymwh'@'%';
+
+刷新
+flush privileges;
+
+修改mysql编码：
+退出mysql，然后输入命令sudo vi /etc/my.cnf进入配置文件，找到[mysqld]段，在下面添加一句：character-set-server=utf8，然后查看有没有[client]段，如果有，就在下面加一句default-character-set=utf8,如果没有[client]段，那就在最下面加上这个段，并且也写上default-character-set=utf8
+
+尝试用Windows的命令行连接Linux，可以成功，但是尝试用navicat进行连接，会报错（1251-client does not support authentication protocol requested by server consider upgrading MYSQL client）
+
+原因：
+MySQL8.0版本的加密方式和MySQL5.0的不一样，连接会报错。
+
+解决方法：
+更改加密方式
+ALTER USER 'ymwh'@'%' IDENTIFIED BY 'password' PASSWORD EXPIRE NEVER;
+
+更改密码：
+ALTER USER 'ymwh'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+
+刷新：
+FLUSH PRIVILEGES;
+
+
+退出MySQL：
+exit;
+
+重启MySQL服务:
+sudo service mysqld restart
+
+解决！！！
+
+上传项目：
+
+在ymwh目录下新建一个www的目录
+mkdir www
+
+alt+p进入sftp下
+
+然后在sftp里面进入linux系统下的www目录：
+cd /home/ymwh/www
+
+然后再sftp里面进入windows下的项目的路径：
+lcd C:\Users\YUEYING\Desktop\blog
+
+因为考虑到后面项目需要安装依赖，所以这里先收集一下项目的依赖：
+在自己电脑上的项目的虚拟环境下面运行这句命令：
+pip freeze > requirements.txt
+
+开始上传：
+put -r myfirstpython3blog
+
+查看一下上传是否成功：
+cd /home/ymwh/www
+
+然后创建一个虚拟环境：
+cd /usr/local/python3.6.3/bin
+./virtualenv /home/ymwh/djangoenv
+
+然后激活该环境：
+cd /home/ymwh/djangoenv/bin/
+source activate
+
+安装django和pymysql：
+因为我的项目的django版本为1.10，所以我在这里指定一下
+pip install django==1.10
+pip install pymysql
+
+其实安装django和pymysql就是安装项目依赖，
+如果我们在上传项目之前收集过了项目依赖，那么就直接在远程主机上面的虚拟环境里面的项目目录下面运行：
+pip install -r requirements.txt
+
+然后依赖弄完了，那么还有个东西要弄，就是项目里面的静态的文件，因为我们后面不再使用django提供的服务器，所以，django也不再提供相关的静态文件的访问，所以我们现在要收集一下项目的静态文件。在远程主机上直接收集。
+在虚拟环境下，进入项目目录，运行：
+python manage.py collectstatic
+
+
+修改setting：
+ALLOWED_HOSTS = []改为ALLOWED_HOSTS = ['*']
+
+运行项目：
+pyhton manage.py runserver 0.0.0.0:8000
+
+注意：因为我代码里面没有写空集处理，所以当某个教程的数据为空的时候，是没法访问的，会出现找不到的页面
+
+如果上面的操作均通过了，那么就可以准备生产环境部署
+
+安装uwsgi
+在虚拟环境下安装：pip install uwsgi
+然后上传uwsgimyfirstpython3blog.ini文件在你的项目的目录下
+然后修改uwsgimyfirstpython3blog.ini这个文件的几个东西：
+vi uwsgimyfirstpython3blog.ini
+chdir=你的项目的路径
+module=你的项目的名字.wsgi
+home=你项目的虚拟环境的目录
+socket=127.0.0.1:9080改成;socket=127.0.0.1:9080
+注意：;socket=127.0.0.1:9080前面的;代表注释
+在;socket=127.0.0.1:9080下面加一个http-socket=:9080
+之所以注释掉socket，加入http-socket是因为我们待会儿会用uwsgi之间测试一下项目，而http-socket=:9080里面的9080代表的是端口。
+pidfile = 你的项目目录/uwsgimyfirstpython3blog.pid
+;daemonize=你的项目目录/uwsgimyfirstpython3blog.log
+修改完了，保存退出！
+
+然后进入项目目录里面与setting.py文件同级的目录里面修改__init__.py:
+vi __init__.py
+
+import sys
+print(sys.path)
+
+退出保存
+
+然后退到与项目manage.py文件同级的目录
+
+使用uwsgi启动项目
+把打印的sys.path的路径复制下来，保存到一个文本；
+
+然后使用django自带的服务器启动项目
+把打印的sys.path路径也复制下来，并且保存到上面那个文本里面
+
+然后对照一下这两个打印信息，把uwsgi启动方式缺少的找出来，然后把缺少的部分添加到setting.py同级目录下的__init__.py文件下：
+sys.path.append('')
+
+全部添加完后保存，退回到与manage.py同级的目录下，再次使用uwsgi启动项目
+
+试试能否使用网页登录项目
+
+如果可以，那么就完成了，不行，就查一下还有没有没添加到的；
+
+这样做的目的是因为uwsgi舍弃了很多模块，所以项目会出现异常，得我们手工添加；
+
+装nginx:
+先查询linux上是否有nginx:
+sudo rpm -qa|grep nginx
+
+切回到src目录下：
+如果之间用yum装nginx，可能会报错，找不到nginx下载源，所以我们需要添加nginx下载源到yum里面：
+sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+然后安装nginx：
+sudo yum install -y nginx
+
+加载nginx服务：
+sudo systemctl start nginx.service或者service nginx start
+
+停止nginx：
+service nginx stop
+
+nginx开机启动：
+sudo systemctl enable nginx
+
+查看nginx配置是否错误：
+service nginx status
+
+进入nginx目录下：
+cd /etc/nginx/
+备份nginx.conf文件：
+mv nginx.conf.xxx
+
+然后上传nginx.conf文件，但是会遇到无法之间上传到nginx目录下，原因是权限不够。我是先把该文件上传至src目录下，然后把它转移到nginx目录下：
+mv /home/ymwh/src/nginc.conf /etc/nginx
+
+同理，上传nginxmyfirstpython3blog.conf文件至conf.d目录下
+mv /home/ymwh/src/nginxmyfirstpython3blog.conf /etc/nginx/conf.d
+
+进入项目目录，将uwsgimyfirstpython3blog.ini文件下的socket修改回来，并且注释掉http-socket
+
+查看nginx是否启动：
+netstat -tulpn
+
+然后还有几个遗漏的问题：
+我们没有创建数据库，你会发现，就算nginx运行正常，uwsgi运行也正常，mysql也是正常的，但是，你就是无法访问。原因是，我们是忘记创建一个关于这个项目的数据库了，进入mysql，创建数据库：CREATE DATABASE XXXX;
+
+然后修改setting.py里面的DATABASES；
+
+然后生成数据库：python manage.py migrate
+
+这样，与项目相关的数据库就建立完成，但是，别忘记去弄个管理账号，所以在虚拟环境下进入项目目录（/home/ymwh/www/myfirstpython3blog）运行这句命令：python manage.py createsuperuser
+
+
+我这里遇到一个问题，就是部分静态文件无法显示：
+然后我终于发现原来在setting.py 文件里面要加入STATIC_ROOT = os.path.join(BASE_DIR, 'static')并且删掉STATICFILES_DIRS；
+然后再在虚拟机上使用python manage.py collectstatic命令收集静态文件；这样才能显示全部样式；
+
+部署有个小技巧：自动下载项目需要的依赖：
+首先在本机（编辑项目的机器，我用的是win10系统的）上，进入项目的虚拟环境，然后进入项目margin.py文件所在的目录下面运行pip freeze > requirements.txt命令，收集项目依赖，这个会把依赖的下载地址记录到requirements.txt文本里面；
+然后当下面已经放在目标机器上的时候，激活目标机器里面项目所在的虚拟环境，然后进入到margin.py所在的目录下面，运行pip install -r requirements.txt命令，即可安装项目全部依赖（只要是pip可以下载到的）
+
+配置文件我弄了半天，写好了，是没有错误的，可以直接使用，但是里面的项目所在的目录和文件名之类的需要改成自己的名称，而在/etc/nginx下面的nginx.conf文件里面那个user ymwh ymwh;是指定哪个用户所拥有该项目的静态文件，这个得改成自己的linux用户。在这些配置文件里面，我写了一些中文注释，使用的时候最好全部删除，不然可能会发生意想不到的情况。

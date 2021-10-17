@@ -357,26 +357,44 @@ new Promise((resolve, reject) => {
     TopProgress.complete()
 })
 
-
 // 固定左右两侧在顶部
-$(document).ready(function () {
-    var scroh = $(".all-left,.all-right").offset().top;
-    $(window).scroll(function () {
+$(document).ready(function() {
+	var scroh = $(".all-left").offset().top;
+	$(window).scroll(function() {
+		if (scroh < $(window).scrollTop()) {
+			//获取div距离
+			var left = $(".all-left").offset().left;
+			$(".all-left").css({
+				'position': "fixed",
+				'left': 'left' - $(".all-left").css('width'),
+				'top': '150',
+				'margin-top': '0'
+			});
+		} else {
+			$(".all-left").css({
+				'position': "relative",
+			});
+		}
+	});
+});
 
-        if (scroh < $(window).scrollTop()) {
-            //获取div距离
-            var left = $(".all-left,.all-right").offset().left;
-            $(".all-left,.all-right").css({
-                'position': "fixed",
-                // 'left': 'left' - $(".all-left,.all-right").css('width'),
-                'top': '150',
-                'margin-top': '0'
-            });
-        } else {
-            $(".all-left,.all-right").css({
-                'position': "relative",
-                'top': '0'
-            });
-        }
-    });
+$(document).ready(function() {
+	var scroh = $(".all-right").offset().top;
+	$(window).scroll(function() {
+		if (scroh < $(window).scrollTop()) {
+			//获取div距离
+			var right = $(".all-right").offset().right;
+			$(".all-right").css({
+				'position': "fixed",
+				'float': 'right',
+				'right': '0',
+				'top': '150',
+				'margin-top': '0'
+			});
+		} else {
+			$(".all-right").css({
+				'position': "relative",
+			});
+		}
+	});
 });

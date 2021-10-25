@@ -35,13 +35,13 @@ class Article(models.Model):
     """
     文章表
     """
-    author = models.ForeignKey(User, verbose_name="作者", on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     title = models.CharField(max_length=20, verbose_name='标题', )
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
     desc = models.CharField(max_length=70, verbose_name='摘要')
-    body = RichTextField()
+    body = models.TextField()
     views = models.PositiveIntegerField(default=0, editable=False)
-    category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tags, verbose_name="标签", blank=True)
     greatCount = models.IntegerField(default=0)  # 点赞数
     commentCount = models.IntegerField(default=0)  # 评论数
@@ -60,9 +60,9 @@ class Great(models.Model):
     """
     点赞表
     """
-    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)  # to='表名'  可以简写成  '表名'
-    article = models.ForeignKey(Article, null=True, on_delete=models.DO_NOTHING)  # 文章
-    userIp = models.CharField(max_length=15, null=True, verbose_name='IP')
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)  # to='表名'  可以简写成  '表名'
+    article = models.ForeignKey(Article, null=True, on_delete=models.CASCADE)  # 文章
+    userIp = models.GenericIPAddressField(max_length=15, null=True, verbose_name='IP')
     isUp = models.BooleanField(default=True)
 
     class Meta:
@@ -84,9 +84,9 @@ class LeaveMsg(models.Model):
     site = models.CharField(verbose_name='网址', null=True, max_length=30)
     browserId = models.CharField(verbose_name='浏览器标识', max_length=20, null=True)
     city = models.CharField(verbose_name='城市', max_length=10)
-    root = models.ForeignKey('self', related_name='rootleave', null=True, on_delete=models.DO_NOTHING)
-    parent = models.ForeignKey('self', related_name='parentleave', null=True, on_delete=models.DO_NOTHING)
-    replayTo = models.ForeignKey('self', related_name='replies', null=True, on_delete=models.DO_NOTHING)
+    root = models.ForeignKey('self', related_name='rootleave', null=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', related_name='parentleave', null=True, on_delete=models.CASCADE)
+    replayTo = models.ForeignKey('self', related_name='replies', null=True, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'LeaveMsg'

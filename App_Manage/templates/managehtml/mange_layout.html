@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Mr'Xu">
+	<meta name="Description" content="WebSite Manae">
+	<meta name="keywords" content="search keyword">
+	<meta name="website" content="http://www.xumeijie.com/">
+	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+	<title id="site_title">(´▽`ʃ♡ƪ)爱你哟❤</title>
+	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://cdn.bootcss.com/font-awesome/5.13.0/css/all.css" rel="stylesheet">
+	<style>
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: whitesmoke;
+        }
+	</style>
+	{% block css %}
+		<!-- 子页面css引入 -->
+	{% endblock %}
+</head>
+<body>
+<ul class="nav nav-pills nav-stacked" style="width: 150px; height: 100%;">
+	<li role="presentation" class="nav-li"><a href="#">文章管理</a></li>
+	<li role="presentation" class="nav-li"><a href="#">标签管理</a></li>
+	<li role="presentation" class="nav-li"><a href="#">分类管理</a></li>
+	<li role="presentation" class="nav-li"><a href="#">随笔管理</a></li>
+	<li role="presentation" class="nav-li"><a href="#">留言管理</a></li>
+</ul>
+
+<div class="content">
+	{% block content %}
+
+	{% endblock %}
+</div>
+</body>
+<script>
+	$('.nav-li').click(function () {
+		var class_ = $(this).attr('class');
+		if (class_ == 'active') {
+			class_ = 'nav-li';
+		}else{
+			class_ = 'active';
+		}
+		$(this).attr('class', class_);
+	})
+</script>
+{% block js %}
+
+{% endblock %}
+</html>

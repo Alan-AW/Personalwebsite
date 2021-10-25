@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: url("/static/img/bg/cx.jpeg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.form {
+    width: 50%;
+    height: 50%;
+    padding: 10% 15%;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
+form {
+    border: 1px solid #5EAF6F;
+    padding: 50px 60px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245, .7);
+}
+
+.form form p {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+.input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.submit {
+    border: 1px solid #5EAF6F;
+    border-radius: 5px;
+    transition: all 0.3s;
+    color: #5EAF6F;
+    padding: 10px 15px;
+    margin: 10px auto;
+    background-color: white;
+}
+
+.submit:hover {
+    color: white;
+    background-color: #5EAF6F;
+    border-radius: 10px;
+}
+
+form span {
+    color: #666;
+}

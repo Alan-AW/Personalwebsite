@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tclrz8rvtqu%!%*evvs-)@-#0h1g#tm5i6__g78@z&o7^nl*#w'
 DEBUG = False
@@ -15,7 +16,7 @@ INSTALLED_APPS = [
     'App_Users.apps.AppUsersConfig',
     'APP_Comment.apps.AppCommentConfig',
     'App_Essay.apps.AppEssayConfig',
-    'ckeditor',  # 后台文本编辑器
+    'App_Manage.apps.AppManageConfig',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/static/')
+    os.path.join(BASE_DIR, '/static/'),
 ]
 
 # 修改系统对于未登录的验证跳转地址
@@ -151,3 +152,5 @@ EMAIL_HOST_PASSWORD = 'hpogwbjjuenzjcfi'  # pwd
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # default send email user
 EMAIL_USE_SSL = True  # 是否使用SSL加密
 
+# permission
+PERMISSION_SESSION_KEY = 'superuserkey'

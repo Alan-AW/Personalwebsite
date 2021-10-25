@@ -1,22 +1,6 @@
-"""Personalwebsite URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
-from django.urls import path,re_path,include
-from App_Blog.views import Welcome,Fishing,CoreBall,Dog
+from django.urls import path, re_path, include
+from App_Blog.views import Welcome, Fishing, CoreBall, Dog
 from django.views import static  # 新增
 from django.conf import settings  # 新增
 from django.conf.urls import url  # 新增
@@ -32,7 +16,7 @@ urlpatterns = [
     path('users/', include(('App_Users.urls', 'users'), namespace='users')),  # 用户
     path('comment/', include(('APP_Comment.urls', 'comment'), namespace='comment')),  # 评论
     path('essay/', include(('App_Essay.urls', 'essay'), namespace='essay')),  # 随笔
-
+    path('site/manage/', include(('App_Manage.urls', 'manage'), namespace='manage'))  # 后台管理
 ]
 
 handler403 = "App_Blog.views.page_403"

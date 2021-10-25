@@ -14,10 +14,6 @@ from APP_Comment.models import Comment
 
 
 class Welcome(View):
-    """
-    欢迎光临
-    """
-
     def get(self, request):
         return render(request, 'blog/welcome.html')
 
@@ -43,8 +39,6 @@ class Home(View):
         # 归档
         categoryList = Category.objects.values('pk').annotate(c=Count('article__title')).values_list('title', 'c')
         tagsList = Tags.objects.values('pk').annotate(c=Count('article')).values_list('title', 'c')
-        # 推荐
-
         # 日期分组:-----** 移除该鸡肋功能 **-----
         # dateList = Article.objects.extra(select={'monthDate': 'date_format(created_time,"%%Y/%%m")'}).values('monthDate').annotate(c=Count('id')).values_list('monthDate', 'c')
         # 解释： 在 文章表 的 所有字段中注入一个字段 month 用日期进行过滤出格式 年月 以这个 month 字段进行排序 并且统计当前字段的 id 数量为 c 值，最终输出 该字段的格式 month 和统计的值 c

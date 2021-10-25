@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.views import View
-from django.conf import settings as sys
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.paginator import Paginator
@@ -8,63 +7,92 @@ from App_Blog.models import Article, Tags, Category, LeaveMsg
 from App_Essay.models import Essay
 
 
+def has_permission(request):
+    if request.user.is_superuser:
+        return True
+    return False
+
+
 class ArticleManage(View):
     # 文章管理
     def get(self, request):
-        page = request.GET.get('page')
-        article_obj = Article.objects.all()
-
-        paginator = Paginator(article_obj, 10)
-        pageObj = paginator.get_page(page)
-        return render(request, 'managehtml/article.html', locals())
+        if has_permission(request):
+            page = request.GET.get('page')
+            article_obj = Article.objects.all()
+            paginator = Paginator(article_obj, 8)
+            pageObj = paginator.get_page(page)
+            return render(request, 'managehtml/article.html', locals())
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
 class TagsManage(View):
     # 标签管理
     def get(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
 class CategoryManage(View):
     # 分类管理
     def get(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
 class EssayManage(View):
     # 随笔管理
     def get(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
-class LeavemsgManage(View):
+class LeaveMsgManage(View):
     # 留言管理
     def get(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        pass
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
 class UserManage(View):
     # 用户管理
     def get(self, request):
-        return HttpResponse('开发中......')
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
     def post(self, request):
-        return None
+        if has_permission(request):
+            return None
+        return redirect(reverse('blog:home'))
 
 
 class AdminLogin(View):
@@ -77,8 +105,7 @@ class AdminLogin(View):
         authUser = auth.authenticate(username=username, password=password)
         if authUser:
             auth.login(request, authUser)
-            if request.user.is_superuser:
-                request.session[sys.PERMISSION_SESSION_KEY] = True
+            if has_permission(request):
                 return redirect(reverse('manage:article_manage'))
             else:
                 return redirect(reverse('blog:home'))

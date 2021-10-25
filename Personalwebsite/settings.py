@@ -151,6 +151,3 @@ EMAIL_SELF_ATTR = 'xcdh560@foxmail.com'
 EMAIL_HOST_PASSWORD = 'hpogwbjjuenzjcfi'  # pwd
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # default send email user
 EMAIL_USE_SSL = True  # 是否使用SSL加密
-
-# permission
-PERMISSION_SESSION_KEY = 'superuserkey'

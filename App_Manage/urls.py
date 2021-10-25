@@ -7,6 +7,6 @@ urlpatterns = [
     path('tags/', TagsManage.as_view(), name='tags_manage'),
     path('category/', CategoryManage.as_view(), name='category_manage'),
     path('essay/', EssayManage.as_view(), name='essay_manage'),
-    path('leave/', LeavemsgManage.as_view(), name='leave_manage'),
+    path('leave/', LeaveMsgManage.as_view(), name='leave_manage'),
 
 ]

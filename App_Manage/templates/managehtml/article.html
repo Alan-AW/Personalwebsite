@@ -1,4 +1,22 @@
 {% extends 'managehtml/mange_layout.html' %}
 
+{% block content %}
+<div class="pagination">
+	<span class="step-links">
+		{% if pageObj.has_previous %}
+		<a href="?page=1" class="page_button">&laquo;首 页</a>
+		<a href="?page={{ pageObj.previous_page_number }}" class="page_button">上一页</a>
+		{% endif %}
 
+		<span class="current">
+			第 {{ pageObj.number }} 页， 共 {{ pageObj.paginator.num_pages }} 页
+		</span>
+
+		{% if pageObj.has_next %}
+		<a href="?page={{ pageObj.next_page_number }}" class="page_button">下一页</a>
+		<a href="?page={{ pageObj.paginator.num_pages }}" class="page_button">尾 页&raquo;</a>
+		{% endif %}
+	</span>
+</div>
+{% endblock %}
 

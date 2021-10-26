@@ -2,74 +2,121 @@
 {% load static %}
 
 {% block css %}
-	<link rel="stylesheet" href="{% static 'managestatic/css/article.css' %}">
-{#	<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=retdd23ttr6nni794usypbdnum2r8e0vu4z9g6mnkdjeknbr" referrerpolicy="origin"></script>#}
+    <link rel="stylesheet" href="{% static 'managestatic/css/article.css' %}">
+    {#	<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=retdd23ttr6nni794usypbdnum2r8e0vu4z9g6mnkdjeknbr" referrerpolicy="origin"></script>#}
 {% endblock %}
 
 {% block content %}
-	{#	添加页面#}
-	<div class="article-add">
-		<form method="post" action="?type=add">
-			{% csrf_token %}
-			<div class="input-group" style="margin-bottom: 20px;">
+    {#	添加页面#}
+    <div class="article-add">
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group" style="margin-bottom: 20px;">
 				<span class="input-group-addon" id="basic-addon1"
-				      style="background-color: orangered;color: whitesmoke;">Title</span>
-				<input type="text" name="article_title" class="form-control article-title" placeholder="文章标题"
-				       aria-describedby="basic-addon1">
-			</div>
+                      style="background-color: orangered;color: whitesmoke;">Title</span>
+                <input type="text" name="article_title" value="{{ edit_dict.title }} {% if edit_dict %}{% endif %}"
+                       class="form-control article-title" placeholder="文章标题"
+                       aria-describedby="basic-addon1">
+            </div>
 
-			<div class="input-group" style="margin-bottom: 20px;width: 100%;">
-				<p class="select-op">
-					<select name="tags" id="tags">
-						<option value="none">选择标签</option>
-						{% for tag in tagsObj %}
-							<option value="{{ tag.pk }}">{{ tag.title }}</option>
-						{% endfor %}
-					</select>
-					<select name="category" id="category">
-						<option value="none">选择分类</option>
-						{% for cate in cateObj %}
-							<option value="{{ cate.pk }}">{{ cate.title }}</option>
-						{% endfor %}
-					</select>
-				</p>
-			</div>
+            <div class="input-group" style="margin-bottom: 20px;width: 100%;">
+                <p class="select-op">
+                    <select name="tags" id="tags">
+                        <option value="none">选择标签</option>
+                        {% for tag in tagsObj %}
+                            <option value="{{ tag.pk }}">{{ tag.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="category" id="category">
+                        <option value="none">选择分类</option>
+                        {% for cate in cateObj %}
+                            <option value="{{ cate.pk }}">{{ cate.title }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            </div>
 
-			<div class="input-group">
-				<textarea name="article_body" id="tinymec"></textarea>
-			</div>
+            <div class="input-group">
+                {% if edit_dict %}
+                    <textarea name="article_body" id="tinymec">{{ edit_dict.body }}</textarea>
+                {% else %}
+                    <textarea name="article_body" id="tinymec"></textarea>
+                {% endif %}
+            </div>
+            {% if status_msg %}
+                <div class="alert alert-warning alert-dismissible" role="alert"
+                     style="margin-top: 20px;float: left;width: 70%;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    {% if status %}
+                        <strong>Success!</strong> 操作成功！
+                    {% else %}
+                        <strong>Warning!</strong> 数据缺失，重新搞一下！
+                    {% endif %}
+                </div>
+            {% endif %}
 
-			<button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
-				提交
-			</button>
+            <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
+                提交
+            </button>
+        </form>
+    </div>
 
-		</form>
-	</div>
+    {#	编辑页面#}
+    <div class="edit">
+        <div class="bs-example" data-example-id="table-within-panel">
+            <div class="panel panel-default">
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                        <th>标签</th>
+                        <th>分类</th>
+                        <th>编辑</th>
+                        <th>删除</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for article in pageObj %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ article.title }}</td>
+                            <td>很多标签||很多标签||很多标签||很多标签</td>
+                            <td>{{ article.category }}</td>
+                            <th><a href="javascript:change_article({{ article.pk }})">编辑</a></th>
+                            <th><a href="javascript:delete_article({{ article.pk }})">删除</a></th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-	{#	编辑页面#}
-	<div class="edit">
-		<!-- 分页 -->
-		<div class="pagination">
-		<span class="step-links">
-			{% if pageObj.has_previous %}
-				<a href="?page=1" class="page_button">&laquo;首 页</a>
-				<a href="?page={{ pageObj.previous_page_number }}" class="page_button">上一页</a>
-			{% endif %}
+        <!-- 分页 -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if pageObj.has_previous %}
+                    <a href="?page=1" class="page_button">&laquo;首 页</a>
+                    <a href="?page={{ pageObj.previous_page_number }}" class="page_button">上一页</a>
+                {% endif %}
 
-			<span class="current">
-				第 {{ pageObj.number }} 页， 共 {{ pageObj.paginator.num_pages }} 页
-			</span>
+                <span class="current">
+                    第 {{ pageObj.number }} 页， 共 {{ pageObj.paginator.num_pages }} 页
+                </span>
 
-			{% if pageObj.has_next %}
-				<a href="?page={{ pageObj.next_page_number }}" class="page_button">下一页</a>
-				<a href="?page={{ pageObj.paginator.num_pages }}" class="page_button">尾 页&raquo;</a>
-			{% endif %}
-		</span>
-		</div>
-	</div>
+                {% if pageObj.has_next %}
+                    <a href="?page={{ pageObj.next_page_number }}" class="page_button">下一页</a>
+                    <a href="?page={{ pageObj.paginator.num_pages }}" class="page_button">尾 页&raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
-	<script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}"></script>
-	<script src="{% static 'managestatic/js/article.js' %}"></script>
+    <script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'managestatic/js/article.js' %}"></script>
 {% endblock %}

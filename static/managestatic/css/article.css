@@ -73,3 +73,7 @@ textarea {
     padding: 2%;
     background-color: rgba(235, 235, 235, .3);
 }
+
+.panel {
+    background-color: rgba(235, 235, 235, .2);
+}

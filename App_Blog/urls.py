@@ -9,6 +9,6 @@ urlpatterns = [
     path('leavemessage/', LeaveMsgView.as_view(), name='leavemsg'),
     path('addNewLeave/', AddNewLeave.as_view(), name='addNewLeave'),
     path('enshi/', EnShi.as_view(), name='enshi'),
-    re_path('articles/(?P<articleId>\d+)$', ArticleDetail.as_view()),
-    re_path('home/(?P<condition>category|tags|date)/(?P<params>(\w+/?\w+))$', Home.as_view())
+    re_path('articles/(?P<articleId>\d+)$', ArticleDetail.as_view(), name='articles'),
+    re_path('home/(?P<condition>category|tags)/(?P<params>(\w+/?\w+))$', Home.as_view())
 ]

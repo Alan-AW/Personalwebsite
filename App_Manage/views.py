@@ -3,6 +3,10 @@ from django.views import View
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.paginator import Paginator
+from django.views.decorators.clickjacking import xframe_options_sameorigin
+from django.conf import settings as sys
+import os
+import json
 from App_Blog.models import Article, Tags, Category, LeaveMsg
 from App_Essay.models import Essay
 
@@ -17,6 +21,10 @@ class ArticleManage(View):
     # 文章管理
     def get(self, request):
         if has_permission(request):
+            # 分类和标签
+            tagsObj = Tags.objects.all()
+            cateObj = Category.objects.all()
+            # 分页
             page = request.GET.get('page')
             article_obj = Article.objects.all()
             paginator = Paginator(article_obj, 8)
@@ -26,6 +34,20 @@ class ArticleManage(View):
 
     def post(self, request):
         if has_permission(request):
+            print('POAT请求到来！')
+            post_type = request.GET.get('type')
+            if post_type == 'add':
+                title = request.POST.get('article_title')
+                tag = request.POST.get('tags')
+                cate = request.POST.get('category')
+                body = request.POST.get('article_body')
+                desc = body[3:-3]
+                if all([title, tag, cate, body]):
+                    Article.objects.create()
+            elif post_type == 'edit':
+                print('收到编辑请求')
+            elif post_type == 'delete':
+                print('收到删除请求')
             return None
         return redirect(reverse('blog:home'))
 

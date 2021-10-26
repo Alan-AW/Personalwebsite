@@ -1,6 +1,6 @@
-// 导航点击改变背景颜色
+// 导航点击选中效果
 $('.li').click(function () {
-    for (var i = 0; i < $('.li').length + 1; i++) {
+    for (let i = 0; i < $('.li').length + 1; i++) {
         $('li').eq(i).attr('class', 'li');
     }
     $(this).attr('class', 'active');

@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.article-add {
+    float: left;
+    width: 49.5%;
+    height: 100%;
+    padding: 2%;
+    background-color: rgba(235, 235, 235, .3);
+}
+
+.article-title {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+select {
+    width: 30%;
+    height: 30px;
+    outline: none;
+    text-align: center;
+    color: #00BFFF;
+    border: 1px solid #00BFFF;
+    border-radius: 2px;
+    margin-right: 30px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+option {
+    text-align: center;
+    outline: none;
+    color: orangered;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.select-op {
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+}
+
+#myButton {
+    margin-top: 30px;
+    float: right;
+    padding: 5px 20px;
+    font-size: 20px;
+    background-color: whitesmoke;
+    color: #0d85d1;
+    transition: all 0.3s;
+}
+
+#myButton:hover {
+    background-color: #0d85d1;
+    color: whitesmoke;
+}
+
+.edit {
+    float: right;
+    width: 49.5%;
+    height: 100%;
+    padding: 2%;
+    background-color: rgba(235, 235, 235, .3);
+}

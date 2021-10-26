@@ -8,9 +8,9 @@
 {% block center %}
 {% for article in pageObj %}
 <div class="article-list animsition">
-	<h1><a href="/blog/articles/{{ article.pk }}" class="animsition-link">{{ article.title }}</a></h1>
+	<h1><a href="{% url 'blog:articles' articleId=article.pk %}" class="animsition-link">{{ article.title }}</a></h1>
 	<div class="article-desc">
-		<p><span>【话说】</span><a href="/blog/home/articles/{{ article.pk }}"
+		<p><span>【话说】</span><a href="{% url 'blog:articles' articleId=article.pk %}"
 				class="article_desc_a  ">{{ article.desc }}...</a>
 		</p>
 	</div>

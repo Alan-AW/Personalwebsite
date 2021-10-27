@@ -36,7 +36,7 @@ class Article(models.Model):
     文章表
     """
     author = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
-    title = models.CharField(max_length=20, verbose_name='标题', )
+    title = models.CharField(max_length=30, verbose_name='标题', )
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
     desc = models.CharField(max_length=70, verbose_name='摘要')
     body = models.TextField()

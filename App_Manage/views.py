@@ -18,6 +18,17 @@ def has_permission(request):
     return False
 
 
+def get_article_desc(body):
+    soup = BeautifulSoup(body, 'html.parser')
+    # 非法标签删除操作 防止XSS攻击
+    for html_tag in soup.find_all():
+        if html_tag.name == 'script':
+            html_tag.decompose()
+    desc = soup.text[0:70]
+    new_body = str(soup)
+    return [desc, new_body]
+
+
 class ArticleManage(View):
     def __init__(self):
         self.tagsObj = Tags.objects.all()
@@ -45,10 +56,15 @@ class ArticleManage(View):
 
     def post(self, request):
         if has_permission(request):
-            post_type = 'add'
-            if post_type:
+            if request.is_ajax():
+                ajax_type = request.POST.get('ajax_type')
+                article_id = request.POST.get('pk')
+                if ajax_type == 'delete':
+                    Article.objects.filter(id=article_id).first().delete()
+                    return HttpResponse(json.dumps('success'))
+            else:
                 title = request.POST.get('article_title')
-                tag_id = request.POST.get('tags')
+                tag_id = request.POST.getlist('tags')
                 cate = request.POST.get('category')
                 body = request.POST.get('article_body')
                 status = False
@@ -56,20 +72,16 @@ class ArticleManage(View):
                 cateObj = self.cateObj
                 pageObj = self.get_page_obj(request)
                 if all([title, tag_id, cate, body]):
-                    soup = BeautifulSoup(body, 'html.parser')
-                    # 非法标签删除操作 防止XSS攻击
-                    for html_tag in soup.find_all():
-                        if html_tag.name == 'script':
-                            html_tag.decompose()
-                    desc = soup.text[0:150]  # 文章简介描述信息
-                    new_body = str(soup)  # 文章内容
+                    param = get_article_desc(body)
+                    desc = param[0]
+                    new_body = param[1]
                     new_article_obj = Article.objects.create(author_id=request.user.pk,
                                                              title=title,
                                                              desc=desc,
                                                              body=new_body,
                                                              category_id=cate,
                                                              )
-                    new_article_obj.tags.add(tag_id)
+                    new_article_obj.tags.add(*tag_id)
                     # tag = Tags.objects.filter(id=tag_id).first()
                     # new_article_obj.tags.add(tag)
                     status = True
@@ -78,36 +90,70 @@ class ArticleManage(View):
                 else:
                     status_msg = 'error'
                     return render(request, 'managehtml/article.html', locals())
-            if request.is_ajax():
-                ajax_type = request.POST.get('ajax_type')
-                article_id = request.POST.get('pk')
-                if ajax_type == 'delete':
-                    Article.objects.filter(id=article_id).first().delete()
-                    return HttpResponse(json.dumps('success'))
-                if ajax_type == 'change':
-                    article_obj = Article.objects.filter(id=article_id).first()
-                    self.edit_dict = {
-                        'title': article_obj.title,
-                        'body': article_obj.body,
-                        'category': article_obj.category
-                    }
-                    return HttpResponse(json.dumps('success'))
-            else:
-                cnm = '大佬不要攻击我!'
-                return HttpResponse(json.dumps(cnm))
+        else:
+            return redirect(reverse('blog:home'))
+
+
+class ChangeArticle(View):
+    def get(self, request, pk):
+        if has_permission(request):
+            articleObj = Article.objects.filter(id=pk).first()
+            if articleObj:
+                title = articleObj.title
+                tagsObj = Tags.objects.all()
+                cateObj = Category.objects.all()
+                body = articleObj.body
+                return render(request, 'managehtml/change_article.html', locals())
+            return HttpResponse('参数错误，请检查后重试!')
+        return redirect(reverse('blog:home'))
+
+    def post(self, request, article_id):
+        if has_permission(request):
+            articleObj = Article.objects.filter(id=article_id).first()
+            title = request.POST.get('article_title')
+            body = request.POST.get('article_body')
+            tags = request.POST.getlist('tags')
+            category = request.POST.get('category')
+            if all([articleObj, title, body, tags, category]):
+                param = get_article_desc(body)
+                desc = param[0]
+                new_body = param[1]
+                Article.objects.filter(pk=article_id).update(title=title, desc=desc, body=new_body, category=category)
+                tag_obj = Tags.objects.filter(id__in=tags)
+                for i in tag_obj:
+                    articleObj.tags.add(i)
+                return redirect(reverse('manage:article_manage'))
+            return HttpResponse('参数缺失或者不完整，请检查后重试!')
         return redirect(reverse('blog:home'))
 
 
 class TagsManage(View):
+    def get_queryset(self):
+        return Tags.objects.all()
+
     # 标签管理
     def get(self, request):
         if has_permission(request):
-            return None
+            tags = self.get_queryset()
+            return render(request, 'managehtml/tags.html', locals())
         return redirect(reverse('blog:home'))
 
     def post(self, request):
         if has_permission(request):
-            return None
+            tags = self.get_queryset()
+            post_type = request.GET.get('type')
+            if post_type == 'delete':
+                id_list = request.POST.getlist('pk')
+                try:
+                    Tags.objects.filter(id__in=id_list).delete()
+                    make_status = {'success': True}
+                except Exception:
+                    make_status = {'success': False}
+            if post_type == 'add':
+                title = request.POST.get('title')
+                Tags.objects.create(title=title)
+                make_status = {'success': True}
+            return render(request, 'managehtml/tags.html', locals())
         return redirect(reverse('blog:home'))
 
 

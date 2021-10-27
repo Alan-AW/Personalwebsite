@@ -1,0 +1,84 @@
+{% extends 'managehtml/mange_layout.html' %}
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+	<div class="tags_manage col-md-5" style="float: left;">
+		<form method="post" action="?type=delete">
+			{% csrf_token %}
+			<div style="margin: 20px 0;text-align: right;">
+				{% if make_status %}
+					<div class="alert alert-warning alert-dismissible col-md-4" role="alert" style="float: left;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						{% if make_status.success %}
+							<strong>Success!</strong> 操作成功!
+						{% else %}
+							<strong>Waring!</strong> 操作失败!
+						{% endif %}
+					</div>
+				{% endif %}
+
+				<button type="submit" class="btn btn-danger">删除</button>
+			</div>
+
+			<div class="bs-example" data-example-id="table-within-panel">
+				<div class="panel panel-default" style="background-color: rgba(235,235,235,.5)">
+					<!-- Default panel contents -->
+					<div class="panel-heading">Tags Manage</div>
+					<!-- Table -->
+					<table class="table">
+						<thead>
+						<tr>
+							<th style="text-align: center;">选择</th>
+							<th>序号</th>
+							<th>ID</th>
+							<th>TITLE</th>
+							<th>CHANGE</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for tag in tags %}
+							<tr>
+								<th style="text-align: center;"><input type="checkbox" name="pk" value="{{ tag.pk }}">
+								</th>
+								<th>{{ forloop.counter }}</th>
+								<th>{{ tag.pk }}</th>
+								<th style="color: #8000ff;">{{ tag.title }}</th>
+								<th><a href="#">编辑</a></th>
+							</tr>
+						{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+
+	<div class="tags_manage col-md-4" style="margin: 20px 0">
+		<form action="?type=add" method="post">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="text" class="form-control" name="title" maxlength="10">
+						<span class="input-group-btn">
+						    <button class="btn btn-success" type="submit">添加</button>
+						  </span>
+					</div><!-- /input-group -->
+				</div><!-- /.col-lg-6 -->
+			</div><!-- /.row -->
+		</form>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

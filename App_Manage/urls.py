@@ -8,5 +8,6 @@ urlpatterns = [
     path('category/', CategoryManage.as_view(), name='category_manage'),
     path('essay/', EssayManage.as_view(), name='essay_manage'),
     path('leave/', LeaveMsgManage.as_view(), name='leave_manage'),
+    re_path('change_article/(\d+)/$', ChangeArticle.as_view(), name='change_article'),
 
 ]

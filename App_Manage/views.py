@@ -140,6 +140,14 @@ class TagsManage(View):
 
     def post(self, request):
         if has_permission(request):
+            if request.is_ajax():
+                post_type = request.POST.get('post_type')
+                if post_type == 'edit_tags':
+                    tags_pk = request.POST.get('pk')
+                    title = request.POST.get('title')
+                    Tags.objects.filter(id=tags_pk).update(title=title)
+                    return HttpResponse(json.dumps('success'))
+                return HttpResponse(json.dumps('error'))
             tags = self.get_queryset()
             post_type = request.GET.get('type')
             if post_type == 'delete':
@@ -151,8 +159,10 @@ class TagsManage(View):
                     make_status = {'success': False}
             if post_type == 'add':
                 title = request.POST.get('title')
-                Tags.objects.create(title=title)
-                make_status = {'success': True}
+                if title:
+                    Tags.objects.create(title=title)
+                    make_status = {'success': True}
+                make_status = {'success': False}
             return render(request, 'managehtml/tags.html', locals())
         return redirect(reverse('blog:home'))
 

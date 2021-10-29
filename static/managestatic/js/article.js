@@ -4,8 +4,8 @@ $('#myButton').on('click', function () {
 })
 
 // 编辑和删除功能
-function change_article(make, pk) {
-	let sure = confirm('你确定要' + '"' + make + '"' + '这篇文章吗?');
+function change_article(pk) {
+	let sure = confirm('确定要删除这篇文章吗?');
 	if (!sure) {
 		return;
 	}
@@ -14,7 +14,7 @@ function change_article(make, pk) {
 		type: 'post',
 		data: {
 			csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
-			ajax_type: make,
+			ajax_type: 'delete',
 			pk: pk
 		},
 		success: function (response) {

@@ -85,8 +85,8 @@
 								{% endfor %}
 							</td>
 							<td>{{ article.category }}</td>
-							<th><a href="/site/manage/change_article/{{ article.pk }}">编辑</a></th>
-							<th><a href="javascript:change_article('delete', {{ article.pk }})">删除</a></th>
+							<th><a href="{% url 'manage:change_article' article.pk %}">编辑</a></th>
+							<th><a href="javascript:change_article({{ article.pk }})">删除</a></th>
 						</tr>
 					{% endfor %}
 					</tbody>

@@ -2,286 +2,290 @@
 {% load static %}
 
 {% block title %}
-    <link rel="stylesheet" href="{% static 'blog/css/articleDetail.css' %}">
-    <link rel="stylesheet" href="{% static 'comment/emoji.css' %}">
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> {# 获取用户IP #}
-    <!-- 使用任意代码块分割插件自动将代码关键字加上相应标签，使用的是一款名叫 prism 的插件 -->
-    <script src="//cdn.jsdelivr.net/gh/cetr/cdn@master/prism.min.js"></script>
-    <script src="{% static 'blog/js/addMessage.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'blog/css/payforme.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/articleDetail.css' %}">
+	<link rel="stylesheet" href="{% static 'comment/emoji.css' %}">
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> {# 获取用户IP #}
+	<!-- 使用任意代码块分割插件自动将代码关键字加上相应标签，使用的是一款名叫 prism 的插件 -->
+	<script src="//cdn.jsdelivr.net/gh/cetr/cdn@master/prism.min.js"></script>
+	<script src="{% static 'blog/js/addMessage.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'blog/css/payforme.css' %}">
 {% endblock %}
 
 {% block center %}
-    <div class="article-header animsition">
-        <h1 class="show-article-title">{{ articleObj.title }}</h1>
-        <p style="margin-top: 10px">浏览:<span style="color: orangered">{{ articleObj.views }}&nbsp;</span>赞:<span
-                id="great-count" style="color: rgb(237,175,39)">{{ articleObj.greatCount }}</span>&nbsp;评论:<span
-                style="color: #0d85d1">{{ articleObj.commentCount }}</span></p>
-    </div>
-    <!-- 文章内容 -->
-    <div class="articleDesc animsition">
-        {{ articleObj.body|safe }}
-        <!-- 要钱 -->
-        <div class="tip-to-pay" style="text-align: center;margin-top: 20px;">
-            <p><span>如果觉得</span>
-                <span style="color: #09ebfc;">栈长</span>
-                写得<span style="color: #ff6651;"> 还不错 </span><span>的话，就请打赏一个吧~（づ￣3￣）づ╭</span>
-                <span style="color: red;">❤</span>～
-            </p>
-        </div>
-        <div class="payforme">
-            <ul class="payforme-ul">
-                <li class="payforme-li" style="margin-right: 3.125rem;">
-                    <button class="payforme-btn"
-                            style="background-color: rgb(59,179,79); color: whitesmoke;"><strong>微微信</strong></button>
-                    <div class="content" style="left: 4.6875rem;">
-                        <div id="payforwechat"></div>
-                    </div>
-                </li>
-                <li class="payforme-li">
-                    <button class="payforme-btn"
-                            style="background-color: rgb(24,120,254);color: whitesmoke;"><strong>支付宝</strong></button>
-                    <div class="content" style="left: 4.6875rem;">
-                        <div id="payforzfb"></div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <input type="text" id="articleId" articleid="{{ articleObj.pk }}" hidden>
-    {% if request.user.is_authenticated %}
-        <input type="text" id="UserIsSignin" userid="{{ request.user.pk }}" hidden>
-    {% endif %}
+	<div class="article-header animsition">
+		<h1 class="show-article-title">{{ articleObj.title }}</h1>
+		<p style="margin-top: 10px">浏览:<span style="color: orangered">{{ articleObj.views }}&nbsp;</span>赞:<span
+				id="great-count" style="color: rgb(237,175,39)">{{ articleObj.greatCount }}</span>&nbsp;评论:<span
+				style="color: #0d85d1">{{ articleObj.commentCount }}</span></p>
+	</div>
+	<!-- 文章内容 -->
+	<div class="articleDesc animsition">
+		{{ articleObj.body|safe }}
+		<!-- 要钱 -->
+		<div class="tip-to-pay" style="text-align: center;margin-top: 20px;">
+			<p><span>如果觉得</span>
+				<span style="color: #09ebfc;">栈长</span>
+				写得<span style="color: #ff6651;"> 还不错 </span><span>的话，就请打赏一个吧~（づ￣3￣）づ╭</span>
+				<span style="color: red;">❤</span>～
+			</p>
+		</div>
+		<div class="payforme">
+			<ul class="payforme-ul">
+				<li class="payforme-li" style="margin-right: 3.125rem;">
+					<button class="payforme-btn"
+					        style="background-color: rgb(59,179,79); color: whitesmoke;"><strong>微微信</strong></button>
+					<div class="content" style="left: 4.6875rem;">
+						<div id="payforwechat"></div>
+					</div>
+				</li>
+				<li class="payforme-li">
+					<button class="payforme-btn"
+					        style="background-color: rgb(24,120,254);color: whitesmoke;"><strong>支付宝</strong></button>
+					<div class="content" style="left: 4.6875rem;">
+						<div id="payforzfb"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<input type="text" id="articleId" articleid="{{ articleObj.pk }}" hidden>
+	{% if request.user.is_authenticated %}
+		<input type="text" id="UserIsSignin" userid="{{ request.user.pk }}" hidden>
+	{% endif %}
 
-    <!-- 上一篇和下一篇 -->
-    {% if ltArticle %}
-        <div class="ltArticle"><p><a href="/blog/articles/{{ ltArticle.pk }}"
-                                     class="next  animsition-link">上一篇：&lt;&lt;{{ ltArticle.title }}</a></p></div>
-    {% else %}
-        <div class="ltArticle"><span class="next">前面没有咯~</span></div>
-    {% endif %}
+	<!-- 上一篇和下一篇 -->
+	<div class="animsition">
+		{% if ltArticle %}
+			<div class="ltArticle"><p><a href="/blog/articles/{{ ltArticle.pk }}"
+			                                        class="next  animsition-link">上一篇：&lt;&lt;{{ ltArticle.title }}</a>
+			</p></div>
+		{% else %}
+			<div class="ltArticle"><span class="next">前面没有咯~</span></div>
+		{% endif %}
 
-    {% if gtArticle %}
-        <div class="gtArticle"><p><a href="/blog/articles/{{ gtArticle.pk }}"
-                                     class="next  animsition-link">下一篇：{{ gtArticle.title }}&gt;&gt;</a></p></div>
-    {% else %}
-        <div class="gtArticle"><span class="next">没有更多啦~</span></div>
-    {% endif %}
+		{% if gtArticle %}
+			<div class="gtArticle"><p><a href="/blog/articles/{{ gtArticle.pk }}"
+			                                        class="next  animsition-link">下一篇：{{ gtArticle.title }}&gt;&gt;</a>
+			</p></div>
+		{% else %}
+			<div class="gtArticle"><span class="next">没有更多啦~</span></div>
+		{% endif %}
+	</div>
 
-    <!-- 点赞成功通知 -->
-    <div class="digg">
-        {% csrf_token %}
-        <a href="javascript:likes()" class="lgb digg-a" id="btn">Likes</a>
-    </div>
-    <div id="message_info" class="growl" style="display:none;">
-        <div id="message_content" class="growl-item alert message_error"></div>
-    </div>
+	<!-- 点赞成功通知 -->
+	<div class="digg animsition">
+		{% csrf_token %}
+		<a href="javascript:likes()" class="lgb digg-a" id="btn">Likes</a>
+	</div>
+	<div id="message_info" class="growl" style="display:none;">
+		<div id="message_content" class="growl-item alert message_error"></div>
+	</div>
 
-    <!-- 评论区 -->
-    <div class="comment-tree animsition">
+	<!-- 评论区 -->
+	<div class="comment-tree animsition">
 
 
-        <p style="font-size: 26px;color: orangered">评论区:</p>
-        {% if request.user.is_authenticated %}
-            <div id="reply_content_container" style="display:none;">
-                <p style="margin: 10px 0;color: #09ebfc;font-size: 18px">Ta 说：</p>
-                <p id="reply_user" style="color: #666;font-size: 20px"></p>
-                <input type="text" id="replay_pk" hidden value="">
-                <p style="margin-top: 10px"><a href="javascript:cancelReply()" class="cancelReply">取消</a></p>
-            </div>
+		<p style="font-size: 26px;color: orangered">评论区:</p>
+		{% if request.user.is_authenticated %}
+			<div id="reply_content_container" style="display:none;">
+				<p style="margin: 10px 0;color: #09ebfc;font-size: 18px">Ta 说：</p>
+				<p id="reply_user" style="color: #666;font-size: 20px"></p>
+				<input type="text" id="replay_pk" hidden value="">
+				<p style="margin-top: 10px"><a href="javascript:cancelReply()" class="cancelReply">取消</a></p>
+			</div>
 
-            <div id="header">
-                <div class="form">
+			<div id="header">
+				<div class="form">
 				<textarea class="emotion input_key" id="content" rows="3"
-                          onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                          placeholder="还是说点什么吧，o(￣ヘ￣o＃)哼..."></textarea>
-                </div>
-            </div>
+				          onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+				          placeholder="还是说点什么吧，o(￣ヘ￣o＃)哼..."></textarea>
+				</div>
+			</div>
 
-            <span id="face" class="face-icon"><strong>☺</strong></span>
-            <a href="javascript:submitComment()" id="default_comment_button" class="sub_comment">评论</a>
-        {% else %}
-            <p class="signin-tips">请<a href="{% url 'users:signin' %}" class="signin-button animsition-link">登录</a>后评论哦~
-            </p>
-        {% endif %}
+			<span id="face" class="face-icon"><strong>☺</strong></span>
+			<a href="javascript:submitComment()" id="default_comment_button" class="sub_comment">评论</a>
+		{% else %}
+			<p class="signin-tips">请<a href="{% url 'users:signin' %}" class="signin-button animsition-link">登录</a>后评论哦~
+			</p>
+		{% endif %}
 
-        <hr style="margin: 20px 0;clear: both;">
+		<hr style="margin: 20px 0;clear: both;">
 
-        {% for comment in commentList %}
-            <div class="comment">
-                <!-- 根评论 -->
-                <div class="rootcomment" id="root_{{ comment.pk }}">
-                    <p class="nameAndTime"><span
-                            class="root-comment-name name"
-                            id="rootUser"><strong>{{ comment.user.username }}</strong></span>&nbsp;&nbsp;<span
-                            class="browser">{{ comment.browserId }}</span>
-                    </p>
-                    <p class="comment-body" id="comment_{{ comment.pk }}">{{ comment.body|safe }}</p>
-                    <div class="replay-button-box"><span style="color: #666">{{ comment.time }}</span>
-                        {% if request.user.is_authenticated %}
-                            <a href="javascript:clickReplay({{ comment.pk }})" class="replay-button">回复</a></div>
-                        {% else %}
-                            <a href="javascript:notLogin()" class="replay-button">回复</a></div>
-                        {% endif %}
+		{% for comment in commentList %}
+			<div class="comment">
+				<!-- 根评论 -->
+				<div class="rootcomment" id="root_{{ comment.pk }}">
+					<p class="nameAndTime"><span
+							class="root-comment-name name"
+							id="rootUser"><strong>{{ comment.user.username }}</strong></span>&nbsp;&nbsp;<span
+							class="browser">{{ comment.browserId }}</span>
+					</p>
+					<p class="comment-body" id="comment_{{ comment.pk }}">{{ comment.body|safe }}</p>
+					<div class="replay-button-box"><span style="color: #666">{{ comment.time }}</span>
+						{% if request.user.is_authenticated %}
+							<a href="javascript:clickReplay({{ comment.pk }})" class="replay-button">回复</a></div>
+						{% else %}
+							<a href="javascript:notLogin()" class="replay-button">回复</a></div>
+						{% endif %}
 
-                <!-- 子评论 -->
-                {% for replay in comment.rootComment.all %}
-                    <div class="replay">
-                        <p class="replayNameAndTime">
+				<!-- 子评论 -->
+				{% for replay in comment.rootComment.all %}
+					<div class="replay">
+						<p class="replayNameAndTime">
                                 <span class="replay-name name"
                                       id="rootUser"><strong>{{ replay.user.username }}</strong></span>&nbsp;回复：<span
-                                class="replay-parent-name">{{ replay.replayTo.username }}</span>&nbsp;<span
-                                class="browser">{{ replay.browserId }}</span></p>
-                        <p class="comment-body" id="comment_{{ replay.pk }}">{{ replay.body|safe }}</p>
-                        <div class="replay-button-box">
-                            <span style="color: #666">{{ replay.time }}</span>
-                            {% if request.user.is_authenticated %}
-                                <a href="javascript:clickReplay({{ replay.pk }})" class="replay-button">回复</a>
-                            {% else %}
-                                <a href="javascript:notLogin()" class="replay-button">回复</a>
-                            {% endif %}
+								class="replay-parent-name">{{ replay.replayTo.username }}</span>&nbsp;<span
+								class="browser">{{ replay.browserId }}</span></p>
+						<p class="comment-body" id="comment_{{ replay.pk }}">{{ replay.body|safe }}</p>
+						<div class="replay-button-box">
+							<span style="color: #666">{{ replay.time }}</span>
+							{% if request.user.is_authenticated %}
+								<a href="javascript:clickReplay({{ replay.pk }})" class="replay-button">回复</a>
+							{% else %}
+								<a href="javascript:notLogin()" class="replay-button">回复</a>
+							{% endif %}
 
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% empty %}
-            <p id="notHaveComment">快来抢沙发！</p>
-        {% endfor %}
-    </div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% empty %}
+			<p id="notHaveComment">快来抢沙发！</p>
+		{% endfor %}
+	</div>
 {% endblock %}
 
 {% block script %}
-    <script>
-        // 未登录
-        function notLogin() {
-            addMessage('fail', '登录后才可以评论哦！');
-        }
+	<script>
+		// 未登录
+		function notLogin() {
+			addMessage('fail', '登录后才可以评论哦！');
+		}
 
-        // 提交评论
-        function submitComment() {
-            var content = $('#content').val();
-            {# 先判断是否为空 #}
-            if (!content) {
-                addMessage('fail', '哇哦，少侠你总得说点什么吧!');
-                return false;
-            }
-            $('#content').val('');
-            {# 提交到后台数据 #}
-            var userId = {{ request.user.pk }};
-            var articleId = {{ articleObj.pk }};
-            var token = $("[name='csrfmiddlewaretoken']").val();
-            {# 评论成功需要的数据 #}
-            var myDate = new Date();
-            var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-            var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-            var Today = myDate.getDate();  // 获取今天的日期
-            var showContent = AnalyticEmotion(content + '[]');
-            var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
-            var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-            var browserId = userBrowser + userBrowserVer;  // 浏标识展示
+		// 提交评论
+		function submitComment() {
+			var content = $('#content').val();
+			{# 先判断是否为空 #}
+			if (!content) {
+				addMessage('fail', '哇哦，少侠你总得说点什么吧!');
+				return false;
+			}
+			$('#content').val('');
+			{# 提交到后台数据 #}
+			var userId = {{ request.user.pk }};
+			var articleId = {{ articleObj.pk }};
+			var token = $("[name='csrfmiddlewaretoken']").val();
+			{# 评论成功需要的数据 #}
+			var myDate = new Date();
+			var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+			var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+			var Today = myDate.getDate();  // 获取今天的日期
+			var showContent = AnalyticEmotion(content + '[]');
+			var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
+			var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+			var browserId = userBrowser + userBrowserVer;  // 浏标识展示
 
-            $.ajax({
-                url: '/comment/addComment/',
-                type: 'post',
-                data: {
-                    "csrfmiddlewaretoken": token,
-                    "userId": userId,
-                    "articleId": articleId,
-                    "browserId": userBrowser + userBrowserVer,
-                    // 表情本质是img标签，解析之后再存入数据库.但是解析函数不能识别没有表情的字符串，所以手动添加
-                    // 一个英文中括号，后端再切割掉即可
-                    "content": showContent
-                },
-                success: function (data) {
-                    $('#content').val('');
-                    var returnObj = JSON.parse(data);
-                    if (returnObj.successComment) {
-                        addMessage('success', 'Nice~评论成功！');
-                        changeTheCommentNameColor();
-                        $('#notHaveComment').remove();
-                        var html = `<div class="rootcomment"><p class="nameAndTime"><span class="root-comment-name name"><strong>{{ request.user.username }}</strong></span>&nbsp;&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
-                        // 根评论添加到评论树区域
-                        $('.comment-tree').append(html);
-                    } else {
-                        addMessage('fail', 'F**k！评论失败 `(*>﹏<*)′ 请稍后再试！');
-                    }
-                }
-            })
-        }
+			$.ajax({
+				url: '/comment/addComment/',
+				type: 'post',
+				data: {
+					"csrfmiddlewaretoken": token,
+					"userId": userId,
+					"articleId": articleId,
+					"browserId": userBrowser + userBrowserVer,
+					// 表情本质是img标签，解析之后再存入数据库.但是解析函数不能识别没有表情的字符串，所以手动添加
+					// 一个英文中括号，后端再切割掉即可
+					"content": showContent
+				},
+				success: function (data) {
+					$('#content').val('');
+					var returnObj = JSON.parse(data);
+					if (returnObj.successComment) {
+						addMessage('success', 'Nice~评论成功！');
+						changeTheCommentNameColor();
+						$('#notHaveComment').remove();
+						var html = `<div class="rootcomment"><p class="nameAndTime"><span class="root-comment-name name"><strong>{{ request.user.username }}</strong></span>&nbsp;&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
+						// 根评论添加到评论树区域
+						$('.comment-tree').append(html);
+					} else {
+						addMessage('fail', 'F**k！评论失败 `(*>﹏<*)′ 请稍后再试！');
+					}
+				}
+			})
+		}
 
-        // 提交回复
-        function submitReply() {
-            var content = $('#content').val();
-            if (!content) {
-                addMessage('fail', '哇哦，少侠你总得说点什么吧!');
-                return false;
-            }
-            $('#content').val('');
-            var replay_pk = $('#replay_pk').val();  // 回复当前评论的ID
-            var articleId = {{ articleObj.pk }};
-            var showContent = AnalyticEmotion(content + '[]');
-            var browserId = userBrowser + userBrowserVer;
-            var token = $("[name='csrfmiddlewaretoken']").val();
-            $.ajax({
-                url: '/comment/addReply/',
-                type: 'post',
-                data: {
-                    'replyPk': replay_pk,
-                    'articleId': articleId,
-                    'content': showContent,
-                    'browserId': browserId,
-                    'csrfmiddlewaretoken': token
-                },
-                success: function (data) {
-                    var status = JSON.parse(data);
-                    if (status.success) {
-                        $('#default_comment_button').attr('href', 'javascript:submitComment()');
-                        $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
-                        $('#reply_content_container').hide();
-                        addMessage('success', 'nice啊！评论成功！爱你哟 (*￣3￣)╭');
-                        var replyTo = status.replyToUser;
-                        var rootId = status.rootId;
-                        var myDate = new Date();
-                        var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-                        var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-                        var Today = myDate.getDate();  // 获取今天的日期
-                        var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
-                        var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-                        var browserId = userBrowser + userBrowserVer;  // 浏标识展示
-                        var html = `<div class="replay"><p class="replayNameAndTime"><span class="replay-name name" id="rootUser"><strong>{{ request.user.username }}</strong></span>&nbsp;回复：<span class="replay-parent-name">${replyTo}</span>&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
-                        $('#root_' + rootId).append(html);
-                    } else {
-                        addMessage('fail', '嗷嗷~评论失败，请稍后再试 (⌐■_■)');
-                    }
-                }
-            })
-        }
+		// 提交回复
+		function submitReply() {
+			var content = $('#content').val();
+			if (!content) {
+				addMessage('fail', '哇哦，少侠你总得说点什么吧!');
+				return false;
+			}
+			$('#content').val('');
+			var replay_pk = $('#replay_pk').val();  // 回复当前评论的ID
+			var articleId = {{ articleObj.pk }};
+			var showContent = AnalyticEmotion(content + '[]');
+			var browserId = userBrowser + userBrowserVer;
+			var token = $("[name='csrfmiddlewaretoken']").val();
+			$.ajax({
+				url: '/comment/addReply/',
+				type: 'post',
+				data: {
+					'replyPk': replay_pk,
+					'articleId': articleId,
+					'content': showContent,
+					'browserId': browserId,
+					'csrfmiddlewaretoken': token
+				},
+				success: function (data) {
+					var status = JSON.parse(data);
+					if (status.success) {
+						$('#default_comment_button').attr('href', 'javascript:submitComment()');
+						$("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
+						$('#reply_content_container').hide();
+						addMessage('success', 'nice啊！评论成功！爱你哟 (*￣3￣)╭');
+						var replyTo = status.replyToUser;
+						var rootId = status.rootId;
+						var myDate = new Date();
+						var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+						var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+						var Today = myDate.getDate();  // 获取今天的日期
+						var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
+						var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+						var browserId = userBrowser + userBrowserVer;  // 浏标识展示
+						var html = `<div class="replay"><p class="replayNameAndTime"><span class="replay-name name" id="rootUser"><strong>{{ request.user.username }}</strong></span>&nbsp;回复：<span class="replay-parent-name">${replyTo}</span>&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
+						$('#root_' + rootId).append(html);
+					} else {
+						addMessage('fail', '嗷嗷~评论失败，请稍后再试 (⌐■_■)');
+					}
+				}
+			})
+		}
 
-        // 点击回复
-        function clickReplay(replay_pk) {
-            $('#replay_pk').val(replay_pk);
-            var html = $("#comment_" + replay_pk).html();
-            $('#reply_user').html(html);
-            $('#reply_content_container').show();
+		// 点击回复
+		function clickReplay(replay_pk) {
+			$('#replay_pk').val(replay_pk);
+			var html = $("#comment_" + replay_pk).html();
+			$('#reply_user').html(html);
+			$('#reply_content_container').show();
 
-            $('html').animate({scrollTop: $('#content').offset().top - 200}, 500, function () {  // 将textarea定位到top 200 位置
-                $('#content').focus();  // 文本框获得焦点
-                $("#content").attr("placeholder", "我说：");
-            });
-            $('#default_comment_button').attr('href', 'javascript:submitReply()');
-        }
+			$('html').animate({scrollTop: $('#content').offset().top - 200}, 500, function () {  // 将textarea定位到top 200 位置
+				$('#content').focus();  // 文本框获得焦点
+				$("#content").attr("placeholder", "我说：");
+			});
+			$('#default_comment_button').attr('href', 'javascript:submitReply()');
+		}
 
-        // 取消回复
-        function cancelReply() {
-            $("#content").attr("placeholder", "真的不说点什么嘛？ (～￣▽￣)～...");
-            setTimeout(function () {
-                $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
-            }, 3000);
-            $('#reply_content_container').css('display', 'none');
-            $('#default_comment_button').attr('href', 'javascript:submitComment()');
-        }
-    </script>
-    <script src="{% static 'blog/js/articleDetail.js' %}"></script>
-    <script src="{% static 'comment/textareaEmoji.js' %}"></script>
+		// 取消回复
+		function cancelReply() {
+			$("#content").attr("placeholder", "真的不说点什么嘛？ (～￣▽￣)～...");
+			setTimeout(function () {
+				$("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
+			}, 3000);
+			$('#reply_content_container').css('display', 'none');
+			$('#default_comment_button').attr('href', 'javascript:submitComment()');
+		}
+	</script>
+	<script src="{% static 'blog/js/articleDetail.js' %}"></script>
+	<script src="{% static 'comment/textareaEmoji.js' %}"></script>
 {% endblock %}

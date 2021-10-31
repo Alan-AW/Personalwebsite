@@ -22,13 +22,12 @@
 			<div class="input-group" style="margin-bottom: 20px;width: 100%;">
 				<p class="select-op">
 					<select name="tags" id="tags" multiple="multiple" size="2">
-						<option value="none">选择标签</option>
 						{% for tag in tagsObj %}
 							<option value="{{ tag.pk }}">{{ tag.title }}</option>
 						{% endfor %}
 					</select>
 					<select name="category" id="category">
-						<option value="none">选择分类</option>
+						<option value="1">默认分类</option>
 						{% for cate in cateObj %}
 							<option value="{{ cate.pk }}">{{ cate.title }}</option>
 						{% endfor %}

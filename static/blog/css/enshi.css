@@ -41,7 +41,7 @@ html,body {
 .nav {
 	width: 100%;
 	height: 3.75rem;
-	background-color: rgba(240, 240, 240, .9);
+	background-color: rgba(240, 240, 240, .7);
 	transition: all 0.3s;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .3);
 	z-index: 999;
@@ -226,13 +226,13 @@ html,body {
 .footer {
 	clear: both;
 	width: 100%;
-	height: 12.5rem;
+	min-height: 5rem;
 	padding: 1.25rem 0;
 	box-sizing: border-box;
 	background-color: rgba(230, 230, 230, .8);
 }
 
-.footer p {
+.footer .footer-p {
 	margin: 1.125rem auto;
 	text-align: center;
 }

@@ -23,11 +23,13 @@
 </head>
 <body>
 <ul class="nav nav-pills nav-stacked">
-    <li role="presentation" class="li active"><a href="{% url 'manage:article_manage' %}">文章管理</a></li>
+    <li role="presentation" class="li"><a href="{% url 'manage:manage_home' %}">后台</a></li>
+    <li role="presentation" class="li"><a href="{% url 'manage:article_manage' %}">文章管理</a></li>
     <li role="presentation" class="li"><a href="{% url 'manage:tags_manage' %}">标签管理</a></li>
     <li role="presentation" class="li"><a href="{% url 'manage:category_manage' %}">分类管理</a></li>
     <li role="presentation" class="li"><a href="{% url 'manage:essay_manage' %}">随笔管理</a></li>
     <li role="presentation" class="li"><a href="{% url 'manage:leave_manage' %}">留言管理</a></li>
+    <li role="presentation" class="li"><a href="{% url 'manage:users_manage' %}">用户管理</a></li>
     <li role="presentation" class="li"><a href="{% url 'blog:home' %}">查看栈点</a></li>
 </ul>
 
@@ -38,6 +40,8 @@
 </div>
 </body>
 <script src="{% static 'managestatic/js/layout.js' %}"></script>
+<script src="{% static 'blog/js/site_title.js' %}"></script>
+
 {% block js %}
 
 {% endblock %}

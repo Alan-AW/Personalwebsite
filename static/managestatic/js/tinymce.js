@@ -5,7 +5,7 @@ tinyMCE.init({
 	directionality: 'ltr',  // 光标从左到右，rtl表示从右到左
 	browser_spellcheck: true,
 	contextmenu: false,
-	height: '700',
+	height: '500',
 	width: '770',
 	plugins: [
 		'advlist autolink lists link image charmap print preview anchor',

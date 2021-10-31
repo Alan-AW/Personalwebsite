@@ -3,6 +3,14 @@
     padding: 0;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    background: url("/static/img/manage-bg/manage-login.JPG") no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+
 a {
     text-decoration: none;
 }
@@ -11,40 +19,27 @@ li {
     list-style: none;
 }
 
-body {
-    width: 100%;
-    height: 100%;
-    background: url("/static/img/bg/cx.jpeg") no-repeat center center fixed;
-    background-size: cover;
-}
-
-.form {
-    width: 50%;
-    height: 50%;
-    padding: 10% 15%;
+.form_body {
+    width: 25%;
     margin: 0 auto;
     margin-top: 10%;
 }
 
 form {
-    border: 1px solid #5EAF6F;
-    padding: 50px 60px;
+    text-align: center;
+    padding: 30px 20%;
     border-radius: 10px;
     background-color: rgba(245, 245, 245, .7);
 }
 
-.form form p {
-    width: 100%;
-    height: 50px;
-    text-align: center;
-}
-
-.input {
+.name-input, .pwd-input {
+    width: 80%;
+    height: 40px;
+    margin: 10px 0 0 20px;
     border: none;
     outline: none;
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 18px;
+    font-size: 20px;
+    color: deepskyblue;
     background-color: rgba(0, 0, 0, 0);
 }
 
@@ -64,6 +59,9 @@ form {
     border-radius: 10px;
 }
 
-form span {
-    color: #666;
+.error_msg_show {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
 }

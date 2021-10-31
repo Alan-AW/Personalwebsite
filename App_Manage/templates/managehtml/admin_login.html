@@ -2,26 +2,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="Mr'Xu">
-	<meta name="Description" content="WebSite Manae">
-	<meta name="keywords" content="花有重开日，人无再少年">
-	<meta name="website" content="http://www.xumeijie.com/">
-	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
-	<title id="site_title">后台登陆</title>
-	<link rel="stylesheet" href="{% static 'managestatic/css/login.css' %}">
-	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mr'Xu">
+    <meta name="Description" content="WebSite Manae">
+    <meta name="keywords" content="花有重开日，人无再少年">
+    <meta name="website" content="http://www.xumeijie.com/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title id="site_title">后台登陆</title>
+    <link rel="stylesheet" href="{% static 'managestatic/css/login.css' %}">
+    <!-- bootstrap -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/font-awesome/5.13.0/css/all.css" rel="stylesheet">
 </head>
 <body>
-<div class="form">
-	<form method="post">
-		{% csrf_token %}
-		<p><span>Username:</span><input class="input" type="text" name="username" placeholder="Username"></p>
-		<p><span>Password:</span><input class="input" type="password" name="pwd" placeholder="Password"></p>
-		<p><input type="submit" value="<-Submit->" class="submit"><span style="color: red;">{{ error_msg }}</span></p>
-	</form>
+{% if error_msg %}
+    <div class="alert alert-danger alert-dismissible error_msg_show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span>
+        </button>
+        <strong>Warning!</strong> {{ error_msg }}.
+    </div>
+{% endif %}
+
+<div class="form_body">
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <span class="glyphicon glyphicon-user" aria-hidden="false" style="color: #0d85d1;"></span>
+            <input type="text" name="username" class="name-input" maxlength="20">
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-lock" aria-hidden="true" style="color: #ff6651;"></span>
+            <input type="password" name="pwd" class="pwd-input" maxlength="30">
+        </p>
+        <p><input type="submit" value=" Submit " class="submit"></p>
+    </form>
 </div>
 </body>
+<script>
+    $(function () {
+        $('.name-input').focus();
+    })
+</script>
 </html>

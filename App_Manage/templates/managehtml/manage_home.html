@@ -1,0 +1,56 @@
+{% extends 'managehtml/mange_layout.html' %}
+{% load static %}
+
+{% block css %}
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: url("/static/img/manage-bg/manage-home.JPG") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .list-group .list-group-item {
+            background-color: rgba(235, 235, 235, .7);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 style="color: #ff6651;text-align: center;">欢迎进入栈点后台管理 <small style="color: #09ebfc;">May The Force Be With
+            You!</small></h1>
+    </div>
+    <div class="ul-div">
+        <ul class="list-group col-md-4" style="color: #000;">
+            <li class="list-group-item">
+                <span class="badge">{{ article_count }}</span>
+                全栈所有文章:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ comment_count }}</span>
+                全栈所有评论:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ tags_count }}</span>
+                全栈所有标签:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ cate_count }}</span>
+                全栈所有分类:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ essay_count }}</span>
+                全栈所有随笔:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ leave_count }}</span>
+                全栈所有留言:
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ users_count }}</span>
+                全栈所有用户:
+            </li>
+        </ul>
+    </div>
+{% endblock %}

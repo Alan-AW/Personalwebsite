@@ -8,6 +8,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.conf import settings as sys
 from bs4 import BeautifulSoup
+
+from APP_Comment.models import Comment
 from App_Blog.models import Article, Tags, Category, LeaveMsg
 from App_Essay.models import Essay
 
@@ -27,6 +29,24 @@ def get_article_desc(body):
     desc = soup.text[0:70]
     new_body = str(soup)
     return [desc, new_body]
+
+
+class SiteManage(View):
+    def get(self, request):
+        if has_permission(request):
+            article_count = Article.objects.all().count()
+            comment_count = Comment.objects.all().count()
+            tags_count = Tags.objects.all().count()
+            cate_count = Category.objects.all().count()
+            essay_count = Essay.objects.all().count()
+            leave_count = LeaveMsg.objects.all().count()
+            users_count = User.objects.all().count()
+            return render(request, 'managehtml/manage_home.html', locals())
+        else:
+            return redirect(reverse('blog:home'))
+
+    def post(self, request):
+        pass
 
 
 class ArticleManage(View):
@@ -155,28 +175,49 @@ class TagsManage(View):
                 try:
                     Tags.objects.filter(id__in=id_list).delete()
                     make_status = {'success': True}
-                except Exception:
+                except ModuleNotFoundError:
                     make_status = {'success': False}
             if post_type == 'add':
                 title = request.POST.get('title')
                 if title:
                     Tags.objects.create(title=title)
                     make_status = {'success': True}
-                make_status = {'success': False}
+                else:
+                    make_status = {'success': False}
             return render(request, 'managehtml/tags.html', locals())
         return redirect(reverse('blog:home'))
 
 
 class CategoryManage(View):
     # 分类管理
+    def get_queryset(self):
+        return Category.objects.all()
+
     def get(self, request):
         if has_permission(request):
-            return None
+            cateObj = self.get_queryset()
+            return render(request, 'managehtml/category.html', locals())
         return redirect(reverse('blog:home'))
 
     def post(self, request):
         if has_permission(request):
-            return None
+            cateObj = self.get_queryset()
+            post_type = request.GET.get('type')
+            if post_type == 'delete':
+                id_list = request.POST.getlist('pk')
+                try:
+                    Category.objects.filter(id__in=id_list).delete()
+                    make_status = {'success': True}
+                except ModuleNotFoundError:
+                    make_status = {'success': False}
+            if post_type == 'add':
+                title = request.POST.get('title')
+                if title:
+                    Category.objects.create(title=title)
+                    make_status = {'success': True}
+                else:
+                    make_status = {'success': False}
+            return render(request, 'managehtml/category.html', locals())
         return redirect(reverse('blog:home'))
 
 
@@ -184,7 +225,7 @@ class EssayManage(View):
     # 随笔管理
     def get(self, request):
         if has_permission(request):
-            return None
+            return render(request, 'managehtml/essay.html', locals())
         return redirect(reverse('blog:home'))
 
     def post(self, request):
@@ -197,7 +238,7 @@ class LeaveMsgManage(View):
     # 留言管理
     def get(self, request):
         if has_permission(request):
-            return None
+            return render(request, 'managehtml/leave.html', locals())
         return redirect(reverse('blog:home'))
 
     def post(self, request):
@@ -210,7 +251,7 @@ class UserManage(View):
     # 用户管理
     def get(self, request):
         if has_permission(request):
-            return None
+            return render(request, 'managehtml/users.html', locals())
         return redirect(reverse('blog:home'))
 
     def post(self, request):
@@ -230,7 +271,7 @@ class AdminLogin(View):
         if authUser:
             auth.login(request, authUser)
             if has_permission(request):
-                return redirect(reverse('manage:article_manage'))
+                return redirect(reverse('manage:manage_home'))
             else:
                 return redirect(reverse('blog:home'))
         else:

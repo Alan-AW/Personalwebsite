@@ -353,9 +353,12 @@ GRANT ALL ON *.* TO 'ymwh'@'%';
 flush privileges;
 
 修改mysql编码：
-退出mysql，然后输入命令sudo vi /etc/my.cnf进入配置文件，找到[mysqld]段，在下面添加一句：character-set-server=utf8，然后查看有没有[client]段，如果有，就在下面加一句default-character-set=utf8,如果没有[client]段，那就在最下面加上这个段，并且也写上default-character-set=utf8
+退出mysql，然后输入命令sudo vi /etc/my.cnf进入配置文件，找到[mysqld]段，在下面添加一句：character-set-server=utf8，
+然后查看有没有[client]段，如果有，就在下面加一句default-character-set=utf8,如果没有[client]段，那就在最下面加上这个段，
+并且也写上default-character-set=utf8
 
-尝试用Windows的命令行连接Linux，可以成功，但是尝试用navicat进行连接，会报错（1251-client does not support authentication protocol requested by server consider upgrading MYSQL client）
+尝试用Windows的命令行连接Linux，可以成功，但是尝试用navicat进行连接，会报错
+（1251-client does not support authentication protocol requested by server consider upgrading MYSQL client）
 
 原因：
 MySQL8.0版本的加密方式和MySQL5.0的不一样，连接会报错。
@@ -419,7 +422,8 @@ pip install pymysql
 如果我们在上传项目之前收集过了项目依赖，那么就直接在远程主机上面的虚拟环境里面的项目目录下面运行：
 pip install -r requirements.txt
 
-然后依赖弄完了，那么还有个东西要弄，就是项目里面的静态的文件，因为我们后面不再使用django提供的服务器，所以，django也不再提供相关的静态文件的访问，所以我们现在要收集一下项目的静态文件。在远程主机上直接收集。
+然后依赖弄完了，那么还有个东西要弄，就是项目里面的静态的文件，因为我们后面不再使用django提供的服务器，
+所以，django也不再提供相关的静态文件的访问，所以我们现在要收集一下项目的静态文件。在远程主机上直接收集。
 在虚拟环境下，进入项目目录，运行：
 python manage.py collectstatic
 
@@ -517,13 +521,15 @@ mv /home/ymwh/src/nginxmyfirstpython3blog.conf /etc/nginx/conf.d
 netstat -tulpn
 
 然后还有几个遗漏的问题：
-我们没有创建数据库，你会发现，就算nginx运行正常，uwsgi运行也正常，mysql也是正常的，但是，你就是无法访问。原因是，我们是忘记创建一个关于这个项目的数据库了，进入mysql，创建数据库：CREATE DATABASE XXXX;
+我们没有创建数据库，你会发现，就算nginx运行正常，uwsgi运行也正常，mysql也是正常的，但是，你就是无法访问。
+原因是，我们是忘记创建一个关于这个项目的数据库了，进入mysql，创建数据库：CREATE DATABASE XXXX;
 
 然后修改setting.py里面的DATABASES；
 
 然后生成数据库：python manage.py migrate
 
-这样，与项目相关的数据库就建立完成，但是，别忘记去弄个管理账号，所以在虚拟环境下进入项目目录（/home/ymwh/www/myfirstpython3blog）运行这句命令：python manage.py createsuperuser
+这样，与项目相关的数据库就建立完成，但是，别忘记去弄个管理账号，所以在虚拟环境下进入项目目录
+（/home/ymwh/www/myfirstpython3blog）运行这句命令：python manage.py createsuperuser
 
 
 我这里遇到一个问题，就是部分静态文件无法显示：
@@ -531,7 +537,11 @@ netstat -tulpn
 然后再在虚拟机上使用python manage.py collectstatic命令收集静态文件；这样才能显示全部样式；
 
 部署有个小技巧：自动下载项目需要的依赖：
-首先在本机（编辑项目的机器，我用的是win10系统的）上，进入项目的虚拟环境，然后进入项目margin.py文件所在的目录下面运行pip freeze > requirements.txt命令，收集项目依赖，这个会把依赖的下载地址记录到requirements.txt文本里面；
-然后当下面已经放在目标机器上的时候，激活目标机器里面项目所在的虚拟环境，然后进入到margin.py所在的目录下面，运行pip install -r requirements.txt命令，即可安装项目全部依赖（只要是pip可以下载到的）
+首先在本机（编辑项目的机器，我用的是win10系统的）上，进入项目的虚拟环境，然后进入项目margin.py文件所在的目录下面运行
+pip freeze > requirements.txt命令，收集项目依赖，这个会把依赖的下载地址记录到requirements.txt文本里面；
+然后当下面已经放在目标机器上的时候，激活目标机器里面项目所在的虚拟环境，然后进入到margin.py所在的目录下面，运行
+pip install -r requirements.txt命令，即可安装项目全部依赖（只要是pip可以下载到的）
 
-配置文件我弄了半天，写好了，是没有错误的，可以直接使用，但是里面的项目所在的目录和文件名之类的需要改成自己的名称，而在/etc/nginx下面的nginx.conf文件里面那个user ymwh ymwh;是指定哪个用户所拥有该项目的静态文件，这个得改成自己的linux用户。在这些配置文件里面，我写了一些中文注释，使用的时候最好全部删除，不然可能会发生意想不到的情况。
+配置文件我弄了半天，写好了，是没有错误的，可以直接使用，但是里面的项目所在的目录和文件名之类的需要改成自己的名称，
+而在/etc/nginx下面的nginx.conf文件里面那个user ymwh ymwh;是指定哪个用户所拥有该项目的静态文件，这个得改成自己的linux用户。
+在这些配置文件里面，我写了一些中文注释，使用的时候最好全部删除，不然可能会发生意想不到的情况。

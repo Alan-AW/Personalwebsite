@@ -13,7 +13,7 @@ $(function() {
 				"background-color": "rgba(240,240,240,.7)",
 				"position": "",
 			});
-			$('.nav-ul-li a').css("color", "#999");
+			$('.nav-ul-li a').css("color", "blueviolet");
 		}
 	});
 })

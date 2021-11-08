@@ -28,6 +28,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'App_Manage.middware.permission.Middleware'
 ]
 
 ROOT_URLCONF = 'Personalwebsite.urls'

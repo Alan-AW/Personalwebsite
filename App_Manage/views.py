@@ -133,7 +133,7 @@ class ChangeArticle(View):
             title = request.POST.get('article_title')
             body = request.POST.get('article_body')
             tags = request.POST.getlist('tags')
-            category = request.POST.get('category')
+            category = request.POST.get('category') or articleObj.category.pk
             if all([articleObj, title, body, tags, category]):
                 param = get_article_desc(body)
                 desc = param[0]

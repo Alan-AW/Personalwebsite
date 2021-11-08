@@ -1,12 +1,12 @@
 from django.urls import path, re_path, include
-from App_Blog.views import Welcome, Fishing, CoreBall, Dog
+from App_Blog.views import Welcome, Fishing, CoreBall, Dog, EternalLove
 from django.views import static  # 新增
 from django.conf import settings  # 新增
 from django.views.static import serve
 
 urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
-    re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
     path('', Welcome.as_view(), name='welcome'),
     path('fishing/', Fishing.as_view(), name='fishing'),
     path('coreball/', CoreBall.as_view(), name='coreball'),
@@ -16,7 +16,7 @@ urlpatterns = [
     path('comment/', include(('APP_Comment.urls', 'comment'), namespace='comment')),  # 评论
     path('essay/', include(('App_Essay.urls', 'essay'), namespace='essay')),  # 随笔
     path('site/manage/', include(('App_Manage.urls', 'manage'), namespace='manage')),  # 后台管理
-
+    path('tyc/', EternalLove.as_view(), name='eternal_love')
 ]
 
 handler403 = "App_Blog.views.page_403"

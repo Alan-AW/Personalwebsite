@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="徐小杰">
+    <meta name="Description" content="python,编程,web开发,前端,后端">
+    <meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+    <meta name="website" content="http://www.xumeijie.com/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title id="site_title">他朝若是同淋雪,此生也算共白头</title>
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <!-- 动画 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="left-nav animsition">
+    <a href="" class="animsition-link"></a>
+    {% csrf_token %}
+</div>
+</body>
+<script>
+    $(window).unload(function () {
+        //响应事件
+        $.ajax({
+            url: '/tyc/',
+            type: 'post',
+            data: {
+                'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val(),
+                'close': true,
+            },
+            success: function () {
+                return 'none';
+            }
+        })
+    });
+</script>
+</html>

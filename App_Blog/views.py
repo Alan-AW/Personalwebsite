@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, reverse
 from django.views import View
 from django.db.models.functions import TruncMonth
 from django.db.models import Count
@@ -134,7 +134,7 @@ class LeaveMsgView(View):
             # 另开线程发送通知邮件
             t = threading.Thread(target=send_mail, args=(
                 '留言板新增一条留言',
-                content+'请点击查看内容：www.xumeijie.com/blog/leavemessage/',
+                content + '请点击查看内容：www.xumeijie.com/blog/leavemessage/',
                 sys.EMAIL_HOST_USER,
                 [sys.EMAIL_SELF_ATTR]
             ))
@@ -191,6 +191,26 @@ class AddNewLeave(View):
         else:
             cnm = '您的本次操作存在违规操作，已被系统标记！'
             return HttpResponse(json.dumps(cnm))
+
+
+class EternalLove(View):
+    def get(self, request):
+        is_her = request.session.get(sys.ETERNAL_KEY)
+        if is_her:
+            return render(request, 'blog/eternal.html')
+        return redirect(reverse('blog:about'))
+
+    def post(self, request):
+        if request.is_ajax():
+            name = request.POST.get('name')
+            close = request.POST.get('close')
+            if close:
+                request.session[sys.ETERNAL_KEY] = False
+            if name == sys.ETERNAL_NAME:
+                request.session[sys.ETERNAL_KEY] = True
+                return HttpResponse(json.dumps({'is_her': True}))
+            return HttpResponse(json.dumps({'is_her': False}))
+        return HttpResponse(json.dumps('你不是我要等的人!'))
 
 
 class EnShi(View):

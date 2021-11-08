@@ -11,7 +11,7 @@
         <ul class="nav-bar">
             <li><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
             <li><a href="{% url 'blog:leavemsg' %}" class="animsition-link">留言板</a></li>
-            <li><a href="{% url 'blog:home' %}" title="请输入密码访问" class="animsition-link">一个普通男孩的十年</a></li>
+            <li><a href="javascript:my_love()" title="请输入密码访问">一个普通男孩的十年</a></li>
         </ul>
     </div>
 {% endblock %}
@@ -44,11 +44,12 @@
             敲出一个一日千里，敲出一个虎虎生风，敲出一个远大前程🦄</p>
 
         <p style="color: deepskyblue;margin-top: 10px;">🟣关于栈 - - - - - - - - - - - - - - - - - - - - - - </p><br/>
-        <p>&nbsp;&nbsp;<strong>【背景：】</strong>本栈基于Django框架开发，搭载一颗MySQL关系型数据库，查询率最高可达280W次/秒!原计划上线到New Jersey私人服务器，并且已经买了一个国外的域名：<a
+        <p>&nbsp;&nbsp;<strong>【背景：】</strong>本栈基于Django框架开发，搭载一颗MySQL关系型数据库，查询率最高可达280W次/秒!原计划上线到New
+            Jersey私人服务器，并且已经买了一个国外的域名：<a
                     style="color: #ff6651;">www.xumeijie.com</a>，上线之后效果不甚满意，后迁移至阿里云。已经备案。<br/>
             <br/>&nbsp;&nbsp;<strong>【初衷？】</strong>做这个网站的一是本着深入学习的态度，不断完善和更新系统功能，深入了解建栈的整体逻辑和细节把握，
             二是随着时间的推移所学知识越来越多，精力有限。将自己掌握的内容更新到服务器，做一个知识和技术的分享和传递平台，方便自己造福他人，记录生活，记录一切，贯彻落实终身学习观念。
-	        <br/>&nbsp;&nbsp;<strong>【未来？】</strong> emmm....毕竟 我很穷，这个栈我会尽量维护下去，虽然暂时还没想好以后的方向，但绝不躺平!
+            <br/>&nbsp;&nbsp;<strong>【未来？】</strong> emmm....毕竟 我很穷，这个栈我会尽量维护下去，虽然暂时还没想好以后的方向，但绝不躺平!
         </p>
         <p style="color: green;margin-top: 10px;">🟣那个啥 - - - - - - - - - - - - - - - - - - - - - - </p><br/>
         <p style="font-size: 26px;color: #ff6651">祝：</p>
@@ -87,8 +88,16 @@
             </div>
         </div>
     </div>
+    <div class="tyc-login">
+        {% csrf_token %}
+        <p style="color: #777;">Tell Me Your Name</p>
+        <p><input type="text" id="tyc-name" placeholder="is that you?" maxlength="5"></p>
+        <a href="javascript:submit_eternal()" class="submit-tyc">click</a>
+    </div>
+    <div class="mask"></div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'blog/js/animsition.js' %}"></script>
+    <script src="{% static 'other/about.js' %}"></script>
 {% endblock %}

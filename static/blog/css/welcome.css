@@ -7,15 +7,20 @@
 html, body {
     width: 100%;
     height: 100%;
-	background-color: #fff;
-    background: url(/static/img/bg/bg.jpg) fixed no-repeat center bottom;
-    background-size: cover;
     overflow: hidden;
-	cursor: url(/static/img/bg/S1.cur),auto!important;
+    cursor: url(/static/img/bg/S1.cur), auto !important;
 }
 
 a, button, input, select, textarea {
-    cursor: url(/static/img/bg/S2.cur),auto!important;
+    cursor: url(/static/img/bg/S2.cur), auto !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
 }
 
 ::selection {
@@ -30,99 +35,46 @@ a, button, input, select, textarea {
     text-shadow: none
 }
 
+/* 视频背景 */
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
+    width: auto;
+    z-index: -9999;
+}
+
+source {
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
+    width: auto;
+}
+
 /* canvas */
-.cavs{
+.cavs {
     z-index: 0;
     position: fixed;
     top: 0;
-    width:98%;
-	height: 100%;
+    width: 98%;
+    height: 100%;
     margin-left: 20px;
     margin-right: 20px;
 }
 
 .nav {
-	position: relative;
-	top: 0;
-	z-index: 9999;
-}
-
-/* navgation */
-#navgation {
-	position: fixed;
-	width: 100%;
-	height: 3.125rem;
-	overflow: hidden;
-	border: 1px solid rgba(0, 0, 0, .1);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .3);
-	z-index: 100;
-}
-
-.navigation::before {
-	content: '';
-	width: 100%;
-	height: 3.125rem;
-	filter: blur(0.35rem);
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
-}
-
-#navgation #nav {
-	width: 33rem;
-	height: 3.125rem;
-	margin: 0 auto;
-}
-
-#navgation #nav li {
-	display: block;
-	width: 8.25rem;
-	height: 3.125rem;
-	line-height: 3.125rem;
-	text-align: center;
-	float: left;
-	font-size: 1.5rem;
-}
-
-#navgation #nav li a {
-	display: block;
-	width: 100%;
-	height: 100%;
-	color: #A020F0;
-	line-height: 3.125rem;
-	text-align: center;
-	transition: all 0.3s;
-}
-
-#navgation #nav li a:hover{
-	font-size: 1.9rem;
-	color: whitesmoke;
-}
-
-#navgation #nav li img {
-	float: left;
-	width: 1.875rem;
-	height: 1.875rem;
-	border-radius: 50%;
-	object-fit: cover;
-	margin-top: 0.55rem;
-}
-
-a {
-    text-decoration: none;
-}
-
-li {
-	list-style: none;
+    position: relative;
+    top: 0;
+    z-index: 9999;
 }
 
 /* 你的城市 */
 .show-city {
-	margin: 0 auto;
-	margin-top: 8%;
+    margin: 0 auto;
+    margin-top: 8%;
     color: peachpuff;
     font-size: 40px;
     width: 100%;
@@ -135,7 +87,7 @@ li {
     padding: 0 0 0 40%;
     box-sizing: border-box;
     transition: all 0.3s;
-	height: 15rem;
+    height: 15rem;
 }
 
 
@@ -163,44 +115,44 @@ li {
 }
 
 .five {
-	color: #A020F0;
+    color: #A020F0;
 }
 
 /* 导航 */
 .nav {
-	margin-top: 1.875rem;
-	width: 100%;
-	height: 3.75rem;
-	line-height: 3.75rem;
-	padding-left: 40%;
-	box-sizing: border-box;
+    margin-top: 1.875rem;
+    width: 100%;
+    height: 3.75rem;
+    line-height: 3.75rem;
+    padding-left: 40%;
+    box-sizing: border-box;
 }
 
 .nav-ul {
-	width: 100%;
-	height: 100%;
-	text-align: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
 }
 
 .nav-ul li {
-	width: 6%;
-	height: 100%;
-	line-height: 3.75rem;
-	float: left;
-	margin-right: 0.8rem;
+    width: 6%;
+    height: 100%;
+    line-height: 3.75rem;
+    float: left;
+    margin-right: 0.8rem;
 }
 
 .nav-ul li a {
-	display: block;
-	height: 100%;
-	line-height: 3.75rem;
-	transition: all 0.3s;
+    display: block;
+    height: 100%;
+    line-height: 3.75rem;
+    transition: all 0.3s;
 }
 
 .nav-ul li a:hover {
-	transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 img {
-	border-radius: 50%;
+    border-radius: 50%;
 }

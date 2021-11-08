@@ -1,389 +1,411 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="Mr'Xu">
-		<meta name="Description" content="WebSite Desc">
-		<meta name="keywords" content="search keyword">
-		<meta name="website" content="http://www.xumeijie.com/">
-		<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
-		<title id="site_title">硒都风情(￣┰￣*)</title>
-		<link rel="stylesheet" type="text/css" href="{% static 'blog/css/enshi.css '%} " />
-		<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-		<!-- 动画 -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
-			integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
-			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
-			integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
-			crossorigin="anonymous" referrerpolicy="no-referrer" />
-	</head>
-	<body>
-		<!-- 导航栏 -->
-		<div class="nav">
-			<div class="nav-content">
-				<strong><a href="{% url 'welcome' %}" title="😘I'm waiting for you🥰" id="starry">Starry</a></strong>
-				<ul class="nav-ul">
-					<li class="nav-ul-li"><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
-					<li class="nav-ul-li"><a href="{% url 'essay:essay' %}" class="animsition-link">随笔</a></li>
-					<li class="nav-ul-li"><a href="{% url 'blog:leavemsg' %}" class="animsition-link">留言</a></li>
-					<li class="nav-ul-li"><a href="{% url 'blog:about' %}" class="animsition-link">关于</a></li>
-					{% if request.user.is_authenticated %}
-					<li class="nav-ul-li"><a href="{% url 'users:logout' %}" class="animsition-link">退出</a></li>
-					{% else %}
-					<li class="nav-ul-li"><a href="{% url 'users:signin' %}" class="animsition-link">登陆</a></li>
-					{% endif %}
-					
-				</ul>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="徐小杰">
+	<meta name="Description" content="python,编程,web开发,前端,后端">
+	<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+	<meta name="website" content="http://www.xumeijie.com/">
+	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+	<title id="site_title">硒都风情(￣┰￣*)</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/css/enshi.css ' %} "/>
+	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+	<!-- 动画 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+	        integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+	        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+	      integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+	      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<!-- 导航栏 -->
+<div class="nav">
+	<div class="nav-content">
+		<strong><a href="{% url 'welcome' %}" title="😘I'm waiting for you🥰" id="starry">Starry</a></strong>
+		<ul class="nav-ul">
+			<li class="nav-ul-li"><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
+			<li class="nav-ul-li"><a href="{% url 'essay:essay' %}" class="animsition-link">随笔</a></li>
+			<li class="nav-ul-li"><a href="{% url 'blog:leavemsg' %}" class="animsition-link">留言</a></li>
+			<li class="nav-ul-li"><a href="{% url 'blog:about' %}" class="animsition-link">关于</a></li>
+			{% if request.user.is_authenticated %}
+				<li class="nav-ul-li"><a href="{% url 'users:logout' %}" class="animsition-link">退出</a></li>
+			{% else %}
+				<li class="nav-ul-li"><a href="{% url 'users:signin' %}" class="animsition-link">登陆</a></li>
+			{% endif %}
+
+		</ul>
+	</div>
+</div>
+
+<!-- 主体 -->
+<div class="center">
+	<!-- 左侧内容导航 -->
+	<div class="left-nav animsition" data-animsition-in-class="fade-in-left" data-animsition-in-duration="1000"
+	     data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
+		<h1 class="left-nav-title">云赏硒都</h1>
+		<ul>
+			<li><a href="javascript:show_top('map')">地理•恩施</a></li>
+			<li><a href="javascript:show_top('person')">人文•恩施</a></li>
+			<li><a href="javascript:show_top('eating')">美食•恩施</a></li>
+			<li><a href="javascript:show_top('scenery')">迤逦•恩施</a></li>
+			<li><a href="javascript:show_top('night')">魅丽•恩施</a></li>
+		</ul>
+	</div>
+	<!-- 内容展示 -->
+	<div class="content animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
+	     data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
+		<!-- 地理 -->
+		<div class="map-enshi boxsd">
+			<div class="map-title float-bg">
+				<h1>“为何我的眼里常含泪水，</h1>
+				<h1 class="padding-5">因为我对这土地爱得深沉！”</h1>
+			</div>
+			<h2>-恩施在哪里？？湖北？鄂西南？</h2><br/>
+			<div class="map-content">
+				<h2 style="color: #000;">NoNoNo</h2><br/>
+				<h2><span style="color: red;">恩施</span>在我<span style="color: red;">心</span>里~~</h2><br/>
+				<p>作为一个<span style="color: orangered;">土生土长</span>的恩施人，这片土地对我来说不仅仅是一个<span
+						style="color: darkred;">家乡</span>,<br/>它更是一个可以寄托<span
+						style="color: red;">灵魂</span>的地方。人们常说<span
+						style="color: mediumslateblue;">“他乡容纳不了灵魂，故乡安置不了肉身，便有了漂泊，有了乡愁！”</span>
+				</p><br>
+				<p style="color: coral;">关于恩施，这些你都知道吗？</p>
+				<p>
+					--恩施市，位于湖北省西南部，武陵山北部，清江中上游，东邻建始县，西接利川市，南毗鹤峰县、宣恩县、咸丰县，北连重庆市奉节县。介于东经109°4′48″~109°58′42″、北纬29°50′33″~30°39′30″之间。东西长86.5千米，南北宽90.2千米，总面积3971.58平方千米。
+				</p><br>
+				<p>--地形地貌</p>
+				<p>
+					恩施市境内为鄂西南山地，属中国地势第二阶梯末端，云贵高原东延部分。西北、东南高，中部低，呈东北至西南纵裂地带走向。境内沉积岩分布广泛，多山间槽坝；喀斯特地貌发育完全，溶洞天坑较多。境内大山顶、石灰窑、太山庙一带，呈小型高原地貌分布。
+				</p><br>
+				<p>--水文</p>
+				<p>恩施市境内可供开发利用河流58条，主要河流有清江、带水河、马水河、马尾沟河、云龙河、太阳河、米田河、芭蕉河、车坝河等，水能理论蕴藏量75.6万千瓦。 </p>
+				<p>--气候</p>
+				<p>
+					恩施市属中纬度亚热带气候，冬无严寒，夏无酷暑，呈现出垂直气候的分带性和局地气候的特殊性。年平均气温16℃左右，年日照时数1300小时，相对湿度82%，年降雨量1400—1500毫米，年空气优良天数300天以上。
+				</p>
 			</div>
 		</div>
-
-		<!-- 主体 -->
-		<div class="center">
-			<!-- 左侧内容导航 -->
-			<div class="left-nav animsition" data-animsition-in-class="fade-in-left" data-animsition-in-duration="1000"
-				data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
-				<h1 class="left-nav-title">云赏硒都</h1>
-				<ul>
-					<li><a href="javascript:show_top('map')">地理•恩施</a></li>
-					<li><a href="javascript:show_top('person')">人文•恩施</a></li>
-					<li><a href="javascript:show_top('eating')">美食•恩施</a></li>
-					<li><a href="javascript:show_top('scenery')">迤逦•恩施</a></li>
-					<li><a href="javascript:show_top('night')">魅丽•恩施</a></li>
-				</ul>
+		<!-- 历史 -->
+		<div class="person-enshi boxsd" id="person-enshi">
+			<div class="person-title float-bg">
+				<h1>“知其所以然”</h1>
+				<h1>为什么叫“恩施洲”？</h1>
 			</div>
-			<!-- 内容展示 -->
-			<div class="content animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000"
-				data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
-				<!-- 地理 -->
-				<div class="map-enshi boxsd">
-					<div class="map-title float-bg">
-						<h1>“为何我的眼里常含泪水，</h1>
-						<h1 class="padding-5">因为我对这土地爱得深沉！”</h1>
+			<div class="person-content">
+				<h2>恩施土家族苗族自治州，是新中国成立以来的最年轻的自治州。</h2>
+				<br>
+				<p>恩施古为<b>荆州、梁州</b>的交界地区。<br>
+					春秋时期，为巴国界，战国时期，属楚巫郡地。<br>
+					秦，属黔中郡。<br>
+					汉，属南郡巫县南境，隶荆州。<br>
+					<span style="color: orangered;"><b>恩施建县始于吴永安三年（260年）</b></span>，置沙渠县，隶荆州。<br>
+					<span style="color: orangered;"><b>晋太康元年（280年）</b></span>，沙渠县改属建平郡。南北朝时，宋、齐沿袭。<br>
+					<span
+							style="color: orangered;"><b>北周建德二年（573年）</b></span>，沙渠县境内置施州及清江郡治所，分沙渠部分地为乌飞、盐水二县，乌飞属施州，盐水置亭州及资田郡。<br>
+					<span style="color: orangered;"><b>隋开皇初</b></span>，废清江、资田二郡，改乌飞县为开夷县。<br>
+					<span style="color: orangered;"><b>开皇五年（585年）</b></span>，改沙渠县为清江县，隶荆州总管。<br>
+					<span style="color: orangered;"><b>义宁二年（618年）</b></span>，废清江郡，复置施州，领清江、开夷二县。<br>
+					<span style="color: orangered;"><b>唐武德初，置江州</b></span>，盐水县属之。<br>
+					<span style="color: orangered;"><b>武德四年（621年）</b></span>，废盐水县，入清江县。唐贞观元年（627年），清江县属江南道。<br>
+					<span style="color: orangered;"><b>麟德一年（664年）</b></span>，废开夷县入清江县，清江县为施州治所所在地。<br>
+					<span style="color: orangered;"><b>唐开元二十一年（733年）</b></span>，清江县属黔中道。<br>
+					<span style="color: orangered;"><b>天宝元年（742年）</b></span>，改施州为清化郡。五代属蜀，宋属施州，隶夔州路。<br>
+					<span
+							style="color: orangered;"><b>元至元十五年（1278年）</b></span>，隶夔州路总管府。至元二十二年（1285年），并清江入州，属四川行省。明洪武初裁施州。<br>
+					<span style="color: orangered;"><b>洪武十四年（1381年）</b></span>，恩施县隶施州卫军民指挥使司，属四川都司，后改湖广都司。<br>
+					<span style="color: orangered;"><b>清朝初年</b></span>，依循明制，属湖北荆州府。<br>
+					<span style="color: orangered;"><b>雍正六年（1728年）</b></span>，裁施州卫，改为恩施县，隶属归州。<br>
+					<span style="color: orangered;"><b>雍正十三年（1735年）</b></span>，恩施县隶属施南府。<br>
+					<span style="color: orangered;"><b>乾隆元年（1736年）</b></span>，以原境设恩施县为附郭首县。<br>
+					<span style="color: orangered;"><b>民国元年（1912年）</b></span>，废府存县，恩施县属湖北省直管。<br>
+					<span style="color: orangered;"><b>民国四年（1915年）</b></span>，恩施县属荆南道。<br>
+					<span style="color: orangered;"><b>民国十五年（1926年）</b></span>，恩施县归施鹤道，为施鹤道治所。<br>
+					<span style="color: orangered;"><b>民国十六年（1927年）</b></span>，废道存县。<br>
+					<span style="color: orangered;"><b>民国十七年（1928年）</b></span>，设鄂西行政区，恩施县为行政区治所。<br>
+					<span style="color: orangered;"><b>民国二十一年（1932年）</b></span>，恩施县归湖北省第十行政督察区管辖。<br>
+					<span style="color: orangered;"><b>民国二十五年（1936年）</b></span>，改第十行政督察区为第七行政督察区，恩施县为附郭县。<br>
+					<span style="color: orangered;"><b>抗日战争时期</b></span>，武汉沦陷，湖北省政府迁恩施近8年，恩施成为湖北省临时省会。<br>
+					<span style="color: orangered;"><b>1949年</b></span>，恩施县成立恩施县人民政府，为恩施地区行政公署所在地。<br>
+					<span style="color: orangered;"><b>1981年</b></span>，设立恩施市（县级）。<br>
+					<span style="color: orangered;"><b>1983年8月</b></span>，撤销恩施县，并入恩施市。12月，恩施地区改名为鄂西土家族苗族自治州。<br>
+					<span style="color: orangered;"><b>1984年</b></span>，恩施市、恩施县合并。<br>
+					<span style="color: orangered;"><b>1993年</b></span>，鄂西土家族苗族自治州易名恩施土家族苗族自治州，恩施市为自治州首府所在地。
+				</p>
+			</div>
+		</div>
+		<!-- 美食 -->
+		<div class="eating-enshi boxsd">
+			<div class="eating-title float-bg">
+				<h1>民以食为天,食以安为先,</h1>
+				<h1 class="padding-5">安以质为本,质以诚为根。</h1>
+			</div>
+			<div class="eating-content">
+				<h2>每个地方都有其独特的风土人情和饮食文化</h2>
+				<p>鼎鼎有名的“恩施州十大名吃”你都吃过哪些？</p><br>
+				<div class="yct">
+					<p>*<span style="color: deepskyblue;">土家油茶汤</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/油茶汤.jpg' %}" width="220px">
 					</div>
-					<h2>-恩施在哪里？？湖北？鄂西南？</h2><br />
-					<div class="map-content">
-						<h2 style="color: #000;">NoNoNo</h2><br />
-						<h2><span style="color: red;">恩施</span>在我<span style="color: red;">心</span>里~~</h2><br />
-						<p>作为一个<span style="color: orangered;">土生土长</span>的恩施人，这片土地对我来说不仅仅是一个<span
-								style="color: darkred;">家乡</span>,<br />它更是一个可以寄托<span
-								style="color: red;">灵魂</span>的地方。人们常说<span
-								style="color: mediumslateblue;">“他乡容纳不了灵魂，故乡安置不了肉身，便有了漂泊，有了乡愁！”</span>
-						</p><br>
-						<p style="color: coral;">关于恩施，这些你都知道吗？</p>
-						<p>--恩施市，位于湖北省西南部，武陵山北部，清江中上游，东邻建始县，西接利川市，南毗鹤峰县、宣恩县、咸丰县，北连重庆市奉节县。介于东经109°4′48″~109°58′42″、北纬29°50′33″~30°39′30″之间。东西长86.5千米，南北宽90.2千米，总面积3971.58平方千米。
-						</p><br>
-						<p>--地形地貌</p>
-						<p>恩施市境内为鄂西南山地，属中国地势第二阶梯末端，云贵高原东延部分。西北、东南高，中部低，呈东北至西南纵裂地带走向。境内沉积岩分布广泛，多山间槽坝；喀斯特地貌发育完全，溶洞天坑较多。境内大山顶、石灰窑、太山庙一带，呈小型高原地貌分布。
-						</p><br>
-						<p>--水文</p>
-						<p>恩施市境内可供开发利用河流58条，主要河流有清江、带水河、马水河、马尾沟河、云龙河、太阳河、米田河、芭蕉河、车坝河等，水能理论蕴藏量75.6万千瓦。 </p>
-						<p>--气候</p>
-						<p>恩施市属中纬度亚热带气候，冬无严寒，夏无酷暑，呈现出垂直气候的分带性和局地气候的特殊性。年平均气温16℃左右，年日照时数1300小时，相对湿度82%，年降雨量1400—1500毫米，年空气优良天数300天以上。
-						</p>
+					<p>土家油茶汤是一种似茶饮汤质类的点心小吃，香、脆、滑、鲜，味美适口，提神解渴，是土家人传统的非常钟爱的风味食品，
+						故有民谚曰：“不喝油茶汤，心里就发慌”，“一日三餐三大碗，做起活来硬邦邦”。
+						同时，喝油茶汤又是土家人招待客人的一种传统礼仪，凡是贵客临门，土家人都要奉上一碗香喷喷的油茶汤款待。</p><br>
+					<p>土家油茶汤是恩施州土家族具有代表性的饮食文化现象之一，堪称中国茶文化一绝，源远流长。
+						至今在全州，特别是在咸丰、来凤等地盛行。1992年，“来凤县土家族油茶汤茶艺团”参加了在杭州举办的中国首届茶文化节，
+						博得“来凤名茶传千里，土家油茶香九州”的赞誉。韩国代表团称赞土家族油茶汤“是中国茶文化一绝。”后来有关部门将土家族油茶汤提炼、
+						整理成“四道茶”（即白鹤茶、泡儿茶、油茶汤、鸡蛋茶）、油茶道表演等形式，使之成为一种规范化的程式茶道。在2005年中国茶叶协会主
+						办的中国富硒茶文化节上，幽雅卓绝的“四道茶”茶道茶艺表演成为一道靓丽的风景，使得油茶汤这一土家茶文化精髓得以发扬光大。
+					</p><br>
+					<p>据传，油茶汤是土家放牛娃在茶山里摆“家家”而发明。他们在山上拾得一捧油茶籽，
+						放在瓦罐中炒出了茶油，再摘来茶叶放油中一炸，兑上山泉水，加入随身带来的炒苞谷，吃得津津有味，久而久之，喝油茶汤便成了土家人的习惯。</p>
+				</div>
+
+				<div class="zghz" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">张关合渣</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/张关合渣.jpg' %}" width="220px">
+					</div>
+					<p>张关合渣因宣恩一小集镇“张关”而得名，以合渣火锅为典型特征，尤以镇上一位黄姓老太婆制作的最有名、最为地道。张关合渣口味纯正，营养丰富，人们戏称“全价食料”。
+						无论在城市还是在农村，无论是本地人还是中外游客都特别喜欢吃，受到极高评价。</p><br>
+					<p>合渣，又名懒豆腐。恩施土家人对合渣有着深厚的感情，特别是在兵荒马乱之年，由于粮食奇缺，合渣救下了不少人的性命，流传有“辣椒当盐，合渣过年”的民谚。如今，
+						恩施人吃合渣已不是逢年过节才能吃的“奢侈品”了，平时在家里都能吃上合渣，许多餐馆更是把它当成一道特色菜上桌供应，深受顾客的青睐。</p>
+				</div>
+
+				<div class="tjlr" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">土家腊肉(系列)</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/土家腊肉.jpg' %}" width="220px">
+					</div>
+					<p>
+						土家人家家都兴喂年猪，主要是图过年时有肉吃，过年吃不完的，土家人便把它制作成腊肉，不仅便于保存，而且肉色更加好看，把腊肉放在锅里烹煮，香飘十里，勾人食欲，是土家人平时招待客人摆在席上的主菜。</p>
+					<p>土家腊肉的制作方法是：</p>
+					<p>（1）将猪肉分成三至五斤（或更大）的块，便于入味和加工储藏；</p>
+					<p>（2）把盐炒黄，加花椒炒出香味出锅；</p>
+					<p>（3）把肉用温盐抹匀，放入盆中，将盆底的肉皮朝下肉朝上，面上层的肉皮朝上肉朝下排放整齐，每3~5天翻一次，10天后沥干水分挂到熏房中；</p>
+					<p>（4）用松柏枝加核桃壳、花生壳、桔子皮等柴草料进行烟熏烘烤，月余后待肉变棕红时即可。</p>
+					<p>熏好的肉应该放在通风处，可保存两至三年不变质，名曰“腊肉”，也称“土家腊肉”、“恩施熏肉”。土家腊肉色泽焦黄、肉质坚实、熏香浓郁、风味独特。</p>
+					<p>食用时，取肉在火上将肉皮烧焦黄，放在温水中将皮泡软，刮洗干净备用。</p>
+					<p>
+						腊肉的烹调方法比较多，不同部位不同，排骨、猪蹄一般用来炖，制作火锅；其它部位一般用来与鲊广椒、蒜苗、山野菜、小米一起炒、蒸而食。比较有名的腊肉菜品有：小米蒸年肉、鲊广椒炒腊肉、糖年肉、蕨粑炒腊肉、腊蹄子火锅等。</p>
+				</div>
+
+				<div class="bydg" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">白杨豆干</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/白杨豆干.jpg' %}" width="220px">
+					</div>
+					<p>柏杨豆干因产于利川市柏杨坝镇柏杨村而得名。</p>
+					<p>明清以来，在利川柏杨集镇一带就大量生产豆干，其中尤以沈记好吃婆豆干作坊生产的豆干最为有名，并被当地官员列为朝廷贡品，深受朝廷皇族们的喜爱，康熙皇帝还给沈记好吃婆豆干作坊亲笔御赐“深山奇食”金匾，
+						从此沈记好吃婆豆干就改称为深山奇食好吃婆豆干，并以皇恩御赐为荣，使豆干制作传统工艺沿袭几百年传承至今，成为人们喜爱的地方风味小吃。</p>
+					<p>柏杨豆干主要以优质地产大豆、龙洞湾泉水和若干种天然香料为原料，经过水洗、浸泡、碾磨、过滤、滚浆、烧煮、包扎、压榨、烘烤、卤制、密封等十几道独特工序加工而成。</p>
+					<p>柏杨豆干在整个制作过程中，其特殊性就是不用石膏及其他任何化学品，奥妙就在于当地泉水和传统工艺中。是制豆腐业中的一绝。</p>
+					<p>
+						柏杨豆干色泽金黄，美味幽长，绵醇厚道，质地细腻，无论生食还是热炒，五香还是麻辣，均有沁人心脾回味无穷之感。经质量技术监督、卫生防疫等部门检验，产品符合国家标准，内含丰富蛋白质、多种维他命及钙、锌、钠、硒等多种微量元素，保质期可达8个月以上，有“固体豆浆”之美称。</p>
+				</div>
+
+				<div class="sf" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">社饭</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/社饭.jpg' %}" width="220px">
+					</div>
+					<p>
+						社饭自古有之，是中国土家、苗、侗族等少数民族祭祀社稷的一种食品。吃社饭，主要在社日（即立春后第五个戊日）进行，民间习惯称为“过社”、“拦社”等。戊日属土，所以这天是祭祀土地菩萨的日子，人们以祈年景顺利，五谷丰登，家运祥和。</p>
+					<p>
+						土家人十分看重“过社”，家家户户乐此不疲，过社时，都兴做香喷喷的社饭。唐《社日》“鹅湖山下稻粮肥，豚栅鸡栖半掩扉。桑柘影斜春社散，家家扶得醉人归。”及清《潭阳竹枝词》“五戊经过春日长，治聋酒好漫沽长。万家年后炊烟起，白米青蒿社饭香。”等诗词就是对土家人“过社”的真实写照。</p>
+					<p>土家人做社饭不光是自家人吃，还把它作为馈赠亲友的佳品，故有民谚说，“送完了自家的，吃不完别家的”，充分显示出土家人淳朴、亲和的民风。</p>
+					<p>由于社蒿（香蒿）具有很好的药理作用，其性苦寒，能治疗和预防“伤、肿痛、痨、疟、痢、痔”等多种疾病，所以社饭是土家人传统药膳中的一个常用品种。</p>
+				</div>
+
+				<div class="zgj" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">鲊广椒(渣海椒)</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/鲊广椒.jpg' %}" width="220px">
+					</div>
+					<p>恩施土家族苗族自治州境内的土家人特别酷爱酸辣。有“三日不吃酸和辣，心里就象猫儿抓”的民谚，鲊广椒正是在这样的背景下发明的，并在恩施这块土地上长盛不衰。</p>
+					<p>
+						鲊广椒，也称为鲊辣椒，它是以恩施本地鲜红辣椒和苞谷面（玉米面）为主要原料加工而成。具体制作是：将鲜红辣椒去蒂洗净，沥干水分，用铡刀剁成细沫，加入食盐拌匀，再加入苞谷面拌匀（也有的还拌入花椒、桔皮等调料的）。盛入干净的坛子里，上面盖上菜叶，然后用竹片将其卡紧，再倒置于盆中，加入水（称为倒腹水）。优点是重力压住坛口，密封效果好，吸水有度，为无氧发酵提供了保障，使成品口味更醇更香。制作少量的鲊广椒也可用正腹水坛子，即有沿可放水的，正放，在沿内槽中放水，盖上盖，但这种坛子制作的鲊广椒不可存放太久，因为坛子内气压有可能将坛盖冲开进入空气，也可能吸水过多变稀走味。拌好的鲊广椒装坛后让其充分发酵，大约3周后就可取出烹制。一般是在锅中焙熟后与土家腊肉一起炒食或作扣碗底料蒸食，成品色泽微红，酸辣味十分特别。还有用鲊广椒做蒸肉、扣肉底料、伴料，这样做出来的蒸肉不油腻、爽口，易消化吸收。甚至用它与苞谷面做成苞谷糊喝的，叫鲊广椒糊。</p>
+				</div>
+
+				<div class="gxm" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">葛仙米</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/葛仙米.jpg' %}" width="220px">
+					</div>
+					<p>
+						葛仙米俗称天仙米、天仙菜、水木耳、田木耳。为水生藻类植物，属蓝绿藻的一种，单细胞，无根无叶，墨绿色珠状，纯野生，是名副其实的纯天然绿色食品。相传东晋时期，炼丹术家、医学家、道教理论家葛洪在隐居南土时，灾荒之年采以为食，偶获健体之功能。后来葛洪入朝以此献给皇上，体弱太子食后病除体壮，皇上为感谢葛洪之功，随将“天仙米”赐名“葛仙米”，沿称至今。</p>
+					<p>葛仙米营养丰富，是宴席佳品，含有15种氨基酸，多种维生素和其它自然食品不及而人体必须的微量元素Mn、Ca、Zn、Fe、P等矿物质成份。</p>
+					<p>此外，葛仙米还有药用保健功能，据《全国中草药汇编》介绍，葛仙米“性寒、味淡，可以消热、收敛、益气、明目，主治夜盲症、脱肛；外用可治烧伤、烫伤及护肤美容等。”</p>
+					<p>
+						恩施州鹤峰县走马镇是世界上最大的葛仙米产区，这里适宜葛仙米生长的水田、池沼达670余公顷，因葛仙米生长对其自然条件（如气候、土壤、阳光、经纬度、海拔等）要求极高，当今世界上仅非洲有极少量发现。葛仙米不愧是世界上真正罕见的神品。</p>
+				</div>
+
+				<div class="ftj" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">凤头姜</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/凤头姜.jpg' %}" width="220px">
+					</div>
+					<p>因其形似凤头而得名，又名“来凤姜”，是来凤县民间经过长期选育稳定下来的地方优良生姜品种。其姜柄如指，尖端鲜红，略带紫色，块茎雪白。</p>
+					<p>
+						凤头姜无筋脆嫩、富硒多汁、辛辣适中、味美可口、开胃生津、风味独特、醇香浓郁持久，为姜中独具特色之佳品，在全国生姜品种中独树一帜，因而早已是东南亚市场青睐的畅销品。1998年获得农业部“绿色食品”证书，成为全国<span
+							style="color: green;">第一姜。</span></p>
+					<p>凤头姜富含多种维生素、氨基酸、蛋白质、脂肪、胡萝卜素、糖、姜油酮、酚、醇以及人体必须的铁、锌、钙、硒等微量元素。</p>
+					<p>凤头姜除是佐餐必备佳品外，更具有健脾开胃、祛寒御湿、加速血液循环、延缓衰老、防癌之功效，还可提取姜油酮、姜油、香精等医药化工用品。姜油酮治疗关节炎具有显著疗效。</p>
+					<p>
+						以凤头姜为主要原料，可制作成糟姜，糟姜是土家族人人喜爱的咸菜。制作方法是：将生姜去皮，用水洗净，沥干水分，然后切成小而均匀的姜块，放入盆内，加入白酒、酒糟、盐、花椒和切碎的红辣椒一起拌匀，置入坛内，上面撒上砂糖，盖严坛口，糟腌约一星期即可开坛食用。</p>
+				</div>
+
+				<div class="cc" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">福宝山莼菜</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/福宝山莼菜.webp' %}" width="220px">
+					</div>
+					<p>
+						福宝山莼菜又称马蹄草、荨草、水葵。是一种高等多年水生植物，叶片呈椭圆形，正面绿色，背面暗红色，叶柄细长。莼菜相传为古代神山所赐，是水中一珍，自晋代以来为历朝皇宫御案之贡品，皇室宫宴之佳肴。它可煮、可炒、可凉拌，尤其是与鱼肉、熟鸡、火腿、香肠等配在一起做汤，鲜嫩可口，味粘甘滑，色、香、味、形俱佳。</p>
+					<p>
+						经检测，福宝山莼菜含蛋白质24.7~36.5%，糖类含量39%，锌稳定含量高达153~288ppm，锗含量0.11mg/g，硒含量0.1~0.54ppm，并富含多种氨基酸和维生素。果胶丰富，风味独特，鲜脆、滑嫩如鱼髓、琼脂，不仅可广泛用于炒、凉拌、做汤，而且是一种天然的降温、解暑佳品及幼儿增智食品。同时，据传统医学和现代医学研究表明，莼菜除对抑制消化系统癌症有食疗效果外，还对抑制动脉粥样硬化、抗脑血栓、利水、消肿、健胃、美容护肤等均有良好效果，是难得的绿色保健食品。</p>
+					<p>《诗经》、《本草纲目》中记载，食用莼菜可以消渴熟痹，又可补下气，还可治痛肿等症，具有延年益寿、健胃强身、美容润肤的作用。</p>
+					<p style="color: red;">福宝山莼菜先后获得“首届中国国际农业博览会名牌产品金奖”，是同类产品唯一取得国家“绿色产品”标志的产品。</p>
+				</div>
+
+				<div class="nr" style="margin-top: 1.25rem;">
+					<p>*<span style="color: deepskyblue;">年肉</span></p><br>
+					<div class="img" style="float: right;margin-left: 0.625rem;">
+						<img src="{% static 'img/enshi/十大美食/年肉.jpg' %}" width="220px">
+					</div>
+					<p>
+						相传，年肉滥觞于一场战乱。有一年除夕前，土家山寨突遭军队攻入，土家人正在热火朝天地做团年饭，做梦也没有想到在这样的日子会罹此大难，纷纷抛家舍业，拖儿带女四散奔逃。部分逃进深山石洞的人虽然侥幸脱离了虎口，但饱受冻馁之苦。幸好有一长者于仓促中带出了一大块熟猪肉，于是大家每人都分得了一小片肉，这才和着眼泪熬过了这个凄惶的年关。战乱平息后，为了记取这次血的教训，土家人过年时，家家户户都应蒸几大块熟肉，以防再次遭受类似的祸患。以后相沿成习，年肉便进入了土家人春节菜谱。</p>
+					<p>随着土家人生活水平的提高以及膳食结构的变化要求，而今在保持传统特色的基础上，采取了一些降腻烹饪法，创造出了《葵花年肉》、《巴人扣肉》、《糖年肉》等新品，深受国内外客人青睐。</p>
+					<p></p>
+				</div>
+			</div>
+		</div>
+		<!-- 风景 -->
+		<div class="scenery-enshi boxsd">
+			<div class="scenery-title float-bg">
+				<h1>“踏遍青山人未老</h1>
+				<h1 class="padding-5">风景这边独好”</h1>
+			</div>
+			<div style="margin-bottom: 2rem;">
+				<p>国外有一处秘境，被称作<span style="color: seagreen;">人间天堂“仙本那”</span>清澈如玉的海水，碧波荡漾的天空。美不胜收！</p>
+				<p>然而国内的月亮也一样圆，在咱们湖北也有一个乘悬浮船才能进入的<span style="color: lightsalmon;"><b>仙境</b></span></p>
+				<p>它曾被美国CNN评选为<span style="color: #DDA0DD;">“中国最美仙境”</span>，被《中国国家地理》评选为 <span style="color: #DDA0DD;">“中国最美的地方”</span>
+				</p>
+				<p>它也是被列入<span style="color: #A020F0;">“世界文化遗产名录”</span>的旅游胜地</p>
+			</div>
+			<div class="scenery-content">
+				<div class="scenery-show-img">
+					<p style="text-align: center;"><span class="scenery-title-span">屏山峡谷</span></p>
+					<div class="psxg-img" style="margin: 20px 0;">
+						<p>屏山，因山顶平旷、山侧屏立而得名。屏山之腹土地平旷，屋舍俨然，有良田美池桑竹绕道，有阡陌古道曲径通幽；屏山之侧深溪环绕，四周峭壁悬空倚天，龙渊峡、躲避峡、雕崖峡之嵯峨怪石如刀削斧劈屏立，
+							犹如航行于武陵腹地碧波万顷苍翠群山之间的孤岛，有“东方诺舟”之称。</p>
+						<img src="{% static 'img/enshi/屏山峡谷/2.JPG' %}">
+						<p>屏山地形地貌奇特，南北长近20公里，东西宽不到5公里。山体形态变化多样，四周峭壁耸立，溪流环绕，峰峦与河谷底部高差1000米以上，形成罕见的峡谷和地缝风光</p>
+						<img src="{% static 'img/enshi/屏山峡谷/1.JPG' %}">
+						<p>土司文化：2006年，容美土司遗址被国务院公布为第六批全国重点文物保护单位。在众多的土司爵府遗址中，屏山爵府遗址是目前鹤峰发现的容美土司遗址中规模最大、名气最大的遗址。</p>
+						<img src="{% static 'img/enshi/屏山峡谷/3.JPG' %}">
+						<p>
+							红色文化：1930年2月，红四军东进以前，贺龙将湘鄂边军医院设在这个天险之上，还有枪炮局和被服厂，这里在当时成为红军在湘鄂边最大的医疗和军需补给基地，给屏山增添了红色的文化内涵和传奇色彩。</p>
+						<img src="{% static 'img/enshi/屏山峡谷/4.JPG' %}">
 					</div>
 				</div>
-				<!-- 历史 -->
-				<div class="person-enshi boxsd" id="person-enshi">
-					<div class="person-title float-bg">
-						<h1>“知其所以然”</h1>
-						<h1>为什么叫“恩施洲”？</h1>
-					</div>
-					<div class="person-content">
-						<h2>恩施土家族苗族自治州，是新中国成立以来的最年轻的自治州。</h2>
+
+				<div>
+					<p style="text-align: center;margin: 20px 0;"><span class="scenery-title-span">恩施大峡谷</span></p>
+					<div>
+						<p>
+							恩施大峡谷——是清江流域最美丽的一段，落于神秘的“北纬30度”，有五大奇观，两大核心景区，被称为“喀斯特地形地貌天然博物馆”。是清江流域最美丽的一段，被专家赞誉可与美国科罗拉多大峡谷媲美。</p>
 						<br>
-						<p>恩施古为<b>荆州、梁州</b>的交界地区。<br>
-							春秋时期，为巴国界，战国时期，属楚巫郡地。<br>
-							秦，属黔中郡。<br>
-							汉，属南郡巫县南境，隶荆州。<br>
-							<span style="color: orangered;"><b>恩施建县始于吴永安三年（260年）</b></span>，置沙渠县，隶荆州。<br>
-							<span style="color: orangered;"><b>晋太康元年（280年）</b></span>，沙渠县改属建平郡。南北朝时，宋、齐沿袭。<br>
-							<span
-								style="color: orangered;"><b>北周建德二年（573年）</b></span>，沙渠县境内置施州及清江郡治所，分沙渠部分地为乌飞、盐水二县，乌飞属施州，盐水置亭州及资田郡。<br>
-							<span style="color: orangered;"><b>隋开皇初</b></span>，废清江、资田二郡，改乌飞县为开夷县。<br>
-							<span style="color: orangered;"><b>开皇五年（585年）</b></span>，改沙渠县为清江县，隶荆州总管。<br>
-							<span style="color: orangered;"><b>义宁二年（618年）</b></span>，废清江郡，复置施州，领清江、开夷二县。<br>
-							<span style="color: orangered;"><b>唐武德初，置江州</b></span>，盐水县属之。<br>
-							<span style="color: orangered;"><b>武德四年（621年）</b></span>，废盐水县，入清江县。唐贞观元年（627年），清江县属江南道。<br>
-							<span style="color: orangered;"><b>麟德一年（664年）</b></span>，废开夷县入清江县，清江县为施州治所所在地。<br>
-							<span style="color: orangered;"><b>唐开元二十一年（733年）</b></span>，清江县属黔中道。<br>
-							<span style="color: orangered;"><b>天宝元年（742年）</b></span>，改施州为清化郡。五代属蜀，宋属施州，隶夔州路。<br>
-							<span
-								style="color: orangered;"><b>元至元十五年（1278年）</b></span>，隶夔州路总管府。至元二十二年（1285年），并清江入州，属四川行省。明洪武初裁施州。<br>
-							<span style="color: orangered;"><b>洪武十四年（1381年）</b></span>，恩施县隶施州卫军民指挥使司，属四川都司，后改湖广都司。<br>
-							<span style="color: orangered;"><b>清朝初年</b></span>，依循明制，属湖北荆州府。<br>
-							<span style="color: orangered;"><b>雍正六年（1728年）</b></span>，裁施州卫，改为恩施县，隶属归州。<br>
-							<span style="color: orangered;"><b>雍正十三年（1735年）</b></span>，恩施县隶属施南府。<br>
-							<span style="color: orangered;"><b>乾隆元年（1736年）</b></span>，以原境设恩施县为附郭首县。<br>
-							<span style="color: orangered;"><b>民国元年（1912年）</b></span>，废府存县，恩施县属湖北省直管。<br>
-							<span style="color: orangered;"><b>民国四年（1915年）</b></span>，恩施县属荆南道。<br>
-							<span style="color: orangered;"><b>民国十五年（1926年）</b></span>，恩施县归施鹤道，为施鹤道治所。<br>
-							<span style="color: orangered;"><b>民国十六年（1927年）</b></span>，废道存县。<br>
-							<span style="color: orangered;"><b>民国十七年（1928年）</b></span>，设鄂西行政区，恩施县为行政区治所。<br>
-							<span style="color: orangered;"><b>民国二十一年（1932年）</b></span>，恩施县归湖北省第十行政督察区管辖。<br>
-							<span style="color: orangered;"><b>民国二十五年（1936年）</b></span>，改第十行政督察区为第七行政督察区，恩施县为附郭县。<br>
-							<span style="color: orangered;"><b>抗日战争时期</b></span>，武汉沦陷，湖北省政府迁恩施近8年，恩施成为湖北省临时省会。<br>
-							<span style="color: orangered;"><b>1949年</b></span>，恩施县成立恩施县人民政府，为恩施地区行政公署所在地。<br>
-							<span style="color: orangered;"><b>1981年</b></span>，设立恩施市（县级）。<br>
-							<span style="color: orangered;"><b>1983年8月</b></span>，撤销恩施县，并入恩施市。12月，恩施地区改名为鄂西土家族苗族自治州。<br>
-							<span style="color: orangered;"><b>1984年</b></span>，恩施市、恩施县合并。<br>
-							<span style="color: orangered;"><b>1993年</b></span>，鄂西土家族苗族自治州易名恩施土家族苗族自治州，恩施市为自治州首府所在地。
+						<p>位于湖北省恩施市屯堡乡和板桥镇境内</p>
+						<img src="{% static 'img/enshi/恩施大峡谷/1.jpg' %}">
+						<p>恩施大峡谷，不偏不倚落脚于神秘的“北纬30度”，距恩施市区49公里，距利川市区39公里。<span style="color: red;">2015年7月</span>被评为国家AAAAA级旅游景区、国家地质公园，灵秀湖北的十大旅游名片之一。
 						</p>
+						<img src="{% static 'img/enshi/恩施大峡谷/2.jpg' %}">
+						<p>神秘险峻的恩施大峡谷，拥有【清江升白云】、【绝壁环峰丛】、【天桥连洞群】、【暗河接飞瀑】、【天坑配地缝】五大奇观。</p>
+						<img src="{% static 'img/enshi/恩施大峡谷/3.JPG' %}">
 					</div>
 				</div>
-				<!-- 美食 -->
-				<div class="eating-enshi boxsd">
-					<div class="eating-title float-bg">
-						<h1>民以食为天,食以安为先,</h1>
-						<h1 class="padding-5">安以质为本,质以诚为根。</h1>
-					</div>
-					<div class="eating-content">
-						<h2>每个地方都有其独特的风土人情和饮食文化</h2>
-						<p>鼎鼎有名的“恩施州十大名吃”你都吃过哪些？</p><br>
-						<div class="yct">
-							<p>*<span style="color: deepskyblue;">土家油茶汤</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/油茶汤.jpg' %}" width="220px">
-							</div>
-							<p>土家油茶汤是一种似茶饮汤质类的点心小吃，香、脆、滑、鲜，味美适口，提神解渴，是土家人传统的非常钟爱的风味食品，
-								故有民谚曰：“不喝油茶汤，心里就发慌”，“一日三餐三大碗，做起活来硬邦邦”。
-								同时，喝油茶汤又是土家人招待客人的一种传统礼仪，凡是贵客临门，土家人都要奉上一碗香喷喷的油茶汤款待。</p><br>
-							<p>土家油茶汤是恩施州土家族具有代表性的饮食文化现象之一，堪称中国茶文化一绝，源远流长。
-								至今在全州，特别是在咸丰、来凤等地盛行。1992年，“来凤县土家族油茶汤茶艺团”参加了在杭州举办的中国首届茶文化节，
-								博得“来凤名茶传千里，土家油茶香九州”的赞誉。韩国代表团称赞土家族油茶汤“是中国茶文化一绝。”后来有关部门将土家族油茶汤提炼、
-								整理成“四道茶”（即白鹤茶、泡儿茶、油茶汤、鸡蛋茶）、油茶道表演等形式，使之成为一种规范化的程式茶道。在2005年中国茶叶协会主
-								办的中国富硒茶文化节上，幽雅卓绝的“四道茶”茶道茶艺表演成为一道靓丽的风景，使得油茶汤这一土家茶文化精髓得以发扬光大。
-							</p><br>
-							<p>据传，油茶汤是土家放牛娃在茶山里摆“家家”而发明。他们在山上拾得一捧油茶籽，
-								放在瓦罐中炒出了茶油，再摘来茶叶放油中一炸，兑上山泉水，加入随身带来的炒苞谷，吃得津津有味，久而久之，喝油茶汤便成了土家人的习惯。</p>
-						</div>
-						
-						<div class="zghz" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">张关合渣</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/张关合渣.jpg' %}" width="220px">
-							</div>
-							<p>张关合渣因宣恩一小集镇“张关”而得名，以合渣火锅为典型特征，尤以镇上一位黄姓老太婆制作的最有名、最为地道。张关合渣口味纯正，营养丰富，人们戏称“全价食料”。
-							无论在城市还是在农村，无论是本地人还是中外游客都特别喜欢吃，受到极高评价。</p><br>
-							<p>合渣，又名懒豆腐。恩施土家人对合渣有着深厚的感情，特别是在兵荒马乱之年，由于粮食奇缺，合渣救下了不少人的性命，流传有“辣椒当盐，合渣过年”的民谚。如今，
-							恩施人吃合渣已不是逢年过节才能吃的“奢侈品”了，平时在家里都能吃上合渣，许多餐馆更是把它当成一道特色菜上桌供应，深受顾客的青睐。</p>
-						</div>
-						
-						<div class="tjlr" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">土家腊肉(系列)</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/土家腊肉.jpg' %}" width="220px">
-							</div>
-							<p>土家人家家都兴喂年猪，主要是图过年时有肉吃，过年吃不完的，土家人便把它制作成腊肉，不仅便于保存，而且肉色更加好看，把腊肉放在锅里烹煮，香飘十里，勾人食欲，是土家人平时招待客人摆在席上的主菜。</p>
-							<p>土家腊肉的制作方法是：</p>
-							<p>（1）将猪肉分成三至五斤（或更大）的块，便于入味和加工储藏；</p>
-							<p>（2）把盐炒黄，加花椒炒出香味出锅；</p>
-							<p>（3）把肉用温盐抹匀，放入盆中，将盆底的肉皮朝下肉朝上，面上层的肉皮朝上肉朝下排放整齐，每3~5天翻一次，10天后沥干水分挂到熏房中；</p>
-							<p>（4）用松柏枝加核桃壳、花生壳、桔子皮等柴草料进行烟熏烘烤，月余后待肉变棕红时即可。</p>
-							<p>熏好的肉应该放在通风处，可保存两至三年不变质，名曰“腊肉”，也称“土家腊肉”、“恩施熏肉”。土家腊肉色泽焦黄、肉质坚实、熏香浓郁、风味独特。</p>
-							<p>食用时，取肉在火上将肉皮烧焦黄，放在温水中将皮泡软，刮洗干净备用。</p>
-							<p>腊肉的烹调方法比较多，不同部位不同，排骨、猪蹄一般用来炖，制作火锅；其它部位一般用来与鲊广椒、蒜苗、山野菜、小米一起炒、蒸而食。比较有名的腊肉菜品有：小米蒸年肉、鲊广椒炒腊肉、糖年肉、蕨粑炒腊肉、腊蹄子火锅等。</p>
-						</div>
-						
-						<div class="bydg" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">白杨豆干</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/白杨豆干.jpg' %}" width="220px">
-							</div>
-							<p>柏杨豆干因产于利川市柏杨坝镇柏杨村而得名。</p>
-							<p>明清以来，在利川柏杨集镇一带就大量生产豆干，其中尤以沈记好吃婆豆干作坊生产的豆干最为有名，并被当地官员列为朝廷贡品，深受朝廷皇族们的喜爱，康熙皇帝还给沈记好吃婆豆干作坊亲笔御赐“深山奇食”金匾，
-							从此沈记好吃婆豆干就改称为深山奇食好吃婆豆干，并以皇恩御赐为荣，使豆干制作传统工艺沿袭几百年传承至今，成为人们喜爱的地方风味小吃。</p>
-							<p>柏杨豆干主要以优质地产大豆、龙洞湾泉水和若干种天然香料为原料，经过水洗、浸泡、碾磨、过滤、滚浆、烧煮、包扎、压榨、烘烤、卤制、密封等十几道独特工序加工而成。</p>
-							<p>柏杨豆干在整个制作过程中，其特殊性就是不用石膏及其他任何化学品，奥妙就在于当地泉水和传统工艺中。是制豆腐业中的一绝。</p>
-							<p>柏杨豆干色泽金黄，美味幽长，绵醇厚道，质地细腻，无论生食还是热炒，五香还是麻辣，均有沁人心脾回味无穷之感。经质量技术监督、卫生防疫等部门检验，产品符合国家标准，内含丰富蛋白质、多种维他命及钙、锌、钠、硒等多种微量元素，保质期可达8个月以上，有“固体豆浆”之美称。</p>
-						</div>
-						
-						<div class="sf" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">社饭</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/社饭.jpg' %}" width="220px">
-							</div>
-							<p>社饭自古有之，是中国土家、苗、侗族等少数民族祭祀社稷的一种食品。吃社饭，主要在社日（即立春后第五个戊日）进行，民间习惯称为“过社”、“拦社”等。戊日属土，所以这天是祭祀土地菩萨的日子，人们以祈年景顺利，五谷丰登，家运祥和。</p>
-							<p>土家人十分看重“过社”，家家户户乐此不疲，过社时，都兴做香喷喷的社饭。唐《社日》“鹅湖山下稻粮肥，豚栅鸡栖半掩扉。桑柘影斜春社散，家家扶得醉人归。”及清《潭阳竹枝词》“五戊经过春日长，治聋酒好漫沽长。万家年后炊烟起，白米青蒿社饭香。”等诗词就是对土家人“过社”的真实写照。</p>
-							<p>土家人做社饭不光是自家人吃，还把它作为馈赠亲友的佳品，故有民谚说，“送完了自家的，吃不完别家的”，充分显示出土家人淳朴、亲和的民风。</p>
-							<p>由于社蒿（香蒿）具有很好的药理作用，其性苦寒，能治疗和预防“伤、肿痛、痨、疟、痢、痔”等多种疾病，所以社饭是土家人传统药膳中的一个常用品种。</p>
-						</div>
-						
-						<div class="zgj" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">鲊广椒(渣海椒)</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/鲊广椒.jpg' %}" width="220px">
-							</div>
-							<p>恩施土家族苗族自治州境内的土家人特别酷爱酸辣。有“三日不吃酸和辣，心里就象猫儿抓”的民谚，鲊广椒正是在这样的背景下发明的，并在恩施这块土地上长盛不衰。</p>
-							<p>鲊广椒，也称为鲊辣椒，它是以恩施本地鲜红辣椒和苞谷面（玉米面）为主要原料加工而成。具体制作是：将鲜红辣椒去蒂洗净，沥干水分，用铡刀剁成细沫，加入食盐拌匀，再加入苞谷面拌匀（也有的还拌入花椒、桔皮等调料的）。盛入干净的坛子里，上面盖上菜叶，然后用竹片将其卡紧，再倒置于盆中，加入水（称为倒腹水）。优点是重力压住坛口，密封效果好，吸水有度，为无氧发酵提供了保障，使成品口味更醇更香。制作少量的鲊广椒也可用正腹水坛子，即有沿可放水的，正放，在沿内槽中放水，盖上盖，但这种坛子制作的鲊广椒不可存放太久，因为坛子内气压有可能将坛盖冲开进入空气，也可能吸水过多变稀走味。拌好的鲊广椒装坛后让其充分发酵，大约3周后就可取出烹制。一般是在锅中焙熟后与土家腊肉一起炒食或作扣碗底料蒸食，成品色泽微红，酸辣味十分特别。还有用鲊广椒做蒸肉、扣肉底料、伴料，这样做出来的蒸肉不油腻、爽口，易消化吸收。甚至用它与苞谷面做成苞谷糊喝的，叫鲊广椒糊。</p>
-						</div>
-						
-						<div class="gxm" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">葛仙米</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/葛仙米.jpg' %}" width="220px">
-							</div>
-							<p>葛仙米俗称天仙米、天仙菜、水木耳、田木耳。为水生藻类植物，属蓝绿藻的一种，单细胞，无根无叶，墨绿色珠状，纯野生，是名副其实的纯天然绿色食品。相传东晋时期，炼丹术家、医学家、道教理论家葛洪在隐居南土时，灾荒之年采以为食，偶获健体之功能。后来葛洪入朝以此献给皇上，体弱太子食后病除体壮，皇上为感谢葛洪之功，随将“天仙米”赐名“葛仙米”，沿称至今。</p>
-							<p>葛仙米营养丰富，是宴席佳品，含有15种氨基酸，多种维生素和其它自然食品不及而人体必须的微量元素Mn、Ca、Zn、Fe、P等矿物质成份。</p>
-							<p>此外，葛仙米还有药用保健功能，据《全国中草药汇编》介绍，葛仙米“性寒、味淡，可以消热、收敛、益气、明目，主治夜盲症、脱肛；外用可治烧伤、烫伤及护肤美容等。”</p>
-							<p>恩施州鹤峰县走马镇是世界上最大的葛仙米产区，这里适宜葛仙米生长的水田、池沼达670余公顷，因葛仙米生长对其自然条件（如气候、土壤、阳光、经纬度、海拔等）要求极高，当今世界上仅非洲有极少量发现。葛仙米不愧是世界上真正罕见的神品。</p>
-						</div>
-						
-						<div class="ftj" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">凤头姜</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/凤头姜.jpg' %}" width="220px">
-							</div>
-							<p>因其形似凤头而得名，又名“来凤姜”，是来凤县民间经过长期选育稳定下来的地方优良生姜品种。其姜柄如指，尖端鲜红，略带紫色，块茎雪白。</p>
-							<p>凤头姜无筋脆嫩、富硒多汁、辛辣适中、味美可口、开胃生津、风味独特、醇香浓郁持久，为姜中独具特色之佳品，在全国生姜品种中独树一帜，因而早已是东南亚市场青睐的畅销品。1998年获得农业部“绿色食品”证书，成为全国<span style="color: green;">第一姜。</span></p>
-							<p>凤头姜富含多种维生素、氨基酸、蛋白质、脂肪、胡萝卜素、糖、姜油酮、酚、醇以及人体必须的铁、锌、钙、硒等微量元素。</p>
-							<p>凤头姜除是佐餐必备佳品外，更具有健脾开胃、祛寒御湿、加速血液循环、延缓衰老、防癌之功效，还可提取姜油酮、姜油、香精等医药化工用品。姜油酮治疗关节炎具有显著疗效。</p>
-							<p>以凤头姜为主要原料，可制作成糟姜，糟姜是土家族人人喜爱的咸菜。制作方法是：将生姜去皮，用水洗净，沥干水分，然后切成小而均匀的姜块，放入盆内，加入白酒、酒糟、盐、花椒和切碎的红辣椒一起拌匀，置入坛内，上面撒上砂糖，盖严坛口，糟腌约一星期即可开坛食用。</p>
-						</div>
-						
-						<div class="cc" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">福宝山莼菜</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/福宝山莼菜.webp' %}" width="220px">
-							</div>
-							<p>福宝山莼菜又称马蹄草、荨草、水葵。是一种高等多年水生植物，叶片呈椭圆形，正面绿色，背面暗红色，叶柄细长。莼菜相传为古代神山所赐，是水中一珍，自晋代以来为历朝皇宫御案之贡品，皇室宫宴之佳肴。它可煮、可炒、可凉拌，尤其是与鱼肉、熟鸡、火腿、香肠等配在一起做汤，鲜嫩可口，味粘甘滑，色、香、味、形俱佳。</p>
-							<p>经检测，福宝山莼菜含蛋白质24.7~36.5%，糖类含量39%，锌稳定含量高达153~288ppm，锗含量0.11mg/g，硒含量0.1~0.54ppm，并富含多种氨基酸和维生素。果胶丰富，风味独特，鲜脆、滑嫩如鱼髓、琼脂，不仅可广泛用于炒、凉拌、做汤，而且是一种天然的降温、解暑佳品及幼儿增智食品。同时，据传统医学和现代医学研究表明，莼菜除对抑制消化系统癌症有食疗效果外，还对抑制动脉粥样硬化、抗脑血栓、利水、消肿、健胃、美容护肤等均有良好效果，是难得的绿色保健食品。</p>
-							<p>《诗经》、《本草纲目》中记载，食用莼菜可以消渴熟痹，又可补下气，还可治痛肿等症，具有延年益寿、健胃强身、美容润肤的作用。</p>
-							<p style="color: red;">福宝山莼菜先后获得“首届中国国际农业博览会名牌产品金奖”，是同类产品唯一取得国家“绿色产品”标志的产品。</p>
-						</div>
-						
-						<div class="nr" style="margin-top: 1.25rem;">
-							<p>*<span style="color: deepskyblue;">年肉</span></p><br>
-							<div class="img" style="float: right;margin-left: 0.625rem;">
-								<img src="{% static 'img/enshi/十大美食/年肉.jpg' %}" width="220px">
-							</div>
-							<p>相传，年肉滥觞于一场战乱。有一年除夕前，土家山寨突遭军队攻入，土家人正在热火朝天地做团年饭，做梦也没有想到在这样的日子会罹此大难，纷纷抛家舍业，拖儿带女四散奔逃。部分逃进深山石洞的人虽然侥幸脱离了虎口，但饱受冻馁之苦。幸好有一长者于仓促中带出了一大块熟猪肉，于是大家每人都分得了一小片肉，这才和着眼泪熬过了这个凄惶的年关。战乱平息后，为了记取这次血的教训，土家人过年时，家家户户都应蒸几大块熟肉，以防再次遭受类似的祸患。以后相沿成习，年肉便进入了土家人春节菜谱。</p>
-							<p>随着土家人生活水平的提高以及膳食结构的变化要求，而今在保持传统特色的基础上，采取了一些降腻烹饪法，创造出了《葵花年肉》、《巴人扣肉》、《糖年肉》等新品，深受国内外客人青睐。</p>
-							<p></p>
-						</div>
+
+				<div>
+					<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">清江闯滩</span></p>
+					<div>
+						<p>有险滩漂流、清江画廊以及土家民俗，被誉为“神州第一漂”</p>
+						<img src="">
+
+						<img src="">
 					</div>
 				</div>
-				<!-- 风景 -->
-				<div class="scenery-enshi boxsd">
-					<div class="scenery-title float-bg">
-						<h1>“踏遍青山人未老</h1>
-						<h1 class="padding-5">风景这边独好”</h1>
-					</div>
-					<div style="margin-bottom: 2rem;">
-						<p>国外有一处秘境，被称作<span style="color: seagreen;">人间天堂“仙本那”</span>清澈如玉的海水，碧波荡漾的天空。美不胜收！</p>
-						<p>然而国内的月亮也一样圆，在咱们湖北也有一个乘悬浮船才能进入的<span style="color: lightsalmon;"><b>仙境</b></span></p>
-						<p>它曾被美国CNN评选为<span style="color: #DDA0DD;">“中国最美仙境”</span>，被《中国国家地理》评选为 <span style="color: #DDA0DD;">“中国最美的地方”</span> </p>
-						<p>它也是被列入<span style="color: #A020F0;">“世界文化遗产名录”</span>的旅游胜地</p>
-					</div>
-					<div class="scenery-content">
-						<div class="scenery-show-img">
-							<p style="text-align: center;"><span class="scenery-title-span">屏山峡谷</span></p>
-							<div class="psxg-img" style="margin: 20px 0;">
-								<p>屏山，因山顶平旷、山侧屏立而得名。屏山之腹土地平旷，屋舍俨然，有良田美池桑竹绕道，有阡陌古道曲径通幽；屏山之侧深溪环绕，四周峭壁悬空倚天，龙渊峡、躲避峡、雕崖峡之嵯峨怪石如刀削斧劈屏立，
-								犹如航行于武陵腹地碧波万顷苍翠群山之间的孤岛，有“东方诺舟”之称。</p>
-								<img src="{% static 'img/enshi/屏山峡谷/2.JPG' %}">
-								<p>屏山地形地貌奇特，南北长近20公里，东西宽不到5公里。山体形态变化多样，四周峭壁耸立，溪流环绕，峰峦与河谷底部高差1000米以上，形成罕见的峡谷和地缝风光</p>
-								<img src="{% static 'img/enshi/屏山峡谷/1.JPG' %}" >
-								<p>土司文化：2006年，容美土司遗址被国务院公布为第六批全国重点文物保护单位。在众多的土司爵府遗址中，屏山爵府遗址是目前鹤峰发现的容美土司遗址中规模最大、名气最大的遗址。</p>
-								<img src="{% static 'img/enshi/屏山峡谷/3.JPG' %}" >
-								<p>红色文化：1930年2月，红四军东进以前，贺龙将湘鄂边军医院设在这个天险之上，还有枪炮局和被服厂，这里在当时成为红军在湘鄂边最大的医疗和军需补给基地，给屏山增添了红色的文化内涵和传奇色彩。</p>
-								<img src="{% static 'img/enshi/屏山峡谷/4.JPG' %}" >
-							</div>
-						</div>
-						
-						<div>
-							<p style="text-align: center;margin: 20px 0;"><span class="scenery-title-span">恩施大峡谷</span></p>
-							<div>
-								<p>恩施大峡谷——是清江流域最美丽的一段，落于神秘的“北纬30度”，有五大奇观，两大核心景区，被称为“喀斯特地形地貌天然博物馆”。是清江流域最美丽的一段，被专家赞誉可与美国科罗拉多大峡谷媲美。</p><br>
-								<p>位于湖北省恩施市屯堡乡和板桥镇境内</p>
-								<img src="{% static 'img/enshi/恩施大峡谷/1.jpg' %}" >
-								<p>恩施大峡谷，不偏不倚落脚于神秘的“北纬30度”，距恩施市区49公里，距利川市区39公里。<span style="color: red;">2015年7月</span>被评为国家AAAAA级旅游景区、国家地质公园，灵秀湖北的十大旅游名片之一。</p>
-								<img src="{% static 'img/enshi/恩施大峡谷/2.jpg' %}" >
-								<p>神秘险峻的恩施大峡谷，拥有【清江升白云】、【绝壁环峰丛】、【天桥连洞群】、【暗河接飞瀑】、【天坑配地缝】五大奇观。</p>
-								<img src="{% static 'img/enshi/恩施大峡谷/3.JPG' %}" >
-							</div>
-						</div>
-						
-						<div>
-							<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">清江闯滩</span></p>
-							<div>
-								<p>有险滩漂流、清江画廊以及土家民俗，被誉为“神州第一漂”</p>
-								<img src="" >
-								
-								<img src="" >
-							</div>
-						</div>
-						
-						<div>
-							<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">恩施土司城</span></p>
-							<div>
-								<p>有险滩漂流、清江画廊以及土家民俗，被誉为“神州第一漂”</p>
-								<img src="" >
-								<img src="" >
-							</div>
-						</div>
-						
-						<div>
-							<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">腾龙洞</span></p>
-							<div>
-								<p>腾龙洞被誉为“世界第二大自然溶洞”，位于恩施洲利川市内</p>
-								<img src="" >
-								<img src="" >
-							</div>
-						</div>
-						
-						
+
+				<div>
+					<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">恩施土司城</span></p>
+					<div>
+						<p>有险滩漂流、清江画廊以及土家民俗，被誉为“神州第一漂”</p>
+						<img src="">
+						<img src="">
 					</div>
 				</div>
-				<!-- 夜景 -->
-				<div class="night-enshi boxsd">
-					<div class="night-title float-bg">
-						<h1>“东风夜放花千树。宝马雕车香满路。</h1>
-						<h1 class="padding-5">凤箫声动，玉壶光转，一夜鱼龙舞。”</h1>
-					</div>
-					<div class="night-content">
-						<p>夕阳，欲坠，最后一息温暖的霞，湮灭在了这高楼大厦中。阳光的消失，接踵而来的是这个城市的夜</p>
-						<p>没有工业的污染.晴天的夜晚，满天星斗闪烁着光芒，像无数银珠，密密麻麻镶嵌在深黑色的夜幕上。银河像一条淡淡发光的白带，横跨繁星密布的天空。</p>
+
+				<div>
+					<p style="text-align: center;margin: 1.25rem 0;"><span class="scenery-title-span">腾龙洞</span></p>
+					<div>
+						<p>腾龙洞被誉为“世界第二大自然溶洞”，位于恩施洲利川市内</p>
+						<img src="">
+						<img src="">
 					</div>
 				</div>
+
+
 			</div>
 		</div>
+		<!-- 夜景 -->
+		<div class="night-enshi boxsd">
+			<div class="night-title float-bg">
+				<h1>“东风夜放花千树。宝马雕车香满路。</h1>
+				<h1 class="padding-5">凤箫声动，玉壶光转，一夜鱼龙舞。”</h1>
+			</div>
+			<div class="night-content">
+				<p>夕阳，欲坠，最后一息温暖的霞，湮灭在了这高楼大厦中。阳光的消失，接踵而来的是这个城市的夜</p>
+				<p>没有工业的污染.晴天的夜晚，满天星斗闪烁着光芒，像无数银珠，密密麻麻镶嵌在深黑色的夜幕上。银河像一条淡淡发光的白带，横跨繁星密布的天空。</p>
+			</div>
+		</div>
+	</div>
+</div>
 
-		<!-- 底部 -->
-		<footer class="footer">
-			<p class="footer-p">愿漂泊的人都有酒喝，愿孤独的人都会唱歌，愿孤单的人都别逞强，愿有情人永生执手相望。</p>
-		</footer>
+<!-- 底部 -->
+<footer class="footer">
+	<p class="footer-p">愿漂泊的人都有酒喝，愿孤独的人都会唱歌，愿孤单的人都别逞强，愿有情人永生执手相望。</p>
+</footer>
 
-		<script src="{% static 'blog/js/enshi.js' %}"></script>
-		<script>
-			// 页面动态展示
-			$(document).ready(function() {
-				$(".animsition").animsition({
-					inClass: 'fade-in-up', // 进入页面时的效果
-					outClass: 'Fade down', // 切换到其他页面的效果
-					inDuration: 1500,
-					outDuration: 800,
-					linkElement: '.animsition-link',
-					// e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
-					loading: true,
-					loadingParentElement: 'body', //animsition wrapper element
-					loadingClass: 'animsition-loading',
-					loadingInner: '', // e.g '<img src="loading.svg" />'
-					timeout: false,
-					timeoutCountdown: 5000,
-					onLoadEvent: true,
-					browser: ['animation-duration', '-webkit-animation-duration'],
-					overlay: false,
-					overlayClass: 'animsition-overlay-slide',
-					overlayParentElement: 'body',
-					transition: function(url) {
-						window.location.href = url;
-					}
-				});
-			});
-		</script>
-	</body>
+<script src="{% static 'blog/js/enshi.js' %}"></script>
+<script>
+	// 页面动态展示
+	$(document).ready(function () {
+		$(".animsition").animsition({
+			inClass: 'fade-in-up', // 进入页面时的效果
+			outClass: 'Fade down', // 切换到其他页面的效果
+			inDuration: 1500,
+			outDuration: 800,
+			linkElement: '.animsition-link',
+			// e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+			loading: true,
+			loadingParentElement: 'body', //animsition wrapper element
+			loadingClass: 'animsition-loading',
+			loadingInner: '', // e.g '<img src="loading.svg" />'
+			timeout: false,
+			timeoutCountdown: 5000,
+			onLoadEvent: true,
+			browser: ['animation-duration', '-webkit-animation-duration'],
+			overlay: false,
+			overlayClass: 'animsition-overlay-slide',
+			overlayParentElement: 'body',
+			transition: function (url) {
+				window.location.href = url;
+			}
+		});
+	});
+</script>
+</body>
 </html>

@@ -1,6 +1,4 @@
 from django.db import models
-from ckeditor.fields import RichTextField  # 后台编辑器
-# from django.contrib.auth.models import User
 
 
 class Essay(models.Model):

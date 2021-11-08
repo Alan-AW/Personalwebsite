@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <title>CoreBall</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
-    <style type="text/css">
+	<meta charset="utf-8"/>
+	<meta name="author" content="徐小杰">
+	<meta name="Description" content="python,编程,web开发,前端,后端">
+	<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+	<title>CoreBall</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+	<style type="text/css">
         body {
             background-color: #c8c8c8;
             overflow: hidden;
@@ -61,29 +64,29 @@
             top: 70%;
             margin: -50px 0 0 -100px;
         }
-    </style>
+	</style>
 </head>
 <body>
 <canvas style="display:none;" id="stage"></canvas>
 <div id="begin">
-    <section class="center-box">
-        <span class="title">Core Ball</span>
-        <div class="button">
-            <div id="txtAr" style="margin-top: 5px;"></div>
-            <div class="text"></div>
-        </div>
-        <div class="op">
-            <a id="btnFW" href="javascript:;"><img data-capture="1" src="{% static 'other/Jfczimg/btn_fw.png' %}"/>
-            </a>
-            <span id="btnReset" style="display:inline-block;margin-left: 30px;color:#666">RESET</span>
-            <div id="tip" style="font-size:14px;color:#555;margin-top: 15px;display:none;">关卡重置完毕</div>
-        </div>
-    </section>
-    <section id="wxArrow" style="display: none;">
-        <div style="position:absolute;width:100%;height:100%;opacity: 0.7;background-color:#000">
-        </div>
-        <img style="position: absolute;right:25px;" src="{% static 'other/Jfczimg/arrow.png' %}"/>
-    </section>
+	<section class="center-box">
+		<span class="title">Core Ball</span>
+		<div class="button">
+			<div id="txtAr" style="margin-top: 5px;"></div>
+			<div class="text"></div>
+		</div>
+		<div class="op">
+			<a id="btnFW" href="javascript:;"><img data-capture="1" src="{% static 'other/Jfczimg/btn_fw.png' %}"/>
+			</a>
+			<span id="btnReset" style="display:inline-block;margin-left: 30px;color:#666">RESET</span>
+			<div id="tip" style="font-size:14px;color:#555;margin-top: 15px;display:none;">关卡重置完毕</div>
+		</div>
+	</section>
+	<section id="wxArrow" style="display: none;">
+		<div style="position:absolute;width:100%;height:100%;opacity: 0.7;background-color:#000">
+		</div>
+		<img style="position: absolute;right:25px;" src="{% static 'other/Jfczimg/arrow.png' %}"/>
+	</section>
 </div>
 <script src="{% static 'other/Jfczjs/jweixin-1.0.0.js' %}"></script>
 <script type="text/javascript" src="{% static 'other/Jfczjs/index.js' %}"></script>

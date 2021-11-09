@@ -198,6 +198,7 @@ class CategoryManage(View):
 class EssayManage(View):
     # 随笔管理
     def get(self, request):
+        all_essay = Essay.objects.all()
         return render(request, 'managehtml/essay.html', locals())
 
     def post(self, request):
@@ -216,6 +217,7 @@ class LeaveMsgManage(View):
 class UserManage(View):
     # 用户管理
     def get(self, request):
+        userObj = User.objects.all()
         return render(request, 'managehtml/users.html', locals())
 
     def post(self, request):

@@ -15,7 +15,7 @@
         <ul class="nav-bar">
             <li><a href="{% url 'blog:home' %}" class="animsition-link">首页</a></li>
             <li><a href="{% url 'blog:about' %}" class="animsition-link">关于我</a></li>
-            <li><a href="{% url 'blog:home' %}" title="请输入密码访问" class="animsition-link">一个普通男孩的十年</a></li>
+            <li><a href="javascript:my_love()" title="请输入密码访问">一个普通男孩的十年</a></li>
         </ul>
     </div>
 {% endblock %}
@@ -111,11 +111,19 @@
             {% endfor %}
         </div>
     </div>
+    <div class="tyc-login">
+        {% csrf_token %}
+        <p style="color: #777;">Tell Me Your Name</p>
+        <p><input type="text" id="tyc-name" placeholder="is that you?" maxlength="5"></p>
+        <a href="javascript:submit_eternal()" class="submit-tyc">click</a>
+    </div>
+    <div class="mask"></div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'blog/js/animsition.js' %}"></script>
     <script src="{% static 'other/leave.js' %}"></script>
+    <script src="{% static 'other/about.js' %}"></script>
     <script src="{% static 'comment/textareaEmoji.js' %}"></script>
     <script>
         // 提交根留言

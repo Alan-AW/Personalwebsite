@@ -1,5 +1,4 @@
 // 点赞只对登录和非登录做了检测，所以同一个IP登录、退出均可以点赞，
-var UserIp = returnCitySN['cip'];  // 引入搜狐javascript接口的返回值获取到用户IP
 // 后期修改认证机制，以ID作为处理依据
 function likes() {
     var UserId = $('#UserIsSignin').attr('userid');
@@ -10,7 +9,7 @@ function likes() {
         user = UserId;
         isLogin = true;
     } else {
-        user = UserIp;
+        user = 'get_ip_addrs';
         isLogin = false;
     }
     $.ajax({

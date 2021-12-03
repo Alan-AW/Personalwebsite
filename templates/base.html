@@ -13,8 +13,6 @@
 		<title id="site_title">(´▽`ʃ♡ƪ)爱你哟❤</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'blog/css/navBase.css' %}" />
 		<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eGoFmU42VgXFh2OjzSjcPgd5PunNWu6p">
-		</script>
 		<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
 			integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
@@ -27,8 +25,6 @@
 		{% endblock %}
 	</head>
 	<body>
-		<!-- 定位容器  -->
-		<div id="allmap"></div>
 		<!-- bilibili-冬 -->
 		<header>
 			<!-- 导航 -->
@@ -99,7 +95,7 @@
 					data-animsition-out-duration="800">
 					<div class="left-tip" style="background-color: rgba(0,0,0,0);">💛</div>
 					<div class="left-welcome">
-						<h2 style="font-size: 20px;">欢迎光临：来自<strong><span id="from-city"
+						<h2 style="font-size: 20px;">欢迎光临：来自<strong>{{ city }}<span id="from-city"
 									style="color: deepskyblue;"></span></strong>的朋友
 						</h2>
 					</div>

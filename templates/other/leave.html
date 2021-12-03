@@ -4,8 +4,6 @@
 {% block title %}
     <link rel="stylesheet" href="{% static 'other/leave.css' %}">
     <link rel="stylesheet" href="{% static 'comment/emoji.css' %}">
-    <script type="text/javascript"
-            src="http://api.map.baidu.com/api?v=2.0&ak=eGoFmU42VgXFh2OjzSjcPgd5PunNWu6p"></script>
     <script src="{% static 'blog/js/addMessage.js' %}"></script>
 {% endblock %}
 
@@ -134,7 +132,7 @@
             var site = $('#site').val();
             var subContent = AnalyticEmotion(content + '[]');
             var showContent = subContent.substring(0, subContent.length - 2);
-            var city = $('#baidumap').val();
+            var city = '获取定位中';
             var browserId = userBrowser + userBrowserVer;
             var myDate = new Date();
             var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
@@ -150,7 +148,6 @@
                     'emailAttr': emailAttr,
                     'site': site,
                     'content': subContent,
-                    'city': city,
                     'browserId': browserId,
                     'csrfmiddlewaretoken': token
                 },
@@ -191,7 +188,7 @@
             var subLeave = AnalyticEmotion(content + '[]');
             var rootId = $('#reply_pk').val();
             var showLeave = subLeave.substring(0, subLeave.length - 2);
-            var city = $('#baidumap').val();
+            var city = '获取定位中';
             var browserId = userBrowser + userBrowserVer;
             var emailAttr = $('#emailAttr').val();
             var site = $('#site').val();
@@ -207,7 +204,6 @@
                 data: {
                     'rootId': rootId,
                     'name': nickname,
-                    'city': city,
                     'browserId': browserId,
                     'email': emailAttr,
                     'site': site,

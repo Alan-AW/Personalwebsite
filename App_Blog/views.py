@@ -9,13 +9,14 @@ from django.core.mail import send_mail
 import json
 import threading
 from App_Blog.models import *
-from Personalwebsite import settings as sys
+from django.conf import settings as sys
 from APP_Comment.models import Comment
+from App_Manage.middware.get_city import city as cy
 
 
 class Welcome(View):
     def get(self, request):
-        return render(request, 'blog/welcome.html')
+        return render(request, 'blog/welcome.html', {'city': cy})
 
 
 class Home(View):
@@ -49,7 +50,11 @@ class Home(View):
         paginator = Paginator(articleList, 10)  # Show 10 contacts per page.
         pageObj = paginator.get_page(page)
 
-        return render(request, 'blog/home.html', {'pageObj': pageObj, 'category': categoryList, 'tags': tagsList})
+        return render(request, 'blog/home.html', {
+            'pageObj': pageObj,
+            'category': categoryList,
+            'tags': tagsList,
+            'city': cy})
 
 
 class ArticleDetail(View):
@@ -69,7 +74,7 @@ class ArticleDetail(View):
         ltArticle = Article.objects.filter(id__lt=articleId).all().order_by("-id").first()
         # 下一篇
         gtArticle = Article.objects.filter(id__gt=articleId).all().order_by("id").first()
-
+        city = cy
         return render(request, 'blog/articleDetail.html', locals())
 
     def post(self, request, articleId):
@@ -77,6 +82,8 @@ class ArticleDetail(View):
         if request.is_ajax():
             is_Login = json.loads(request.POST['isLogin'])  # 传过来的是布尔值
             user = request.POST['user']
+            if user == 'get_ip_addrs':
+                user = request.META.get('REMOTE_ADDR')
             articleId = request.POST['articleId']
             articleObj = Article.objects.filter(id=articleId)
             responseObj = {'success': False}
@@ -122,7 +129,7 @@ class LeaveMsgView(View):
             site = request.POST['site']
             browserId = request.POST['browserId']
             content = request.POST['content'][:-2]
-            city = request.POST['city']
+            city = cy
             status = {'success': False}
             # 开启事物，同步数据
             try:
@@ -134,7 +141,7 @@ class LeaveMsgView(View):
             # 另开线程发送通知邮件
             t = threading.Thread(target=send_mail, args=(
                 '留言板新增一条留言',
-                content + '请点击查看内容：www.xumeijie.com/blog/leavemessage/',
+                content + '请点击查看内容：www.missyouc.cn/blog/leavemessage/',
                 sys.EMAIL_HOST_USER,
                 [sys.EMAIL_SELF_ATTR]
             ))

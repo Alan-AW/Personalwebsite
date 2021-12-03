@@ -26,20 +26,6 @@ $.fn.autotype = function () {
 };
 $("#autotype").autotype();
 
-// 定位
-var map = new BMap.Map("allmap");
-var point = new BMap.Point(116.331398, 39.897445);
-map.centerAndZoom(point, 12);
-
-function myFun(result) {
-    var cityName = result.name;
-    map.setCenter(cityName);
-    $('#your-city').html(cityName);
-}
-
-var myCity = new BMap.LocalCity();
-myCity.get(myFun);
-
 // canvas
 try{
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {

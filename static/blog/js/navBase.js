@@ -1,19 +1,3 @@
-// 变焦
-/*
-const images = document.querySelectorAll('header > div > img')
-document.querySelector('header').addEventListener('mousemove', (e) => {
-    let percentage = e.clientX / window.outerWidth
-    let offset = 10 * percentage
-    let blur = 20
-    for (let [index, image] of images.entries()) {
-        offset *= 1.3
-        let blurValue = (Math.pow((index / images.length - percentage), 2) * blur)
-        image.style.setProperty('--offset', `${offset}px`)
-        image.style.setProperty('--blur', `${blurValue}px`)
-    }
-})
-*/
-
 let mouseMoved = 0; //从鼠标进入banner起向右移动的距离与屏幕宽度的比
 let mouseIn; //鼠标进入banner时，鼠标左边部分宽度与屏幕宽度的比
 
@@ -159,20 +143,6 @@ $(function () {
     })
 })
 
-// 定位
-var map = new BMap.Map("allmap");
-var point = new BMap.Point(116.331398, 39.897445);
-map.centerAndZoom(point, 12);
-
-function myFun(result) {
-    var cityName = result.name;
-    map.setCenter(cityName);
-    $('#from-city').html(cityName);
-}
-
-var myCity = new BMap.LocalCity();
-myCity.get(myFun);
-
 // 时间戳
 var strtime = '1996-05-16';
 
@@ -254,7 +224,7 @@ function RandomPoetry() {
     var x = 0;
     var y = 32;
     var poetry = parseInt(Math.random() * (x - y + 1) + y);
-    poetry_list = p[poetry];
+    var poetry_list = p[poetry];
     $("#left-two-pwotry").html(poetry_list[0]);
     $("#left-two-pwotry2").html(poetry_list[1]);
 }

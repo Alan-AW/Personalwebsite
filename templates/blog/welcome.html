@@ -22,8 +22,6 @@
 	      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<!-- 百度地图API容器 -->
-<div id="allmap"></div>
 <!-- 背景 -->
 <video autoplay loop muted>
 	<source src="{% static 'img/bg/Starry.mp4' %}" type="video/mp4">
@@ -33,7 +31,7 @@
 <canvas class="cavs">
 This is a beautiful canvas starry sky animation. If you see this message, it means that your browser may not support the display of this animation. Simply put, your browser is too low!</canvas>
 <!-- 欢迎语 -->
-<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自“<span id="your-city"></span>”的朋友</p>
+<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自“<span id="your-city">{{ city }}</span>”的朋友</p>
 <div class="autotype" id="autotype">
 	<p class="one">：柴米油盐沁透着星辰大海,</p>
 	<p class="two">：锅碗瓢盆盛满了诗和远方</p>

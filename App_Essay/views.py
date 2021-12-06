@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
-from .models import *
+from App_Essay.models import *
+from App_Manage.middware.get_city import city as cy
 
 
 class EssayView(View):
@@ -9,5 +10,5 @@ class EssayView(View):
     """
     def get(self, request):
         essayObj = Essay.objects.all()
-        return render(request,'essay/essay.html',locals())
-
+        city = cy
+        return render(request, 'essay/essay.html', locals())

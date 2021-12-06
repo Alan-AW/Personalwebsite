@@ -34,6 +34,7 @@ function get_focus() {
     $('#username').focus();
 }
 
+
 function submit_eternal() {
     let name = $('#tyc-name').val();
     if (!name) {

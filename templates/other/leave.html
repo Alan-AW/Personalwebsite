@@ -106,11 +106,19 @@
             {% endfor %}
         </div>
     </div>
+    <div class="tyc-login">
+        {% csrf_token %}
+        <p style="color: #777;">Tell Me Your Name</p>
+        <p><input type="text" id="tyc-name" placeholder="is that you?" maxlength="5"></p>
+        <a href="javascript:submit_eternal()" class="submit-tyc">click</a>
+    </div>
+    <div class="mask"></div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'blog/js/animsition.js' %}"></script>
     <script src="{% static 'other/leave.js' %}"></script>
+    <script src="{% static 'other/about.js' %}"></script>
     <script src="{% static 'comment/textareaEmoji.js' %}"></script>
     <script>
         // 提交根留言

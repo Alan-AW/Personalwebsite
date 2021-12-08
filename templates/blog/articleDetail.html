@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load archive_tags %}
 
 {% block title %}
 	<link rel="stylesheet" href="{% static 'blog/css/articleDetail.css' %}">
@@ -154,6 +155,10 @@
 			<p id="notHaveComment">快来抢沙发！</p>
 		{% endfor %}
 	</div>
+{% endblock %}
+
+{% block right %}
+{% get_archive_style %}
 {% endblock %}
 
 {% block script %}

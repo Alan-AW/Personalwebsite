@@ -226,6 +226,8 @@ class UserManage(View):
 
 class AdminLogin(View):
     def get(self, request):
+        if request.user.is_superuser:
+            return redirect(reverse('manage:manage_home'))
         return render(request, 'managehtml/admin_login.html')
 
     def post(self, request):

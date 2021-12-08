@@ -17,8 +17,8 @@ function Hashtable() {
         delete this._hash[key];
     }
     this.size = function () {
-        var i = 0;
-        for (var k in this._hash) {
+        let i = 0;
+        for (let k in this._hash) {
             i++;
         }
         return i;
@@ -30,25 +30,25 @@ function Hashtable() {
         return typeof (this._hash[key]) != "undefined";
     }
     this.clear = function () {
-        for (var k in this._hash) {
+        for (let k in this._hash) {
             delete this._hash[k];
         }
     }
 }
 
-var emotions = new Array();
-var categorys = new Array();// 分组
-var uSinaEmotionsHt = new Hashtable();
+let emotions = new Array();
+let categorys = new Array();// 分组
+let uSinaEmotionsHt = new Hashtable();
 
 // 初始化缓存，页面仅仅加载一次就可以了
 $(function () {
-    var app_id = '1362404091';
+    let app_id = '1362404091';
     $.ajax({
         dataType: 'jsonp',
         url: 'https://api.weibo.com/2/emotions.json?source=' + app_id,
         success: function (response) {
-            var data = response.data;
-            for (var i in data) {
+            let data = response.data;
+            for (let i in data) {
                 if (data[i].category == '') {
                     data[i].category = '默认';
                 }
@@ -69,10 +69,10 @@ $(function () {
 //替换
 function AnalyticEmotion(s) {
     if (typeof (s) != "undefined") {
-        var sArr = s.match(/\[.*?\]/g);
-        for (var i = 0; i < sArr.length; i++) {
+        let sArr = s.match(/\[.*?\]/g);
+        for (let i = 0; i < sArr.length; i++) {
             if (uSinaEmotionsHt.containsKey(sArr[i])) {
-                var reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" height=\"22\" width=\"22\" />";
+                let reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" height=\"22\" width=\"22\" />";
                 s = s.replace(sArr[i], reStr);
             }
         }
@@ -82,13 +82,13 @@ function AnalyticEmotion(s) {
 
 (function ($) {
     $.fn.SinaEmotion = function (target) {
-        var cat_current;
-        var cat_page;
+        let cat_current;
+        let cat_page;
         $(this).click(function (event) {
             event.stopPropagation();
 
-            var eTop = target.offset().top + target.height() + 15;
-            var eLeft = target.offset().left - 1;
+            let eTop = target.offset().top + target.height() + 15;
+            let eLeft = target.offset().left - 1;
 
             if ($('#emotions .categorys')[0]) {
                 $('#emotions').css({top: eTop, left: eLeft});
@@ -123,12 +123,12 @@ function AnalyticEmotion(s) {
                 }
                 if (document.selection) {
                     this.focus();
-                    var cr = document.selection.createRange();
+                    let cr = document.selection.createRange();
                     cr.text = text;
                     cr.collapse();
                     cr.select();
                 } else if (this.selectionStart || this.selectionStart == '0') {
-                    var
+                    let
                         start = this.selectionStart,
                         end = this.selectionEnd;
                     this.value = this.value.substring(0, start) + text + this.value.substring(end, this.value.length);
@@ -141,13 +141,13 @@ function AnalyticEmotion(s) {
         }
 
         function showCategorys() {
-            var page = arguments[0] ? arguments[0] : 0;
+            let page = arguments[0] ? arguments[0] : 0;
             if (page < 0 || page >= categorys.length / 5) {
                 return;
             }
             $('#emotions .categorys').html('');
             cat_page = page;
-            for (var i = page * 5; i < (page + 1) * 5 && i < categorys.length; ++i) {
+            for (let i = page * 5; i < (page + 1) * 5 && i < categorys.length; ++i) {
                 $('#emotions .categorys').append($('<a href="javascript:void(0);">' + categorys[i] + '</a>'));
             }
             $('#emotions .categorys a').click(function () {
@@ -161,19 +161,19 @@ function AnalyticEmotion(s) {
         }
 
         function showEmotions() {
-            var category = arguments[0] ? arguments[0] : '默认';
-            var page = arguments[1] ? arguments[1] - 1 : 0;
+            let category = arguments[0] ? arguments[0] : '默认';
+            let page = arguments[1] ? arguments[1] - 1 : 0;
             $('#emotions .container').html('');
             $('#emotions .page').html('');
             cat_current = category;
-            for (var i = page * 72; i < (page + 1) * 72 && i < emotions[category].length; ++i) {
+            for (let i = page * 72; i < (page + 1) * 72 && i < emotions[category].length; ++i) {
                 $('#emotions .container').append($('<a href="javascript:void(0);" title="' + emotions[category][i].name + '"><img src="' + emotions[category][i].icon + '" alt="' + emotions[category][i].name + '" width="22" height="22" /></a>'));
             }
             $('#emotions .container a').click(function () {
                 target.insertText($(this).attr('title'));
                 $('#emotions').remove();
             });
-            for (var i = 1; i < emotions[category].length / 72 + 1; ++i) {
+            for (let i = 1; i < emotions[category].length / 72 + 1; ++i) {
                 $('#emotions .page').append($('<a href="javascript:void(0);"' + (i == page + 1 ? ' class="current"' : '') + '>' + i + '</a>'));
             }
             $('#emotions .page a').click(function () {
@@ -193,7 +193,7 @@ $('#face').SinaEmotion($('.emotion'));
 
 // 测试本地解析：
 // function out() {
-//     var inputText = $('.emotion').val();
+//     let inputText = $('.emotion').val();
 //     $('#out').html(AnalyticEmotion(inputText));
 // }
 // 解析成功！

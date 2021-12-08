@@ -1,10 +1,10 @@
 // title
-var hiddenProperty = 'hidden' in document ? 'hidden' :
+let hiddenProperty = 'hidden' in document ? 'hidden' :
 	'webkitHidden' in document ? 'webkitHidden' :
 	'mozHidden' in document ? 'mozHidden' : null;
-var title = document.querySelector('title');
-var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
-var onVisibilityChange = function() {
+let title = document.querySelector('title');
+let visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+let onVisibilityChange = function() {
 	if (!document[hiddenProperty]) {
 		title.innerHTML = 'ヾ(^▽^*)))回来啦💖';
 		setTimeout(() => {
@@ -19,39 +19,39 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 // 波浪
 (function(){
 	"use strict";
-	var cvs,ctx;
-	//var nodes = 5;
-	var waves = [];
-	var waveHeight = 30;
-	var colours = ["#f00","#0f0","#00f"]
+	let cvs,ctx;
+	//let nodes = 5;
+	let waves = [];
+	let waveHeight = 30;
+	let colours = ["#f00","#0f0","#00f"]
 
 	function init() {
 		cvs = document.getElementById("canvas");
 		ctx = cvs.getContext("2d");
 		resizeCanvas(cvs);
 
-		for (var i = 0; i < 3; i++) {
-			var temp = new wave(colours[i],1,5);
+		for (let i = 0; i < 3; i++) {
+			let temp = new wave(colours[i],1,5);
 		}
 		setInterval(update,16);
 	}
 
 	function randomColour() {
 		// body...
-		var h = Math.round(Math.random()*360);
+		let h = Math.round(Math.random()*360);
 		return "hsl("+h+",100%,50%)";
 	}
 
 	function update(array) {
 		// body...
 		//ctx.clearRect(0, 0, cvs.width, cvs.height);
-    var fill = window.getComputedStyle(document.querySelector(".header"),null).getPropertyValue("background-color");
+    let fill = window.getComputedStyle(document.querySelector(".header"),null).getPropertyValue("background-color");
 		ctx.fillStyle = fill;
 		ctx.globalCompositeOperation = "source-over";
 		ctx.fillRect(0,0,cvs.width,cvs.height);
 		ctx.globalCompositeOperation = "screen";
-		for (var i = 0; i < waves.length; i++) {
-			for (var j = 0; j < waves[i].nodes.length; j++) {
+		for (let i = 0; i < waves.length; i++) {
+			for (let j = 0; j < waves[i].nodes.length; j++) {
 				bounce(waves[i].nodes[j]);
 			}
 			drawWave(waves[i]);
@@ -68,9 +68,9 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 		this.colour = colour;
 		this.lambda = lambda;
 		this.nodes = [];
-		var tick = 1;
-		for (var i = 0; i <= nodes+2; i++) {
-			var temp = [(i-1)*cvs.width/nodes,0,Math.random()*200,.3];//this.speed*plusOrMinus
+		let tick = 1;
+		for (let i = 0; i <= nodes+2; i++) {
+			let temp = [(i-1)*cvs.width/nodes,0,Math.random()*200,.3];//this.speed*plusOrMinus
 			this.nodes.push(temp);
 		}
 		waves.push(this);
@@ -82,14 +82,14 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 	}
 
 	function drawWave (obj) {
-		var diff = function(a,b) {
+		let diff = function(a,b) {
 			return (b - a)/2 + a;
 		}
 		ctx.fillStyle = obj.colour;
 		ctx.beginPath();
 		ctx.moveTo(0,cvs.height);
 		ctx.lineTo(obj.nodes[0][0],obj.nodes[0][1]);
-		for (var i = 0; i < obj.nodes.length; i++) {
+		for (let i = 0; i < obj.nodes.length; i++) {
 			if (obj.nodes[i+1]) {
 				ctx.quadraticCurveTo(
 					obj.nodes[i][0],obj.nodes[i][1],
@@ -106,7 +106,7 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 
 	function drawNodes (array) {
 		ctx.strokeStyle = "#888";
-		for (var i = 0; i < array.length; i++) {
+		for (let i = 0; i < array.length; i++) {
 			ctx.beginPath();
 			ctx.arc(array[i][0],array[i][1],4,0,2*Math.PI);
 			ctx.closePath();
@@ -116,7 +116,7 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 
 	function drawLine (array) {
 		ctx.strokeStyle = "#888";
-		for (var i = 0; i < array.length; i++) {
+		for (let i = 0; i < array.length; i++) {
 			if (array[i+1]) {
 				ctx.lineTo(array[i+1][0],array[i+1][1]);
 			}
@@ -149,11 +149,11 @@ const R = WIDTH >= HEIGHT ? WIDTH / 2 : HEIGHT / 2  // 半径
 const WEEKS = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 const COUNTDAYS = getCountDays()
 const YEAR = new Date().getFullYear()
-var canvas = document.getElementById('myCanvas')
+let canvas = document.getElementById('myCanvas')
 canvas.width = WIDTH
 canvas.height = HEIGHT
-var cxt = canvas.getContext('2d')
-var date = {
+let cxt = canvas.getContext('2d')
+let date = {
     s: new Date().getSeconds(),
     m: new Date().getMinutes(),
     h: new Date().getHours(),
@@ -161,7 +161,7 @@ var date = {
     D: new Date().getDate(),
     M: new Date().getMonth() + 1
 }
-var jdate = {
+let jdate = {
     s: date.s,
     m: date.m,
     h: date.h,
@@ -169,7 +169,7 @@ var jdate = {
     D: date.D,
     M: date.M
 }
-var radian = {
+let radian = {
     s: 0,
     m: 0,
     h: 0,
@@ -177,7 +177,7 @@ var radian = {
     D: 0,
     M: 0
 }
-var index = {
+let index = {
     s: -1,
     m: -1,
     h: -1,
@@ -218,8 +218,8 @@ function draw() {
 }
 
 function motion(r, n, b, newT, type) {
-    var count = n - 1
-    var pi = 6 * (count + 1)
+    let count = n - 1
+    let pi = 6 * (count + 1)
     if (newT == jdate[type]) {
         index[type]++
     }
@@ -242,12 +242,12 @@ function motion(r, n, b, newT, type) {
 }
 
 function drawNum(r, n, b, t, radian, type) {
-    var val = null
-    for (var i = 0; i < n; i++) {
+    let val = null
+    for (let i = 0; i < n; i++) {
         cxt.save();
-        var rad = Math.PI / b * (i + 1 - t) - radian;
-        var x = Math.cos(rad) * r + WIDTH / 2;
-        var y = Math.sin(rad) * r + HEIGHT / 2;
+        let rad = Math.PI / b * (i + 1 - t) - radian;
+        let x = Math.cos(rad) * r + WIDTH / 2;
+        let y = Math.sin(rad) * r + HEIGHT / 2;
         rotateContext(cxt, x, y, rad)
         cxt.fillStyle = 'rgba(0, 0, 0,1)';  // 数字的颜色
         if (i < 10) {
@@ -256,11 +256,11 @@ function drawNum(r, n, b, t, radian, type) {
             val = i
         }
         if (type === 'w') {
-            for (var j = 0; j < WEEKS.length; j++) {
+            for (let j = 0; j < WEEKS.length; j++) {
                 val = WEEKS[i]
             }
         } else if (type === 'D' || type === 'M') {
-            for (var j = 0; j < n; j++) {
+            for (let j = 0; j < n; j++) {
                 if (i === 0) {
                     val = n
                 }
@@ -279,9 +279,9 @@ function rotateContext(cxt, x, y, degree) {
 
 // 获取当前月份的总天数
 function getCountDays() {
-    var curDate = new Date();
+    let curDate = new Date();
     /* 获取当前月份 */
-    var curMonth = curDate.getMonth();
+    let curMonth = curDate.getMonth();
     /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
     curDate.setMonth(curMonth + 1);
     /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
@@ -292,19 +292,19 @@ function getCountDays() {
 
 // HTML区域点击生成上浮文字
 $(function () {
-    var a_idx = 0,
+    let a_idx = 0,
         b_idx = 0;
         c_idx = 0;
     jQuery(document).ready(function ($) {
         $("html").click(function (e) {
-            var a = ["欢迎你", "么么哒", "你真好", "雅蠛蝶", "棒棒哒", "真可爱", "你最美", "喜欢你", "真聪明", "爱你哦", "好厉害", "你真帅", "哈拉少"],
+            let a = ["欢迎你", "么么哒", "你真好", "雅蠛蝶", "棒棒哒", "真可爱", "你最美", "喜欢你", "真聪明", "爱你哦", "好厉害", "你真帅", "哈拉少"],
                 b = ["#09ebfc", "#ff6651", "#ffb351", "#51ff65", "#5197ff", "#a551ff", "#ff51f7", "#ff518e", "#ff5163", "#efff51"],
                 c = ["12", "14", "16", "18", "20", "22", "24", "26", "28", "30"];
-            var $i = $("<span/>").text(a[a_idx]);
+            let $i = $("<span/>").text(a[a_idx]);
             a_idx = (a_idx + 1) % a.length;
             b_idx = (b_idx + 1) % b.length;
             c_idx = (c_idx + 1) % c.length;
-            var x = e.pageX,
+            let x = e.pageX,
                 y = e.pageY;
             $i.css({
                 "z-index": 999,
@@ -324,7 +324,7 @@ $(function () {
             });
         });
     });
-    var _hmt = _hmt || [];
+    let _hmt = _hmt || [];
 })
 
 // back to top

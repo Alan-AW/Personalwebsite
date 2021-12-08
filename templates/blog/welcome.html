@@ -30,7 +30,7 @@
 <canvas class="cavs">
 This is a beautiful canvas starry sky animation. If you see this message, it means that your browser may not support the display of this animation. Simply put, your browser is too low!</canvas>
 <!-- 欢迎语 -->
-<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自“<span id="your-city">{{ city }}</span>”的朋友</p>
+<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自<span id="city"></span>的朋友</p>
 <div class="autotype" id="autotype">
 	<p class="one">：柴米油盐沁透着星辰大海,</p>
 	<p class="two">：锅碗瓢盆盛满了诗和远方</p>
@@ -55,8 +55,8 @@ This is a beautiful canvas starry sky animation. If you see this message, it mea
 			<img src="{% static 'img/nav/about.jpg' %}" style="width: 3.125rem;"></a></li>
 	</ul>
 </div>
-
 </body>
 <script src="{% static 'blog/js/welcome.js' %}"></script>
 <script src="{% static 'blog/js/animsition.js' %}"></script>
+<script src="{% static 'blog/js/get_city.js' %}"></script>
 </html>

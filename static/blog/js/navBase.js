@@ -78,12 +78,12 @@ dispatchEvent(new Event('resize'));
 
 // HTML区域点击生成上浮文字
 $(function () {
-	var a_idx = 0,
+	let a_idx = 0,
 		b_idx = 0;
 	c_idx = 0;
 	jQuery(document).ready(function ($) {
 		$("html").click(function (e) {
-			var a = ["欢迎你", "么么哒", "你真好", "雅蠛蝶", "棒棒哒", "真可爱", "你最美", "喜欢你", "真聪明", "爱你哦",
+			let a = ["欢迎你", "么么哒", "你真好", "雅蠛蝶", "棒棒哒", "真可爱", "你最美", "喜欢你", "真聪明", "爱你哦",
 					"好厉害", "你真帅", "哈拉少"
 				],
 				b = ["#09ebfc", "#ff6651", "#ffb351", "#51ff65",
@@ -91,11 +91,11 @@ $(function () {
 					"#ff5163", "#efff51"
 				],
 				c = ["12", "14", "16", "18", "20"];
-			var $i = $("<span/>").text(a[a_idx]);
+			let $i = $("<span/>").text(a[a_idx]);
 			a_idx = (a_idx + 1) % a.length;
 			b_idx = (b_idx + 1) % b.length;
 			c_idx = (c_idx + 1) % c.length;
-			var x = e.pageX,
+			let x = e.pageX,
 				y = e.pageY;
 			$i.css({
 				"z-index": 999,
@@ -115,7 +115,7 @@ $(function () {
 			});
 		});
 	});
-	var _hmt = _hmt || [];
+	let _hmt = _hmt || [];
 })
 
 // back to top
@@ -146,20 +146,20 @@ $(function () {
 })
 
 // 时间戳
-var strtime = '1996-05-16';
+let strtime = '1996-05-16';
 
 //当前时间时间戳
 function foxc() {
-	var nowTime = (Date.parse(new Date())) / 1000;
-	// var date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+	let nowTime = (Date.parse(new Date())) / 1000;
+	// let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
 	// 兼容火狐
-	var date = new Date(strtime.replace(/-/g, '/'));
-	var time3 = (Date.parse(date)) / 1000;
-	var time4 = nowTime - time3;
-	var timeDay = Math.floor(time4 / 60 / 60 / 24);
-	var timeHour = Math.floor(time4 / 60 / 60) - timeDay * 24;
-	var timeMinute = Math.floor(time4 / 60) - timeDay * 24 * 60 - timeHour * 60;
-	var timeSecond = Math.floor(time4) - timeDay * 24 * 60 * 60 - timeHour * 60 * 60 - timeMinute * 60;
+	let date = new Date(strtime.replace(/-/g, '/'));
+	let time3 = (Date.parse(date)) / 1000;
+	let time4 = nowTime - time3;
+	let timeDay = Math.floor(time4 / 60 / 60 / 24);
+	let timeHour = Math.floor(time4 / 60 / 60) - timeDay * 24;
+	let timeMinute = Math.floor(time4 / 60) - timeDay * 24 * 60 - timeHour * 60;
+	let timeSecond = Math.floor(time4) - timeDay * 24 * 60 * 60 - timeHour * 60 * 60 - timeMinute * 60;
 	document.getElementById("timeDay").innerHTML = timeDay;
 	document.getElementById("timeHour").innerHTML = timeHour;
 	document.getElementById("timeMinute").innerHTML = timeMinute;
@@ -183,7 +183,7 @@ WIDGET = {
 }
 
 //poetry
-var p = [
+let p = [
 	['晓看天色暮看云', '行也思君，坐也思君~'],
 	['忽有故人心头过', '回首山河已是秋~'],
 	['山川皆无恙', '眉目不知秋~'],
@@ -223,10 +223,10 @@ var p = [
 ];
 
 function RandomPoetry() {
-	var x = 0;
-	var y = 32;
-	var poetry = parseInt(Math.random() * (x - y + 1) + y);
-	var poetry_list = p[poetry];
+	let x = 0;
+	let y = 32;
+	let poetry = parseInt(Math.random() * (x - y + 1) + y);
+	let poetry_list = p[poetry];
 	$("#left-two-pwotry").html(poetry_list);
 	// $("#left-two-pwotry").html(poetry_list[0]);
 	// $("#left-two-pwotry2").html(poetry_list[1]);
@@ -314,11 +314,11 @@ new Promise((resolve, reject) => {
 
 // 固定左右两侧在顶部
 $(document).ready(function () {
-	var scroh = $(".all-left").offset().top;
+	let scroh = $(".all-left").offset().top;
 	$(window).scroll(function () {
 		if (scroh < $(window).scrollTop()) {
 			//获取div距离
-			var left = $(".all-left").offset().left;
+			let left = $(".all-left").offset().left;
 			$(".all-left").css({
 				'position': "fixed",
 				'left': 'left' - $(".all-left").css('width'),
@@ -334,11 +334,11 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-	var scroh = $(".all-right").offset().top;
+	let scroh = $(".all-right").offset().top;
 	$(window).scroll(function () {
 		if (scroh < $(window).scrollTop()) {
 			//获取div距离
-			var right = $(".all-right").offset().right;
+			let right = $(".all-right").offset().right;
 			$(".all-right").css({
 				'position': "fixed",
 				'float': 'right',

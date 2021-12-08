@@ -1,14 +1,14 @@
 // 打字机
 $.fn.autotype = function () {
-	var $text = $(this);
+	let $text = $(this);
 	// console.log('this', this);
-	var str = $text.html(); //返回被选 元素的内容
-	var index = 0;
-	var x = $text.html('');
+	let str = $text.html(); //返回被选 元素的内容
+	let index = 0;
+	let x = $text.html('');
 	//$text.html()和$(this).html('')有区别
-	var timer = setInterval(function () {
+	let timer = setInterval(function () {
 			//substr(index, 1) 方法在字符串中抽取从index下标开始的一个的字符
-			var current = str.substr(index, 1);
+			let current = str.substr(index, 1);
 			if (current == '<') {
 				//indexOf() 方法返回">"在字符串中首次出现的位置。
 				index = str.indexOf('>', index) + 1;
@@ -32,19 +32,19 @@ try {
 
 	} else {
 		$(function () {
-			var canvas = document.querySelector('canvas'),
+			let canvas = document.querySelector('canvas'),
 				ctx = canvas.getContext('2d')
 			canvas.width = $(window).width();
 			canvas.height = $(window).height();
 			ctx.lineWidth = .3;
 			ctx.strokeStyle = (new Color(150)).style;
 
-			var mousePosition = {
+			let mousePosition = {
 				x: 30 * canvas.width / 100,
 				y: 30 * canvas.height / 100
 			};
 
-			var dots = {
+			let dots = {
 				nb: 250,
 				distance: 100,
 				d_radius: 150,
@@ -64,10 +64,10 @@ try {
 			}
 
 			function averageColorStyles(dot1, dot2) {
-				var color1 = dot1.color,
+				let color1 = dot1.color,
 					color2 = dot2.color;
 
-				var r = mixComponents(color1.r, dot1.radius, color2.r, dot2.radius),
+				let r = mixComponents(color1.r, dot1.radius, color2.r, dot2.radius),
 					g = mixComponents(color1.g, dot1.radius, color2.g, dot2.radius),
 					b = mixComponents(color1.b, dot1.radius, color2.b, dot2.radius);
 				return createColorStyle(Math.floor(r), Math.floor(g), Math.floor(b));
@@ -111,7 +111,7 @@ try {
 			function moveDots() {
 				for (i = 0; i < dots.nb; i++) {
 
-					var dot = dots.array[i];
+					let dot = dots.array[i];
 
 					if (dot.y < 0 || dot.y > canvas.height) {
 						dot.vx = dot.vx;
@@ -147,7 +147,7 @@ try {
 
 			function drawDots() {
 				for (i = 0; i < dots.nb; i++) {
-					var dot = dots.array[i];
+					let dot = dots.array[i];
 					dot.draw();
 				}
 			}

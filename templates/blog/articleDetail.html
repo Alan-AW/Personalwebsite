@@ -4,7 +4,6 @@
 {% block title %}
 	<link rel="stylesheet" href="{% static 'blog/css/articleDetail.css' %}">
 	<link rel="stylesheet" href="{% static 'comment/emoji.css' %}">
-	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> {# 获取用户IP #}
 	<!-- 使用任意代码块分割插件自动将代码关键字加上相应标签，使用的是一款名叫 prism 的插件 -->
 	<script src="//cdn.jsdelivr.net/gh/cetr/cdn@master/prism.min.js"></script>
 	<script src="{% static 'blog/js/addMessage.js' %}"></script>
@@ -87,6 +86,8 @@
 
 		<p style="font-size: 26px;color: orangered">评论区:</p>
 		{% if request.user.is_authenticated %}
+			<input id="city" type="text" hidden value="">
+			<script src="{% static 'blog/js/get_city.js' %}"></script>
 			<div id="reply_content_container" style="display:none;">
 				<p style="margin: 10px 0;color: #09ebfc;font-size: 18px">Ta 说：</p>
 				<p id="reply_user" style="color: #666;font-size: 20px"></p>
@@ -164,7 +165,7 @@
 
 		// 提交评论
 		function submitComment() {
-			var content = $('#content').val();
+			let content = $('#content').val();
 			{# 先判断是否为空 #}
 			if (!content) {
 				addMessage('fail', '哇哦，少侠你总得说点什么吧!');
@@ -172,18 +173,19 @@
 			}
 			$('#content').val('');
 			{# 提交到后台数据 #}
-			var userId = {{ request.user.pk }};
-			var articleId = {{ articleObj.pk }};
-			var token = $("[name='csrfmiddlewaretoken']").val();
+			let userId = {{ request.user.pk }};
+			let articleId = {{ articleObj.pk }};
+			let city = $('#city').val();
+			let token = $("[name='csrfmiddlewaretoken']").val();
 			{# 评论成功需要的数据 #}
-			var myDate = new Date();
-			var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-			var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-			var Today = myDate.getDate();  // 获取今天的日期
-			var showContent = AnalyticEmotion(content + '[]');
-			var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
-			var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-			var browserId = userBrowser + userBrowserVer;  // 浏标识展示
+			let myDate = new Date();
+			let Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+			let Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+			let Today = myDate.getDate();  // 获取今天的日期
+			let showContent = AnalyticEmotion(content + '[]');
+			let newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
+			let today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+			let browserId = userBrowser + userBrowserVer;  // 浏标识展示
 
 			$.ajax({
 				url: '/comment/addComment/',
@@ -193,18 +195,19 @@
 					"userId": userId,
 					"articleId": articleId,
 					"browserId": userBrowser + userBrowserVer,
+					"city": city,
 					// 表情本质是img标签，解析之后再存入数据库.但是解析函数不能识别没有表情的字符串，所以手动添加
 					// 一个英文中括号，后端再切割掉即可
 					"content": showContent
 				},
 				success: function (data) {
 					$('#content').val('');
-					var returnObj = JSON.parse(data);
+					let returnObj = JSON.parse(data);
 					if (returnObj.successComment) {
 						addMessage('success', 'Nice~评论成功！');
 						changeTheCommentNameColor();
 						$('#notHaveComment').remove();
-						var html = `<div class="rootcomment"><p class="nameAndTime"><span class="root-comment-name name"><strong>{{ request.user.username }}</strong></span>&nbsp;&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
+						let html = `<div class="rootcomment"><p class="nameAndTime"><span class="root-comment-name name"><strong>{{ request.user.username }}</strong></span>&nbsp;&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
 						// 根评论添加到评论树区域
 						$('.comment-tree').append(html);
 					} else {
@@ -216,17 +219,18 @@
 
 		// 提交回复
 		function submitReply() {
-			var content = $('#content').val();
+			let content = $('#content').val();
 			if (!content) {
 				addMessage('fail', '哇哦，少侠你总得说点什么吧!');
 				return false;
 			}
 			$('#content').val('');
-			var replay_pk = $('#replay_pk').val();  // 回复当前评论的ID
-			var articleId = {{ articleObj.pk }};
-			var showContent = AnalyticEmotion(content + '[]');
-			var browserId = userBrowser + userBrowserVer;
-			var token = $("[name='csrfmiddlewaretoken']").val();
+			let replay_pk = $('#replay_pk').val();  // 回复当前评论的ID
+			let articleId = {{ articleObj.pk }};
+			let city = $('#city').val();
+			let showContent = AnalyticEmotion(content + '[]');
+			let browserId = userBrowser + userBrowserVer;
+			let token = $("[name='csrfmiddlewaretoken']").val();
 			$.ajax({
 				url: '/comment/addReply/',
 				type: 'post',
@@ -235,25 +239,26 @@
 					'articleId': articleId,
 					'content': showContent,
 					'browserId': browserId,
+					'city': city,
 					'csrfmiddlewaretoken': token
 				},
 				success: function (data) {
-					var status = JSON.parse(data);
+					let status = JSON.parse(data);
 					if (status.success) {
 						$('#default_comment_button').attr('href', 'javascript:submitComment()');
 						$("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
 						$('#reply_content_container').hide();
 						addMessage('success', 'nice啊！评论成功！爱你哟 (*￣3￣)╭');
-						var replyTo = status.replyToUser;
-						var rootId = status.rootId;
-						var myDate = new Date();
-						var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-						var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-						var Today = myDate.getDate();  // 获取今天的日期
-						var newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
-						var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-						var browserId = userBrowser + userBrowserVer;  // 浏标识展示
-						var html = `<div class="replay"><p class="replayNameAndTime"><span class="replay-name name" id="rootUser"><strong>{{ request.user.username }}</strong></span>&nbsp;回复：<span class="replay-parent-name">${replyTo}</span>&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
+						let replyTo = status.replyToUser;
+						let rootId = status.rootId;
+						let myDate = new Date();
+						let Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+						let Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+						let Today = myDate.getDate();  // 获取今天的日期
+						let newContent = showContent.substring(0, showContent.length - 2);  // 解码文本内容
+						let today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+						let browserId = userBrowser + userBrowserVer;  // 浏标识展示
+						let html = `<div class="replay"><p class="replayNameAndTime"><span class="replay-name name" id="rootUser"><strong>{{ request.user.username }}</strong></span>&nbsp;回复：<span class="replay-parent-name">${replyTo}</span>&nbsp;<span class="browser">${browserId}</span></p><p class="comment-body">${newContent}</p><div class="replay-button-box"><span style="color: #666">${today}</span></div></div>`;
 						$('#root_' + rootId).append(html);
 					} else {
 						addMessage('fail', '嗷嗷~评论失败，请稍后再试 (⌐■_■)');
@@ -265,7 +270,7 @@
 		// 点击回复
 		function clickReplay(replay_pk) {
 			$('#replay_pk').val(replay_pk);
-			var html = $("#comment_" + replay_pk).html();
+			let html = $("#comment_" + replay_pk).html();
 			$('#reply_user').html(html);
 			$('#reply_content_container').show();
 

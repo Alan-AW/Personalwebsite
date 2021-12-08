@@ -19,10 +19,10 @@ $(function() {
 })
 // fixed——left-nav
 $(document).ready(function() {
-	var scroh = $(".left-nav").offset().top;
+	let scroh = $(".left-nav").offset().top;
 	$(window).scroll(function() {
 		if (scroh < $(window).scrollTop()) {
-			var left = $(".left-nav").offset().left;
+			let left = $(".left-nav").offset().left;
 			$(".left-nav").css({
 				'position': "fixed",
 				'width': $(document.body).width() * 0.14,
@@ -38,7 +38,7 @@ $(document).ready(function() {
 });
 // 锚点
 function show_top(data) {
-	var show_body = data + '-enshi';
+	let show_body = data + '-enshi';
 	$('html,body').animate({
 		scrollTop: $('.' + show_body).offset().top - 100
 	}, 500);

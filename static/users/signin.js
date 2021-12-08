@@ -19,9 +19,9 @@ secondForm.addEventListener("submit", (e) => e.preventDefault());
 
 // 登录按钮
 $('#submitBtn-signin').click(function () {
-    var username = $('#signin-user-name').val();
-    var pwd = $('#signin-user-pwd').val();
-    var token = $("[name='csrfmiddlewaretoken']").val();
+    let username = $('#signin-user-name').val();
+    let pwd = $('#signin-user-pwd').val();
+    let token = $("[name='csrfmiddlewaretoken']").val();
     if (!username) {
         alert('请输入用户名!');
     } else if (!pwd) {
@@ -37,11 +37,11 @@ $('#submitBtn-signin').click(function () {
                 'csrfmiddlewaretoken': token
             },
             success: function (data) {
-                var returnObj = JSON.parse(data);
+                let returnObj = JSON.parse(data);
                 if (returnObj.error) {
                     alert('邮箱格式错误!');
                 } else if (returnObj.not_has_user) {
-                    var to_register = confirm('该用户名不存在，您希望用此用户名进行注册吗？');
+                    let to_register = confirm('该用户名不存在，您希望用此用户名进行注册吗？');
                     if (to_register) {
                         window.location.reload();  // 刷新页面
                     } else {
@@ -64,8 +64,8 @@ $('#submitBtn-signin').click(function () {
 
 // 注册按钮
 $('#submitBtn-register').click(function () {
-    var username = $('#register-user-name').val();
-    var pwd = $('#register-user-pwd').val();
+    let username = $('#register-user-name').val();
+    let pwd = $('#register-user-pwd').val();
     const token = $("[name='csrfmiddlewaretoken']").val();
     if (!username) {
         alert('请输入用户名!');
@@ -74,7 +74,7 @@ $('#submitBtn-register').click(function () {
     } else if (pwd.length < 8) {
         alert('密码长度不能小于8位!');
     } else {
-        var sure = confirm('您确定使用:  ' + username + '  进行注册嘛？');
+        let sure = confirm('您确定使用:  ' + username + '  进行注册嘛？');
         if (sure) {
             $.ajax({
                 url: '',
@@ -86,14 +86,14 @@ $('#submitBtn-register').click(function () {
                     'csrfmiddlewaretoken': token
                 },
                 success: function (data) {
-                    var returnObj = JSON.parse(data);
+                    let returnObj = JSON.parse(data);
                     if (returnObj.error) {
                         alert('格式错误!');
                     } else if (returnObj.is_register) {
                         alert('恭喜您注册成功!');
                         location.href = '';
                     } else if (returnObj.hasUser) {
-                        var forgetPwd = confirm('改用户名已经被注册了哦,忘记了密码嘛？');
+                        let forgetPwd = confirm('改用户名已经被注册了哦,忘记了密码嘛？');
                         if (forgetPwd) {
                             forgot();
                             $('#register-user-name').val('');
@@ -125,9 +125,9 @@ function close() {
 }
 
 function submitNewPwd() {
-    var username = $('#forgotName').val();
-    var pwd = $('#forgotPwd').val();
-    var token = $("[name='csrfmiddlewaretoken']").val();
+    let username = $('#forgotName').val();
+    let pwd = $('#forgotPwd').val();
+    let token = $("[name='csrfmiddlewaretoken']").val();
     if (!username || !pwd) {
         alert('请输入完整信息!');
         return false;
@@ -141,7 +141,7 @@ function submitNewPwd() {
             'csrfmiddlewaretoken': token
         },
         success: function (data) {
-            var status = JSON.parse(data);
+            let status = JSON.parse(data);
             if (status.isSupperUser) {
                 alert('您没有权限修改超级用户的密码!');
                 close();

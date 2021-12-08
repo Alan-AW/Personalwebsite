@@ -1,172 +1,172 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="徐小杰">
-		<meta name="Description" content="python,编程,web开发,前端,后端">
-		<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
-		<meta name="website" content="http://www.missyouc.cn/">
-		<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}" />
-		<title id="site_title">(´▽`ʃ♡ƪ)爱你哟❤</title>
-		<link rel="stylesheet" type="text/css" href="{% static 'blog/css/navBase.css' %}" />
-		<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-		<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
-			integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
-			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
-			integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
-			crossorigin="anonymous" referrerpolicy="no-referrer" />
-		{% block title %}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="徐小杰">
+	<meta name="Description" content="python,编程,web开发,前端,后端">
+	<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+	<meta name="website" content="http://www.missyouc.cn/">
+	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+	<title id="site_title">(´▽`ʃ♡ƪ)爱你哟❤</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/css/navBase.css' %}"/>
+	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+	<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+	        integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+	        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+	      integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+	      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	{% block title %}
 		<!-- 子页面css引入 -->
-		{% endblock %}
-	</head>
-	<body>
-		<!-- bilibili-冬 -->
-		<header>
-			<!-- 导航 -->
-			<div id="navgation">
-				<strong><a href="{% url 'welcome' %}" title="😘I'm waiting for you🥰" class="nav-title">S t a r r
-						y</a></strong>
-				<ul id="nav">
-					<li><a href="{% url 'blog:home' %}" class="nav-a animsition-link"
-							data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">首页</a></li>
-					<li><a href="{% url 'essay:essay' %}" class="nav-a animsition-link"
-							data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">随笔</a></li>
-					<li><a href="{% url 'blog:leavemsg' %}" class="nav-a animsition-link"
-							data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">留言板</a></li>
-					<li><a href="{% url 'blog:enshi' %}" class="nav-a animsition-link"
-							data-animsition-out-class="rotate-out" data-animsition-out-duration="500">硒都</a></li>
-					<li><a href="{% url 'blog:about' %}" class="nav-a animsition-link"
-							data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">关于我</a></li>
-					{% if request.user.is_authenticated %}
-					<li title="点击退出登录">
-						<a href="{% url 'users:logout' %}" class="nav-a">退 出</a>
-					</li>
-					{% else %}
-					<li><a href="{% url 'users:signin' %}" class="nav-a">登录</a></li>
-					{% endif %}
-				</ul>
-			</div>
-			<!-- 背景 -->
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/day.jpg' %}" id="day" />
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/sunset.jpg' %}" id="sunset" />
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/snowball.png' %}" id="snowball" />
-			</div>
-			<div class="layer">
-				<video autoplay loop src="{% static 'img/nav/site-title/night.webm' %}"
-					id="night"></video>
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/fog.png' %}" id="fog" />
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/tree-day.png' %}" id="tree-day" />
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/tree-sunset.png' %}" id="tree-sunset" />
-			</div>
-			<div class="layer">
-				<img src="{% static 'img/nav/site-title/tree-night.png' %}" id="tree-night" />
-			</div>
-			<canvas style="position: absolute; top: 0; left: 0;" id="snow-foreground"></canvas>
-			<!-- xue hua piao piao bei feng xiao xiao -->
-{#			    <div class="logo-wrapper">#}
-{#			        <a href="//bilibili.com">#}
-{#			            <img src="https://dffzmxj.github.io/image-storage/bili-winter/bilibili-winter.png"/>#}
-{#			        </a>#}
-{#			    </div>#}
-		</header>
-		<p id="debug"></p>
-		<!-- 主体 -->
-		<div class="all-body">
-			<!-- 左侧 -->
-			<div class="all-left">
-				<div class="welcome-box animsition" data-animsition-in-class="fade-in-left"
-					data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-					data-animsition-out-duration="800">
-					<div class="left-tip" style="background-color: rgba(0,0,0,0);">💛</div>
-					<div class="left-welcome">
-						<h2 style="font-size: 20px;">欢迎光临：来自<strong>{{ city }}<span id="from-city"
-									style="color: deepskyblue;"></span></strong>的朋友
-						</h2>
-					</div>
-				</div>
-				<!-- 天气 -->
-				<div class="weather-box animsition" data-animsition-in-class="fade-in-left"
-					data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-					data-animsition-out-duration="800">
-					<div class="left-tip"><strong>!</strong></div>
-					<div class="left-one">
-						<div id="he-plugin-standard"></div>
-					</div>
-				</div>
-				<!-- 动态诗句 -->
-				<div class="ptry-box animsition" data-animsition-in-class="fade-in-left"
-					data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-					data-animsition-out-duration="800">
-					<div class="left-tip"><strong>!</strong></div>
-					<div class="left-two">
-						<h3 id="left-title">知足且上进、温柔而坚定</h3>
-						<p id="left-two-pwotry" style="font-size: 1.5rem;transition: all 0.5s;">人生若只如初见,何等秋风悲画扇</p>
-{#						<p id="left-two-pwotry2" style="font-size: 1.5rem;transition: all 0.5s;"></p>#}
-					</div>
-				</div>
-			</div>
-
-			<!-- 右侧 -->
-			<div class="all-right">
-				{% block right %}
-
-				{% endblock %}
-			</div>
-
-			<!-- 中部 -->
-			<div class="all-center">
-				{% block center %}
-
-				{% endblock %}
-			</div>
-		</div>
-
-		<!-- 返回顶部 -->
-		<div class="back-to-top" id="back-top" title="返回顶部"></div>
-
-		<!-- 底部 -->
-		<div class="all-footer animsition">
-			<p>我也是有底线哒 ┑(￣Д ￣)┍</p>
-			<p class="ali"><span style="color: orangered">无聊的朋友请移步休闲区—></span><a href="{% url 'blog:ali' %}"
-					title="听听阿狸的告白吧~">阿狸的告白</a>
-				<a href="{% url 'fishing' %}">捕鱼达人</a>
-				<a href="{% url 'coreball' %}">见缝插针</a>
-				<a href="{% url 'dogs' %}">舔狗日记</a>
-			</p>
-			<div>
-				<div id="nowTime">
-					ψ(｀∇´)ψ站长从出生到现在已经萌萌哒活了:
-					<span id="timeDay" style="color: orangered;"></span>天
-					<span id="timeHour" style="color: greenyellow;"></span>时
-					<span id="timeMinute" style="color: #03a9f4;"></span>分
-					<span id="timeSecond" style="color: #5EAF6F"></span>秒
-				</div>
-			</div>
-			<p>本站部分素材图片源自网络，版权问题请移步<a href="{% url 'blog:about' %}" class="animsition-link"
-					style="font-size: 20px;color: red;">关于</a>站长页面联系删除
-			</p>
-		</div>
-	</body>
-	<script src="{% static 'blog/js/navBase.js' %}"></script>
-	<script src="{% static 'blog/js/site_title.js' %}"></script>
-	<script src="{% static 'blog/js/animsition.js' %}"></script>
-	{% block script %}
-	<!-- 子页面js引入 -->
 	{% endblock %}
+</head>
+<body>
+<!-- bilibili-冬 -->
+<header>
+	<!-- 导航 -->
+	<div id="navgation">
+		<strong><a href="{% url 'welcome' %}" title="😘I'm waiting for you🥰" class="nav-title">S t a r r
+			y</a></strong>
+		<ul id="nav">
+			<li><a href="{% url 'blog:home' %}" class="nav-a animsition-link"
+			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">首页</a></li>
+			<li><a href="{% url 'essay:essay' %}" class="nav-a animsition-link"
+			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">随笔</a></li>
+			<li><a href="{% url 'blog:leavemsg' %}" class="nav-a animsition-link"
+			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">留言板</a></li>
+			<li><a href="{% url 'blog:enshi' %}" class="nav-a animsition-link"
+			       data-animsition-out-class="rotate-out" data-animsition-out-duration="500">硒都</a></li>
+			<li><a href="{% url 'blog:about' %}" class="nav-a animsition-link"
+			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">关于我</a></li>
+			{% if request.user.is_authenticated %}
+				<li title="点击退出登录">
+					<a href="{% url 'users:logout' %}" class="nav-a">退 出</a>
+				</li>
+			{% else %}
+				<li><a href="{% url 'users:signin' %}" class="nav-a">登录</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<!-- 背景 -->
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/day.jpg' %}" id="day"/>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/sunset.jpg' %}" id="sunset"/>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/snowball.png' %}" id="snowball"/>
+	</div>
+	<div class="layer">
+		<video autoplay loop src="{% static 'img/nav/site-title/night.webm' %}"
+		       id="night"></video>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/fog.png' %}" id="fog"/>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/tree-day.png' %}" id="tree-day"/>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/tree-sunset.png' %}" id="tree-sunset"/>
+	</div>
+	<div class="layer">
+		<img src="{% static 'img/nav/site-title/tree-night.png' %}" id="tree-night"/>
+	</div>
+	<canvas style="position: absolute; top: 0; left: 0;" id="snow-foreground"></canvas>
+	<!-- xue hua piao piao bei feng xiao xiao -->
+	{#			    <div class="logo-wrapper">#}
+	{#			        <a href="//bilibili.com">#}
+	{#			            <img src="https://dffzmxj.github.io/image-storage/bili-winter/bilibili-winter.png"/>#}
+	{#			        </a>#}
+	{#			    </div>#}
+</header>
+<p id="debug"></p>
+<!-- 主体 -->
+<div class="all-body">
+	<!-- 左侧 -->
+	<div class="all-left">
+		<div class="welcome-box animsition" data-animsition-in-class="fade-in-left"
+		     data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
+		     data-animsition-out-duration="800">
+			<div class="left-tip" style="background-color: rgba(0,0,0,0);">💛</div>
+			<div class="left-welcome">
+				<h2 style="font-size: 20px;">欢迎来自<strong><span id="city" style="color: deepskyblue;"></span></strong>的朋友
+				</h2>
+			</div>
+		</div>
+		<!-- 天气 -->
+		<div class="weather-box animsition" data-animsition-in-class="fade-in-left"
+		     data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
+		     data-animsition-out-duration="800">
+			<div class="left-tip"><strong>!</strong></div>
+			<div class="left-one">
+				<div id="he-plugin-standard"></div>
+			</div>
+		</div>
+		<!-- 动态诗句 -->
+		<div class="ptry-box animsition" data-animsition-in-class="fade-in-left"
+		     data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
+		     data-animsition-out-duration="800">
+			<div class="left-tip"><strong>!</strong></div>
+			<div class="left-two">
+				<h3 id="left-title">知足且上进、温柔而坚定</h3>
+				<p id="left-two-pwotry" style="font-size: 1.5rem;transition: all 0.5s;">人生若只如初见,何等秋风悲画扇</p>
+				<p id="left-two-pwotry2" style="font-size: 1.5rem;transition: all 0.5s;"></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- 右侧 -->
+	<div class="all-right">
+		{% block right %}
+
+		{% endblock %}
+	</div>
+
+	<!-- 中部 -->
+	<div class="all-center">
+		{% block center %}
+
+		{% endblock %}
+	</div>
+</div>
+
+<!-- 返回顶部 -->
+<div class="back-to-top" id="back-top" title="返回顶部"></div>
+
+<!-- 底部 -->
+<div class="all-footer animsition">
+	<p>我也是有底线哒 ┑(￣Д ￣)┍</p>
+	<p class="ali"><span style="color: orangered">无聊的朋友请移步休闲区—></span><a href="{% url 'blog:ali' %}"
+	                                                                     title="听听阿狸的告白吧~">阿狸的告白</a>
+		<a href="{% url 'fishing' %}">捕鱼达人</a>
+		<a href="{% url 'coreball' %}">见缝插针</a>
+		<a href="{% url 'dogs' %}">舔狗日记</a>
+	</p>
+	<div>
+		<div id="nowTime">
+			ψ(｀∇´)ψ站长从出生到现在已经萌萌哒活了:
+			<span id="timeDay" style="color: orangered;"></span>天
+			<span id="timeHour" style="color: greenyellow;"></span>时
+			<span id="timeMinute" style="color: #03a9f4;"></span>分
+			<span id="timeSecond" style="color: #5EAF6F"></span>秒
+		</div>
+	</div>
+	<p>本站部分素材图片源自网络，版权问题请移步<a href="{% url 'blog:about' %}" class="animsition-link"
+	                          style="font-size: 20px;color: red;">关于</a>站长页面联系删除
+	</p>
+</div>
+</body>
+<script src="{% static 'blog/js/navBase.js' %}"></script>
+<script src="{% static 'blog/js/get_city.js' %}"></script>
+<script src="{% static 'blog/js/site_title.js' %}"></script>
+<script src="{% static 'blog/js/animsition.js' %}"></script>
+{% block script %}
+	<!-- 子页面js引入 -->
+{% endblock %}
 </html>

@@ -11,12 +11,11 @@ import threading
 from App_Blog.models import *
 from django.conf import settings as sys
 from APP_Comment.models import Comment
-from App_Manage.middware.get_city import city as cy
 
 
 class Welcome(View):
     def get(self, request):
-        return render(request, 'blog/welcome.html', {'city': cy})
+        return render(request, 'blog/welcome.html')
 
 
 class Home(View):
@@ -50,11 +49,7 @@ class Home(View):
         paginator = Paginator(articleList, 10)  # Show 10 contacts per page.
         pageObj = paginator.get_page(page)
 
-        return render(request, 'blog/home.html', {
-            'pageObj': pageObj,
-            'category': categoryList,
-            'tags': tagsList,
-            'city': cy})
+        return render(request, 'blog/home.html', locals())
 
 
 class ArticleDetail(View):
@@ -74,7 +69,6 @@ class ArticleDetail(View):
         ltArticle = Article.objects.filter(id__lt=articleId).all().order_by("-id").first()
         # 下一篇
         gtArticle = Article.objects.filter(id__gt=articleId).all().order_by("id").first()
-        city = cy
         return render(request, 'blog/articleDetail.html', locals())
 
     def post(self, request, articleId):
@@ -128,8 +122,8 @@ class LeaveMsgView(View):
             emailAttr = request.POST['emailAttr']
             site = request.POST['site']
             browserId = request.POST['browserId']
+            city = request.POST['city']
             content = request.POST['content'][:-2]
-            city = cy
             status = {'success': False}
             # 开启事物，同步数据
             try:

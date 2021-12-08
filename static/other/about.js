@@ -85,10 +85,10 @@ function submit_eternal() {
 //     }
 
 //     //调用
-//     var btn = document.querySelector('#btnlogin')
-//     var login = document.querySelector('.login')
-//     var mask = document.querySelector('.mask')
-//     var LM = new LoginModel({
+//     let btn = document.querySelector('#btnlogin')
+//     let login = document.querySelector('.login')
+//     let mask = document.querySelector('.mask')
+//     let LM = new LoginModel({
 //         logintarget: login,
 //         masktarget: mask
 //     });

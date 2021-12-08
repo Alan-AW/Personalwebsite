@@ -149,5 +149,3 @@ EMAIL_USE_SSL = True  # 是否使用SSL加密
 
 ETERNAL_KEY = 'tenyuxue'
 ETERNAL_NAME = '滕玉雪'
-
-BMAP_URL = 'http://api.map.baidu.com/location/ip?ak=eGoFmU42VgXFh2OjzSjcPgd5PunNWu6p&ip=&coor=bd09ll'

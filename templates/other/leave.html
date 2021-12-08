@@ -78,6 +78,7 @@
             <p id="nothaveleave" style="margin: 10px 0">来都来了!确定不抢个沙发？</p>
         {% endif %}
         <div class="leave_area">
+        <p id="city" hidden></p>
             {% for leave in allLeave %}
                 <div class="allLeaveShow">
                     <div class="leavemsg" id="root_{{ leave.pk }}">
@@ -117,14 +118,15 @@
 
 {% block script %}
     <script src="{% static 'blog/js/animsition.js' %}"></script>
+    <script src="{% static 'blog/js/get_city.js' %}"></script>
     <script src="{% static 'other/leave.js' %}"></script>
     <script src="{% static 'other/about.js' %}"></script>
     <script src="{% static 'comment/textareaEmoji.js' %}"></script>
     <script>
         // 提交根留言
         function submitLeaveMsg() {
-            var content = $('#content').val();
-            var nickname = $('#nickname').val();
+	        let content = $('#content').val()
+	        let nickname = $('#nickname').val();
             if (!content) {
                 addMessage('fail', '哇哦，少侠你总得说点什么吧!');
                 return false;
@@ -133,18 +135,18 @@
                 return false;
             }
             $('#content').val('');
-            var emailAttr = $('#emailAttr').val();
-            var site = $('#site').val();
-            var subContent = AnalyticEmotion(content + '[]');
-            var showContent = subContent.substring(0, subContent.length - 2);
-            var city = '获取定位中';
-            var browserId = userBrowser + userBrowserVer;
-            var myDate = new Date();
-            var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-            var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-            var Today = myDate.getDate();  // 获取今天的日期
-            var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-            var token = $("[name='csrfmiddlewaretoken']").val();
+            let emailAttr = $('#emailAttr').val();
+            let site = $('#site').val();
+            let subContent = AnalyticEmotion(content + '[]');
+            let showContent = subContent.substring(0, subContent.length - 2);
+            let city = $('#city').html();
+            let browserId = userBrowser + userBrowserVer;
+            let myDate = new Date();
+            let Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+            let Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+            let Today = myDate.getDate();  // 获取今天的日期
+            let today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+            let token = $("[name='csrfmiddlewaretoken']").val();
             $.ajax({
                 url: '',
                 type: 'post',
@@ -154,20 +156,21 @@
                     'site': site,
                     'content': subContent,
                     'browserId': browserId,
+	                'city': city,
                     'csrfmiddlewaretoken': token
                 },
                 success: function (data) {
-                    var status = JSON.parse(data);
+                    let status = JSON.parse(data);
                     if (status.success) {
                         addMessage('success', 'nice!已收到您的留言!小徐同学正在赶来！！')
-                        var leaveNone = $('#nothaveleave');
-                        var allCount = parseInt($('#leaveCount').text());
+                        let leaveNone = $('#nothaveleave');
+                        let allCount = parseInt($('#leaveCount').text());
                         if (leaveNone) {
                             $('#nothaveleave').remove();
                         }
                         $('#reply_content_container').hide();
                         $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
-                        var html = `<div class="leavemsg"><p><span class="leave-name">${nickname}</span>:<span class="browserId">${browserId}</span></p><p class="leave-content">${showContent}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`
+                        let html = `<div class="leavemsg"><p><span class="leave-name">${nickname}</span>:<span class="browserId">${browserId}</span></p><p class="leave-content">${showContent}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`
                         $('.leave_area').append(html);
                         $('#leaveCount').text(allCount + 1);
                     } else {
@@ -180,8 +183,8 @@
 
         // 提交回复
         function submitReply() {
-            var content = $('#content').val();
-            var nickname = $('#nickname').val();
+            let content = $('#content').val();
+            let nickname = $('#nickname').val();
             if (!content) {
                 addMessage('fail', '哇哦，少侠你总得说点什么吧!');
                 return false;
@@ -190,19 +193,19 @@
                 return false;
             }
             $('#content').val('');
-            var subLeave = AnalyticEmotion(content + '[]');
-            var rootId = $('#reply_pk').val();
-            var showLeave = subLeave.substring(0, subLeave.length - 2);
-            var city = '获取定位中';
-            var browserId = userBrowser + userBrowserVer;
-            var emailAttr = $('#emailAttr').val();
-            var site = $('#site').val();
-            var myDate = new Date();
-            var Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
-            var Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
-            var Today = myDate.getDate();  // 获取今天的日期
-            var today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
-            var token = $("[name='csrfmiddlewaretoken']").val();
+            let subLeave = AnalyticEmotion(content + '[]');
+            let rootId = $('#reply_pk').val();
+            let showLeave = subLeave.substring(0, subLeave.length - 2);
+            let city = $('#city').html();
+            let browserId = userBrowser + userBrowserVer;
+            let emailAttr = $('#emailAttr').val();
+            let site = $('#site').val();
+            let myDate = new Date();
+            let Year = myDate.getFullYear();  // 获取完整的年份(4位,1970-????)
+            let Month = myDate.getMonth() + 1;  // 获取当前月份(0-11,0代表1月)
+            let Today = myDate.getDate();  // 获取今天的日期
+            let today = Year + '年' + Month + '月' + Today + '日';  // 拼接出完整的日期
+            let token = $("[name='csrfmiddlewaretoken']").val();
             $.ajax({
                 url: '/blog/addNewLeave/',
                 type: 'post',
@@ -213,19 +216,20 @@
                     'email': emailAttr,
                     'site': site,
                     'content': showLeave,
+	                'city': city,
                     'csrfmiddlewaretoken': token
                 },
                 success: function (data) {
-                    var status = JSON.parse(data);
+                    let status = JSON.parse(data);
                     if (status.success) {
                         $('#default_comment_button').attr('href', 'javascript:submitLeaveMsg()');
                         $('#reply_content_container').hide();
                         $("#content").attr("placeholder", "还是说点什么吧！o(￣ヘ￣o＃)哼...");
                         addMessage('success', 'nice~回复成功咯');
-                        var replyTo = status.replyToUser;
-                        var rootPk = status.rootId;
-                        var allCount = parseInt($('#leaveCount').text());
-                        var html = `<div class="sonleavemsg" style="margin-left: 3em"><p><span class="zzId">我&nbsp;</span>回复:<span class="leave-name">${replyTo}</span><span class="browserId">${browserId}</span></p><p class="leave-content">${showLeave}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`;
+                        let replyTo = status.replyToUser;
+                        let rootPk = status.rootId;
+                        let allCount = parseInt($('#leaveCount').text());
+                        let html = `<div class="sonleavemsg" style="margin-left: 3em"><p><span class="zzId">我&nbsp;</span>回复:<span class="leave-name">${replyTo}</span><span class="browserId">${browserId}</span></p><p class="leave-content">${showLeave}</p><span class="leave-time">${today}</span><span class="city">${city}</span></div>`;
                         $('#root_' + rootPk).append(html);
                         $('#leaveCount').text(allCount + 1);
                     }
@@ -236,7 +240,7 @@
         // 点击回复
         function clickReplay(replay_pk) {
             $('#reply_pk').val(replay_pk);
-            var html = $("#leave_" + replay_pk).html();
+            let html = $("#leave_" + replay_pk).html();
             $('#reply_user').html(html);
             $('#reply_content_container').show();
             $('html').animate({scrollTop: $('#content').offset().top - 400}, 500, function () {  // 将textarea定位到top 200 位置

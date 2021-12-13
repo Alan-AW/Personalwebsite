@@ -324,7 +324,7 @@ $(function () {
             });
         });
     });
-    let _hmt = _hmt || [];
+    var _hmt = _hmt || [];
 })
 
 // back to top

@@ -150,7 +150,7 @@
 	</p>
 	<div>
 		<div id="nowTime">
-			ψ(｀∇´)ψ站长从出生到现在已经萌萌哒活了:
+			ψ(｀∇´)ψ本站已经稳定运行了:
 			<span id="timeDay" style="color: orangered;"></span>天
 			<span id="timeHour" style="color: greenyellow;"></span>时
 			<span id="timeMinute" style="color: #03a9f4;"></span>分
@@ -159,6 +159,9 @@
 	</div>
 	<p>本站部分素材图片源自网络，版权问题请移步<a href="{% url 'blog:about' %}" class="animsition-link"
 	                          style="font-size: 20px;color: red;">关于</a>站长页面联系删除
+	</p>
+	<p style="line-height: initial;"><img src="{% static 'img/nav/icp_icon.png' %}" alt="icp备案查询" width="20px">
+		<a href="https://beian.miit.gov.cn/" title="icp备案查询" target="_blank">{{ icp_code }}</a>
 	</p>
 </div>
 </body>

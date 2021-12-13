@@ -1,6 +1,6 @@
 from django import template
 from django.db.models import Count
-from App_Blog.models import *
+from App_Blog.models import Category, Tags
 
 register = template.Library()
 

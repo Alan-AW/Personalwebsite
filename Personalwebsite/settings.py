@@ -149,3 +149,5 @@ EMAIL_USE_SSL = True  # 是否使用SSL加密
 
 ETERNAL_KEY = 'tenyuxue'
 ETERNAL_NAME = '滕玉雪'
+
+ICP_CODE = '鄂ICP备2021021476号-1'

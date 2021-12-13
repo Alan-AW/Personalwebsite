@@ -46,7 +46,8 @@ class Home(View):
         # 分页
         paginator = Paginator(articleList, 10)  # Show 10 contacts per page.
         pageObj = paginator.get_page(page)
-
+        from django.conf import settings as sys
+        icp_code = sys.ICP_CODE
         return render(request, 'blog/home.html', locals())
 
 

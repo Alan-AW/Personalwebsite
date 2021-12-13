@@ -115,7 +115,7 @@ $(function () {
 			});
 		});
 	});
-	let _hmt = _hmt || [];
+	var _hmt = _hmt || [];
 })
 
 // back to top
@@ -146,7 +146,7 @@ $(function () {
 })
 
 // 时间戳
-let strtime = '1996-05-16';
+let strtime = '2021-12-1';
 
 //当前时间时间戳
 function foxc() {

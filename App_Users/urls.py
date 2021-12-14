@@ -7,5 +7,6 @@ urlpatterns = [
     path('login/', Signin.as_view(), name='signin'),
     path('logout/', Logout.as_view(), name='logout'),
     path('forgotPwd/', ForgotPwd.as_view(), name='forgotPwd'),
-    path('login_by_qq', QQLoginIn.as_view(), name='qq_login'),
+    path('login_by_qq', qq_login, name='qq_login'),
+    path('bind_qq', Bind_QQ.as_view(), name='bind_qq'),
 ]

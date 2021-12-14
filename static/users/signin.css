@@ -170,9 +170,9 @@ a {
 
 /* 表单部分样式 */
 .QQlogin {
-    color: #09ebfc;
+    color: rgb(69,188,248);
     margin: 0 10px;
-    text-shadow: 3px 3px rgba(0, 0, 0, .5);
+    /*text-shadow: 3px 3px rgba(0, 0, 0, .5);*/
 }
 
 /* 标题 */

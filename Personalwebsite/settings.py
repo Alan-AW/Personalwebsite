@@ -147,7 +147,16 @@ EMAIL_HOST_PASSWORD = 'hpogwbjjuenzjcfi'  # pwd
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # default send email user
 EMAIL_USE_SSL = True  # 是否使用SSL加密
 
+# 同桌的你
 ETERNAL_KEY = 'tenyuxue'
 ETERNAL_NAME = '滕玉雪'
 
+# 备案号
 ICP_CODE = '鄂ICP备2021021476号-1'
+
+# QQ登陆配置项
+QQ_APP_ID = '101983999'  # app_id
+QQ_APP_KEY = '10058d32cd969084cdfdef3ac62e37de'  # APP_KEY - 应该写入到环境变量中
+# QQ_APP_KEY = os.environ['QQ_APP_KEY']  # 环境变量读取方法
+QQ_REDIRECT_URL = 'https://www.missyouc.cn/users/login_by_qq'  # (本站)回调域
+QQ_STATE = 'xcdh'  # 自定义字符串原样带回

@@ -11,11 +11,11 @@ import json, random, string
 from random import shuffle
 
 
-class Bind_QQ(object):
+class BindQQ(object):
     def __init__(self, request, params, openid):
         self.request = request
-        self.nickname = params.get('qqnickname')
-        self.avata = params.get('qqavata')
+        self.nickname = params.get('qq_nickname')
+        self.avatar = params.get('qq_avatar')
         self.openid = openid
 
     # 绑定用户QQ登陆信息
@@ -38,9 +38,9 @@ class Bind_QQ(object):
         relationship = OAuthRelationShip()
         relationship.user = user
         relationship.open_id = self.openid
-        relationship.oaurh_type = 1
+        relationship.oauth_type = 1
         relationship.nickname = self.nickname
-        relationship.avata = self.avata
+        relationship.avatar = self.avatar
         relationship.save()
         # 用户登陆
         auth.login(self.request, user)
@@ -48,7 +48,7 @@ class Bind_QQ(object):
 
 def qq_login(request):
     """
-        使用QQ登录网站
+    使用QQ登录网站对回调域地址的处理
     """
     code = request.GET.get('code')
     state = request.GET.get('state')
@@ -75,8 +75,8 @@ def qq_login(request):
     if oauth_obj.filter(open_id=openid, oauth_type=1).exists():
         relation_ship = oauth_obj.get(open_id=openid, oauth_type=1)
         params = {
-            'qqnickname': relation_ship.nickname,
-            'qqavata': relation_ship.avata
+            'qq_nickname': relation_ship.nickname,
+            'qq_avatar': relation_ship.avata
         }
         auth.login(request, relation_ship)  # 登陆
         return redirect(reverse('blog:home') + '?' + urlencode(params))
@@ -90,11 +90,11 @@ def qq_login(request):
         response = urlopen('https://graph.qq.com/user/get_user_info?' + urlencode(params))
         data = json.loads(response.read().decode('utf8'))
         params = {
-            'qqnickname': data.get('nickname'),  # QQ用户昵称
-            'qqavata': data.get('figureurl_qq_1')  # 40*40头像
+            'qq_nickname': data.get('nickname'),  # QQ用户昵称
+            'qq_avatar': data.get('figureurl_qq_1')  # 40*40头像
         }
         # 绑定QQ用户
-        bind_qq = Bind_QQ(request, params, openid)
+        bind_qq = BindQQ(request, params, openid)
         bind_qq.bind_user()
         return redirect(reverse('blog:home') + '?' + urlencode(params))
 

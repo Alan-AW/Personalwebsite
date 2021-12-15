@@ -10,9 +10,9 @@ class OAuthRelationShip(models.Model):
         (2, 'Wechat'),
         (3, 'GitHub'),
     )
-    oaurh_type = models.IntegerField(default=1, choices=AUTH_TYPE_CHOICES)
+    oauth_type = models.IntegerField(default=1, choices=AUTH_TYPE_CHOICES)
     nickname = models.CharField(max_length=128, null=True)
-    avata = models.CharField(max_length=256, null=True)
+    avatar = models.CharField(max_length=256, null=True)
 
     def __str__(self):
         return self.user.username

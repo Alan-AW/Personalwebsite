@@ -44,7 +44,7 @@
 			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">关于我</a></li>
 			{% if request.user.is_authenticated %}
 				{% if qq_user_nickname %}
-					<img src="{{ qq_user_avata }}" alt="头像" style="width: 40px;height: 40px;border-radius: 50%;border: none;margin-top: 10px;">
+					<img src="{{ qq_user_avatar }}" alt="头像" style="width: 40px;height: 40px;border-radius: 50%;border: none;margin-top: 10px;">
 					<a href="{% url 'users:user_detail' %}" class="nav-a animsition-link"
 					data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">{{ qq_user_nickname }}</a>
 				{% else %}
@@ -173,6 +173,7 @@
 </div>
 </body>
 <script src="{% static 'blog/js/navBase.js' %}"></script>
+<script src="{% static 'blog/js/footer.js' %}"></script>
 <script src="{% static 'blog/js/get_city.js' %}"></script>
 <script src="{% static 'blog/js/site_title.js' %}"></script>
 <script src="{% static 'blog/js/animsition.js' %}"></script>

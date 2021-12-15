@@ -4,7 +4,7 @@ from django.contrib.auth.models import User as Django_User
 
 class OAuthRelationShip(models.Model):
     user = models.ForeignKey(Django_User, on_delete=models.CASCADE)
-    open_id = models.CharField(max_length=128)
+    open_id = models.CharField(max_length=128, null=True)
     AUTH_TYPE_CHOICES = (
         (1, 'QQ'),
         (2, 'Wechat'),
@@ -18,4 +18,4 @@ class OAuthRelationShip(models.Model):
         return self.user.username
 
     class Meta:
-        db_table = 'oauthrs'
+        db_table = 'oauth'

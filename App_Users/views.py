@@ -12,20 +12,21 @@ from random import shuffle
 
 
 class BindQQ(object):
+    # 绑定用户QQ登陆信息
     def __init__(self, request, params, openid):
         self.request = request
         self.nickname = params.get('qq_nickname')
         self.avatar = params.get('qq_avatar')
         self.openid = openid
 
-    # 绑定用户QQ登陆信息
     def get_random_str(self, length):
+        # 生成指定随机字符串
         chars = string.ascii_letters + string.digits
-        return 'QQuser'.join([random.choice(chars) for i in range(length)])
+        return ''.join([random.choice(chars) for i in range(length)])
 
     def get_username(self):
         # 为新用户创建8位随机用户名
-        return self.get_random_str(6)
+        return self.nickname + self.get_random_str(4)
 
     def get_password(self):
         # 为新用户创建10位随机密码
@@ -36,7 +37,6 @@ class BindQQ(object):
         user = User.objects.create_user(username=self.get_username(), password=self.get_password())
         # 记录关系
         relationship = OAuthRelationShip()
-        relationship.user = user
         relationship.open_id = self.openid
         relationship.oauth_type = 1
         relationship.nickname = self.nickname
@@ -46,57 +46,63 @@ class BindQQ(object):
         auth.login(self.request, user)
 
 
-def qq_login(request):
-    """
-    使用QQ登录网站对回调域地址的处理
-    """
-    code = request.GET.get('code')
-    state = request.GET.get('state')
-    if state != sys.QQ_STATE:
-        raise Exception('state is error')
-    # 获取access_token
+def get_qq_user_msg(access_token, openid):
+    # 获取用户QQ信息
     params = {
-        'grant_type': 'authorization_code',
-        'client_id': sys.QQ_APP_ID,
-        'client_secret': sys.QQ_APP_KEY,
-        'code': code,
-        'redirect_uri': sys.QQ_REDIRECT_URL
+        'access_token': access_token,
+        'oauth_consumer_key': sys.QQ_APP_ID,
+        'openid': openid,
     }
-    url = 'https://graph.qq.com/oauth2.0/authorize?' + urlencode(params)
-    response = urlopen(url)
-    data = parse_qs(response.read().decode('utf8'))
-    access_token = data.get('access_token')[0]
-    # 获取openid
-    response = urlopen('https://graph.qq.com/oauth2.0/me?access_token=%s' % access_token)
-    data = response.read().decode('utf8')
-    openid = json.loads(data[10:-4]).get('openid')  # 唯一识别ID
-    # 判断openid是否有关联的用户,有 --> 登陆；没有 --> 绑定一个用户
-    oauth_obj = OAuthRelationShip.objects
-    if oauth_obj.filter(open_id=openid, oauth_type=1).exists():
-        relation_ship = oauth_obj.get(open_id=openid, oauth_type=1)
+    response = urlopen('https://graph.qq.com/user/get_user_info?' + urlencode(params))
+    data = json.loads(response.read().decode('utf8'))
+    params = {
+        'qq_nickname': data.get('nickname'),  # QQ用户昵称
+        'qq_avatar': data.get('figureurl_qq_1')  # 40*40头像
+    }
+    return params
+
+
+class QQLogin(View):
+    def get(self, request):
+        """
+        使用QQ登录网站对回调域地址的处理
+        """
+        code = request.GET.get('code')
+        state = request.GET.get('state')
+        if state != sys.QQ_STATE:
+            return HttpResponse('State Code Error')
+        # 1.获取access_token
         params = {
-            'qq_nickname': relation_ship.nickname,
-            'qq_avatar': relation_ship.avata
+            'grant_type': 'authorization_code',
+            'client_id': sys.QQ_APP_ID,
+            'client_secret': sys.QQ_APP_KEY,
+            'code': code,
+            'redirect_uri': sys.QQ_REDIRECT_URL
         }
-        auth.login(request, relation_ship)  # 登陆
-        return redirect(reverse('blog:home') + '?' + urlencode(params))
-    else:
-        # 获取用户QQ信息
-        params = {
-            'access_token': access_token,
-            'oauth_consumer_key': sys.QQ_APP_ID,
-            'openid': openid,
-        }
-        response = urlopen('https://graph.qq.com/user/get_user_info?' + urlencode(params))
-        data = json.loads(response.read().decode('utf8'))
-        params = {
-            'qq_nickname': data.get('nickname'),  # QQ用户昵称
-            'qq_avatar': data.get('figureurl_qq_1')  # 40*40头像
-        }
-        # 绑定QQ用户
-        bind_qq = BindQQ(request, params, openid)
-        bind_qq.bind_user()
-        return redirect(reverse('blog:home') + '?' + urlencode(params))
+        url = 'https://graph.qq.com/oauth2.0/token?%s' % urlencode(params)
+        response = urlopen(url)
+        data = parse_qs(response.read().decode('utf8'))
+        access_token = data.get('access_token')[0]
+
+        # 2.获取openid
+        response = urlopen('https://graph.qq.com/oauth2.0/me?access_token=%s' % access_token)
+        data = response.read().decode('utf8')
+        openid = json.loads(data[10:-4]).get('openid')  # 唯一识别ID
+
+        # 3.判断openid是否有关联的用户,有 --> 登陆；没有 --> 绑定一个用户
+        oauth_obj = OAuthRelationShip.objects
+        if oauth_obj.filter(open_id=openid, oauth_type=1).exists():
+            relation_ship = oauth_obj.get(open_id=openid, oauth_type=1)
+            params = get_qq_user_msg(access_token, openid)
+            auth.login(request, relation_ship.user)  # 登陆
+            return redirect(reverse('blog:home') + '?' + urlencode(params))
+        else:
+            # 获取QQ用户信息（昵称和头像）
+            params = get_qq_user_msg(access_token, openid)
+            # 绑定QQ用户
+            bind_qq = BindQQ(request, params, openid)
+            bind_qq.bind_user()
+            return redirect(reverse('blog:home') + '?' + urlencode(params))
 
 
 class Signin(View):
@@ -201,5 +207,5 @@ class UserDetail(LoginRequiredMixin, View):
         if is_qq_user:
             qq_user_obj = OAuthRelationShip.objects.filter(user=user_obj).first()
             qq_nick_name = qq_user_obj.nickname
-            qq_avata = qq_user_obj.avata
+            qq_avatar = qq_user_obj.avata
         return render(request, 'users/user_detail.html', locals())

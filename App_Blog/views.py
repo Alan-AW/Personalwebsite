@@ -71,6 +71,7 @@ class ArticleDetail(View):
         ltArticle = Article.objects.filter(id__lt=articleId).all().order_by("-id").first()
         # 下一篇
         gtArticle = Article.objects.filter(id__gt=articleId).all().order_by("id").first()
+        icp_code = sys.ICP_CODE
         return render(request, 'blog/articleDetail.html', locals())
 
     def post(self, request, articleId):

@@ -18,7 +18,7 @@
 {% if is_super %}
 <h1>欢迎领导前来视察工作!</h1>
 	<h2><a href="{% url 'manage:manage_home' %}">进入后台</a></h2>
-    <a href="{% url 'users:logout' %}">退出登陆</a>
 {% endif %}
+<a href="{% url 'users:logout' %}">退出登陆</a>
 </body>
 </html>

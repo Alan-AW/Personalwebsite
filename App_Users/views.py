@@ -37,6 +37,7 @@ class BindQQ(object):
         user = User.objects.create_user(username=self.get_username(), password=self.get_password())
         # 记录关系
         relationship = OAuthRelationShip()
+        relationship.user = user
         relationship.open_id = self.openid
         relationship.oauth_type = 1
         relationship.nickname = self.nickname
@@ -207,5 +208,5 @@ class UserDetail(LoginRequiredMixin, View):
         if is_qq_user:
             qq_user_obj = OAuthRelationShip.objects.filter(user=user_obj).first()
             qq_nick_name = qq_user_obj.nickname
-            qq_avatar = qq_user_obj.avata
+            qq_avatar = qq_user_obj.avatar
         return render(request, 'users/user_detail.html', locals())

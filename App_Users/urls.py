@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('forgotPwd/', ForgotPwd.as_view(), name='forgotPwd'),
     path('login_by_qq', qq_login, name='qq_login'),
-    path('bind_qq', Bind_QQ.as_view(), name='bind_qq'),
+    path('user_detail/', UserDetail.as_view(), name='user_detail'),
 ]

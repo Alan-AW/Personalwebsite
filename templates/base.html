@@ -43,11 +43,18 @@
 			<li><a href="{% url 'blog:about' %}" class="nav-a animsition-link"
 			       data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">关于我</a></li>
 			{% if request.user.is_authenticated %}
-				<li title="点击退出登录">
-					<a href="{% url 'users:logout' %}" class="nav-a">退 出</a>
-				</li>
+				{% if qq_user_nickname %}
+					<img src="{{ qq_user_avata }}" alt="头像" style="width: 40px;height: 40px;border-radius: 50%;border: none;margin-top: 10px;">
+					<a href="{% url 'users:user_detail' %}" class="nav-a animsition-link"
+					data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">{{ qq_user_nickname }}</a>
+				{% else %}
+					<li>
+					<a href="{% url 'users:user_detail' %}" class="nav-a animsition-link"
+					data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">我的</a></li>
+				{% endif %}
 			{% else %}
-				<li><a href="{% url 'users:signin' %}" class="nav-a">登录</a></li>
+				<li><a href="{% url 'users:signin' %}" class="nav-a animsition-link"
+				data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">登录</a></li>
 			{% endif %}
 		</ul>
 	</div>

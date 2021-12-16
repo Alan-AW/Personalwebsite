@@ -9,6 +9,7 @@ from django.conf import settings as sys
 from App_Users.models import OAuthRelationShip
 import json, random, string
 from random import shuffle
+from App_Users.tools.get_qq_msg import get_qq_user_msg
 
 
 class BindQQ(object):
@@ -45,22 +46,6 @@ class BindQQ(object):
         relationship.save()
         # 用户登陆
         auth.login(self.request, user)
-
-
-def get_qq_user_msg(access_token, openid):
-    # 获取用户QQ信息
-    params = {
-        'access_token': access_token,
-        'oauth_consumer_key': sys.QQ_APP_ID,
-        'openid': openid,
-    }
-    response = urlopen('https://graph.qq.com/user/get_user_info?' + urlencode(params))
-    data = json.loads(response.read().decode('utf8'))
-    params = {
-        'qq_nickname': data.get('nickname'),  # QQ用户昵称
-        'qq_avatar': data.get('figureurl_qq_1')  # 40*40头像
-    }
-    return params
 
 
 class QQLogin(View):
@@ -161,8 +146,7 @@ class Logout(View):
 
     def get(self, request):
         auth.logout(request)
-        url = reverse('blog:home')
-        return redirect(url)
+        return redirect(reverse('blog:home'))
 
 
 class ForgotPwd(View):

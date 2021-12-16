@@ -184,11 +184,9 @@ header > .layer > img, header > .layer > video {
 }
 
 #navgation #nav {
-    position: relative;
-    left: 4.5%;
+    /*position: relative;*/
+    /*left: 4.5%;*/
     float: right;
-    text-align: right;
-    height: 3.75rem;
 }
 
 #navgation #nav li {
@@ -459,4 +457,19 @@ header > .layer > img, header > .layer > video {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.qq_user_avatar {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     border: none;
+     margin-top: 10px;
+}
+
+.qq_user_nickname {
+    color: deepskyblue;
+    font-size: 20px;
+    float: right;
+    margin-top: 20px;
 }

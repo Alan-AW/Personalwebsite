@@ -12,5 +12,63 @@
 {% endblock %}
 
 {% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row" style="margin: 30px auto;">
+            <div class="col-lg-6">
+                <h3>在此处添加一则随笔</h3><span style="color: red;">{{ error_msg }}</span>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="标题" name="title" maxlength="10"
+                           style="margin: 20px 0;">
+                    <span class="input-group-btn">
+                        <input class="btn btn-default" type="submit" value="添 加">
+                      </span>
+                </div>
+                <textarea class="form-control" placeholder="内容" name="body"></textarea>
+            </div>
+        </div>
+    </form>
 
+    <div class="bs-example col-lg-6" data-example-id="panel-with-heading">
+        {% for essay in all_essay %}
+            <div class="panel panel-default col-md-5" id="essay-{{ essay.pk }}" style="margin-right: 20px;">
+                <div class="panel-heading"><b>{{ essay.title }}</b>
+                    <a href="javascript:_delete({{ essay.pk }})" style="float: right;color: red;">删除</a>
+                </div>
+                <div class="panel-body">
+                    <span style="color: #008800;margin-right: 10px;">{{ essay.date }}:</span>
+                    <p>{{ essay.body }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        // 删除随笔
+        function _delete(pk) {
+            let is_sure = confirm('确认删除这条随笔吗？');
+            if (is_sure) {
+                let csrf_token = $("[name='csrfmiddlewaretoken']").val();
+                $.ajax({
+                    url: '',
+                    type: 'post',
+                    data: {
+                        'csrfmiddlewaretoken': csrf_token,
+                        'pk': pk,
+                        'state': 'del',
+                    }, success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response.is_true) {
+                            $('#essay-' + pk).remove();
+                            alert('删除成功!');
+                        } else {
+                            alert(response.is_true);
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 {% endblock %}

@@ -194,12 +194,42 @@ class CategoryManage(View):
 
 class EssayManage(View):
     # 随笔管理
+    def get_queryset(self):
+        return Essay.objects.all()
+
     def get(self, request):
-        all_essay = Essay.objects.all()
+        all_essay = self.get_queryset()
         return render(request, 'managehtml/essay.html', locals())
 
     def post(self, request):
-        return None
+        if request.is_ajax():
+            response = dict()
+            pk = request.POST.get('pk')
+            state = request.POST.get('state')
+            if state == 'del':
+                try:
+                    Essay.objects.get(id=pk).delete()
+                    response['is_true'] = True
+                except Exception:
+                    response['is_true'] = False
+                ret = json.dumps(response)
+            else:
+                response['is_true'] = '请求参数校验错误!'
+                ret = json.dumps(response)
+            return HttpResponse(ret)
+        title = request.POST.get('title')
+        body = request.POST.get('body')
+        if all([title, body]):
+            try:
+                Essay.objects.create(title=title, body=body)
+            except Exception:
+                error_msg = '服务器错误，稍后再试！'
+            all_essay = self.get_queryset()
+            return render(request, 'managehtml/essay.html', locals())
+        else:
+            error_msg = '参数不完整，检查一下。'
+            all_essay = self.get_queryset()
+            return render(request, 'managehtml/essay.html', locals())
 
 
 class LeaveMsgManage(View):

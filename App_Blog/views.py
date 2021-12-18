@@ -84,6 +84,15 @@ class ArticleDetail(View):
         # 下一篇
         gtArticle = Article.objects.filter(id__gt=articleId).all().order_by("id").first()
         icp_code = sys.ICP_CODE
+        user = request.user
+        if user:
+            try:
+                qq_user_obj = OAuthRelationShip.objects.filter(user=user).first()
+            except Exception:
+                qq_user_obj = None
+            if qq_user_obj:
+                qq_user_nickname = qq_user_obj.nickname
+                qq_user_avatar = qq_user_obj.avatar
         return render(request, 'blog/articleDetail.html', locals())
 
     def post(self, request, articleId):

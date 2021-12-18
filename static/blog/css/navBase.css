@@ -317,6 +317,30 @@ header > .layer > img, header > .layer > video {
     color: #FF8C00;
 }
 
+/* 一言呼吸灯 */
+@keyframes change {
+    0% {
+        opacity: 0;
+        text-shadow: 0 1px 10px rgb(109, 204, 204);
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 10px 1px rgb(109, 204, 204);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 10px 1px rgb(98, 120, 219);
+    }
+}
+
+.hitokoto {
+    animation-timing-function: ease-in-out; /* 动画以低速开始和结束 */
+    animation-name: change; /* 动画名称 */
+    animation-duration: 3000ms; /* 动画完成一周期的时间 */
+    animation-iteration-count: infinite; /* 规定动画无限次的播放 */
+    animation-direction: alternate; /* 动画反向轮流播放 */
+}
+
 /* 右侧归档 */
 .block_right_title {
     padding: 1.25rem;
@@ -460,11 +484,11 @@ header > .layer > img, header > .layer > video {
 }
 
 .qq_user_avatar {
-     width: 40px;
-     height: 40px;
-     border-radius: 50%;
-     border: none;
-     margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    margin-top: 10px;
 }
 
 .qq_user_nickname {

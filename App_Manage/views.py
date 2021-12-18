@@ -36,9 +36,6 @@ class SiteManage(View):
         users_count = User.objects.all().count()
         return render(request, 'managehtml/manage_home.html', locals())
 
-    def post(self, request):
-        pass
-
 
 class ArticleManage(View):
     def __init__(self):

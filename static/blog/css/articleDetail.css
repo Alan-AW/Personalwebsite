@@ -48,6 +48,7 @@
 .articleDesc pre {
     white-space: pre-wrap;
     word-wrap: break-word;
+    word-break: break-word;
 }
 
 /* 上一篇--下一篇 */

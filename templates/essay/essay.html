@@ -14,18 +14,24 @@
         <p>人生总不能尽如人意，但我相信“事在人为”</p>
     </div>
     <div class="essay_detail_body animsition" style="margin-top: 20px">
-        {% for essay in essayObj %}
-            <div class="essayDetail">
-                <div class="squre"></div>
-                <h2>{{ essay.date }}</h2>
-                <div class="table-keys">
-                    <p>{{ essay.title }}</p>
-                    <p>{{ essay.body }}</p>
-                </div>
-            </div>
-        {% endfor %}
+        <section class="timeline">
+            <ul>
+                {% for essay_obj in essayObj %}
+                    <li>
+                        <div>
+                            <time>{{ essay_obj.date }}</time>
+                            <div class="discovery">
+                                <h1>{{ essay_obj.title }}</h1>
+                                <p>
+                                    {{ essay_obj.body }}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
     </div>
-
 
 {% endblock %}
 

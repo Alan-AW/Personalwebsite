@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.conf import settings as sys
 from bs4 import BeautifulSoup
-
+from App_Users.models import OAuthRelationShip
 from APP_Comment.models import Comment
 from App_Blog.models import Article, Tags, Category, LeaveMsg
 from App_Essay.models import Essay
@@ -23,6 +23,15 @@ def get_article_desc(body):
     desc = soup.text[0:70]
     new_body = str(soup)
     return [desc, new_body]
+
+
+def get_page_obj(request, model_obj, num):
+    # 分页
+    page = request.GET.get('page')
+    model = model_obj.objects.all()
+    paginator = Paginator(model, num)
+    pageObj = paginator.get_page(page)
+    return pageObj
 
 
 class SiteManage(View):
@@ -43,21 +52,13 @@ class ArticleManage(View):
         self.cateObj = Category.objects.all()
         self.edit_dict = None
 
-    def get_page_obj(self, request):
-        # 分页
-        page = request.GET.get('page')
-        article_obj = Article.objects.all()
-        paginator = Paginator(article_obj, 20)
-        pageObj = paginator.get_page(page)
-        return pageObj
-
     # 文章管理
     def get(self, request):
         # 分类和标签
         tagsObj = self.tagsObj
         cateObj = self.cateObj
         edit_dict = self.edit_dict
-        pageObj = self.get_page_obj(request)
+        pageObj = get_page_obj(request, Article, 20)
         return render(request, 'managehtml/article.html', locals())
 
     def post(self, request):
@@ -75,7 +76,7 @@ class ArticleManage(View):
             status = False
             tagsObj = self.tagsObj
             cateObj = self.cateObj
-            pageObj = self.get_page_obj(request)
+            pageObj = get_page_obj(request, Article, 20)
             if all([title, tag_id, cate, body]):
                 param = get_article_desc(body)
                 desc = param[0]
@@ -234,11 +235,23 @@ class EssayManage(View):
 
 class LeaveMsgManage(View):
     # 留言管理
+    def __init__(self):
+        self._count = LeaveMsg.objects.all().count()
+
     def get(self, request):
+        page_obj = get_page_obj(request, LeaveMsg, 20)
+        count = self._count
         return render(request, 'managehtml/leave.html', locals())
 
     def post(self, request):
-        return None
+        pk_list = request.POST.getlist('pk_list')
+        page_obj = get_page_obj(request, LeaveMsg, 20)
+        count = self._count
+        try:
+            LeaveMsg.objects.filter(id__in=pk_list).delete()
+        except Exception:
+            error_msg = '操作失败!'
+        return render(request, 'managehtml/leave.html', locals())
 
 
 class UserManage(View):

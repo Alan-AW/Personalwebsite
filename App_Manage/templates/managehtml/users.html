@@ -7,5 +7,80 @@
             background: url("/static/img/manage-bg/manage-users.jpg") no-repeat center center fixed;
             background-size: cover;
         }
+
+        .bs-example form table tbody td {
+            line-height: 40px;
+        }
     </style>
+{% endblock %}
+
+{% block content %}
+    <div class="bs-example" data-example-id="panel-without-body-with-table">
+        <form method="post">
+            <div class="panel panel-default" style="background-color: rgba(245,245,245,.65)">
+                <!-- Default panel contents -->
+
+                {% csrf_token %}
+                <div class="panel-heading">
+                    <p>本站一共有<span style="color: #ff6651;"><b>{{ userCount }}</b></span>名用户</p>
+                    <p>其中有<span style="color: #ff6651;"><b>{{ oauthCount }}</b></span>名用户是通过QQ登陆的；
+                        有<span style="color: #ff6651;"><b>{{ register_count }}</b></span>名用户是直接注册的。
+                    </p>
+                    <p style="color: red;">注意：超级管理员一次只能设置一个！不能选择多个！</p>
+                </div>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>
+                            <button type="submit" class="btn btn-default" style="color: red;float: left;">设置\取消超管
+                            </button>
+                        </th>
+                        <th>用户名</th>
+                        <th>注册日期</th>
+                        <th>最近登陆</th>
+                        <th>QQ头像</th>
+                        <th>QQ昵称</th>
+                        <th>参与留言</th>
+                        <th>文章评论</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in user_manage %}
+                        <tr style="height: 50px;">
+                            <td>{{ forloop.counter }}</td>
+                            <td><input type="checkbox" value="{{ user.user_id }}" {% if user.super %}
+                                       checked {% endif %} name="user_pk"></td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            {% if user.qq_avatar %}
+                                <td><img src="{{ user.qq_avatar }}"
+                                         style="width: 40px;height: 40px;border-radius: 50%;"></td>
+                            {% else %}
+                                <td>没有头像</td>
+                            {% endif %}
+                            {% if user.qq_nickname %}
+                                <td>{{ user.qq_nickname }}</td>
+                            {% else %}
+                                <td>没有昵称</td>
+                            {% endif %}
+                            {% if user.leave_count %}
+                                <td>{{ user.leave_count }}</td>
+                            {% else %}
+                                <td>没有留言</td>
+                            {% endif %}
+                            {% if user.comment_count %}
+                                <td>{{ user.comment_count }}</td>
+                            {% else %}
+                                <td>没有评论</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -257,11 +257,76 @@ class LeaveMsgManage(View):
 class UserManage(View):
     # 用户管理
     def get(self, request):
+        # 所有用户统计数据
         userObj = User.objects.all()
+        userCount = userObj.count()
+        oauthObj = OAuthRelationShip.objects.all()
+        oauthCount = oauthObj.count()
+        register_count = userCount - oauthCount
+
+        # 用户互动数据
+        all_leave = LeaveMsg.objects.all()
+        all_comment = Comment.objects.all()
+        user_manage = []
+        comment_count = 0
+        leave_count = 0
+        for user in userObj:
+            user_dict = {'user_id': user.id,
+                         'username': user.username,
+                         'date_joined': user.date_joined,
+                         'last_login': user.last_login}
+            if user.is_superuser:
+                user_dict['super'] = True
+            else:
+                user_dict['super'] = False
+            for oauth in oauthObj:
+                if oauth.user == user:
+                    user_dict['qq_avatar'] = oauth.avatar
+                    user_dict['qq_nickname'] = oauth.nickname
+            for comment in all_comment:
+                if comment.user == user:
+                    comment_count += 1
+                    user_dict['comment_count'] = comment_count
+            for leave in all_leave:
+                if leave.name == user.username:
+                    leave_count += 1
+                    user_dict['leave_count'] = leave_count
+            user_manage.append(user_dict)
+
         return render(request, 'managehtml/users.html', locals())
 
     def post(self, request):
-        return None
+        # 获取请求中所有的pk
+        user_pk = request.POST.getlist('user_pk')
+        # 获取数据库中所有超级用户的pk
+        all_super = User.objects.filter(is_superuser=True)
+        super_pk = list()
+        for item in all_super:
+            super_pk.append(item.pk)
+        # 提取出不同的pk
+        different_list = self.get_different_list(user_pk, super_pk)
+        # 请求 > 数据库
+        if len(user_pk) > all_super.count():
+            # 增加超管
+            add_super_obj = User.objects.get(id__in=different_list)
+            add_super_obj.is_superuser = True
+            add_super_obj.save()
+            return self.get(request)
+        # 请求 < 数据库
+        if len(user_pk) < all_super.count():
+            # 取消超管
+            del_super_obj = User.objects.get(id__in=different_list)
+            del_super_obj.is_superuser = False
+            del_super_obj.save()
+            return self.get(request)
+        else:
+            return self.get(request)
+
+    def get_different_list(self, list1, list2):
+        set1 = set([int(item) for item in list1])
+        set2 = set([int(item) for item in list2])
+        public = list(set1 ^ set2)
+        return public
 
 
 class AdminLogin(View):

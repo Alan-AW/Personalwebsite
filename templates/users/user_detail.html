@@ -2,23 +2,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="徐小杰">
-	<meta name="Description" content="python,编程,web开发,前端,后端">
-	<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
-	<meta name="website" content="http://www.missyouc.cn/">
-	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
-	<title id="site_title">{{ username }}|的个人信息</title>
-	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="徐小杰">
+    <meta name="Description" content="python,编程,web开发,前端,后端">
+    <meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+    <meta name="website" content="http://www.missyouc.cn/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title id="site_title">{{ username }}|的个人信息</title>
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+
+    <link rel="stylesheet" href="{% static 'users/detail.css' %}">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<h1>用户详情页</h1>
-{% if is_super %}
-<h1>欢迎领导前来视察工作!</h1>
-	<h2><a href="{% url 'manage:manage_home' %}">进入后台</a></h2>
-{% endif %}
-<a href="{% url 'users:logout' %}">退出登陆</a>
+<div class="avatar-box">
+    <div class="welcome-box animsition" data-animsition-in-class="fade-in-down"
+         data-animsition-in-duration="500" data-animsition-out-class="fade-out-left"
+         data-animsition-out-duration="500">
+        <img id="avatar" src="{% static 'img/nav/default_avatar.jpg' %}">
+        <p id="username"><b>九亿少女的梦</b></p>
+    </div>
+</div>
+<div class="content animsition">
+    <div class="user-msg">
+        <p class="msg-p"><b>欢迎光临我的小栈~</b><small>&nbsp;&nbsp;&nbsp;ps：导航在底部哦</small></p>
+        <p class="msg-p">您在<span style="color: indianred;">2021年12月10日</span>第一次登陆到我的小栈,距今已经有<span
+                style="color: red;">50天</span>了!希望我们能永远走下去~</p>
+        <p class="msg-p">您在本站的用户名是：<input type="text" value="九亿少女的梦pass"/><a
+                href="javascript:edit_username(user.pk)">修改</a></p>
+        <p class="msg-p">用户名</p>
+        <p class="msg-p">用户名</p>
+        <p class="msg-p">用户名</p>
+        <p class="msg-p">用户名</p>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-fontent animsition" data-animsition-in-class="fade-in-up"
+         data-animsition-in-duration="500" data-animsition-out-class="fade-out-down"
+         data-animsition-out-duration="500">
+        <div class="nav">
+            <ul>
+                <li><a href="{% url 'blog:home' %}">首页</a></li>
+                <li><a href="{% url 'essay:essay' %}">随笔</a></li>
+                <li><a href="{% url 'blog:leavemsg' %}">留言</a></li>
+                <li><a href="{% url 'blog:about' %}">关于</a></li>
+            </ul>
+        </div>
+        <div class="time-box">
+            <div id="nowTime">
+                ψ(｀∇´)ψ本站已经稳定运行了:
+                <span id="timeDay" style="color: orangered;"></span>天
+                <span id="timeHour" style="color: #00FFFF;"></span>时
+                <span id="timeMinute" style="color: #03a9f4;"></span>分
+                <span id="timeSecond" style="color: #5EAF6F"></span>秒
+            </div>
+        </div>
+
+        <p><img src="{% static 'img/nav/icp_icon.png' %}" width="20px">
+            <a href="https://beian.miit.gov.cn/" title="icp备案查询" target="_blank">鄂ICP备2021021674号-1</a>
+        </p>
+    </div>
+</div>
 </body>
+<script src="{% static 'users/detail.js' %}" type="text/javascript"></script>
+<script src="{% static 'blog/js/timenow.js' %}" type="text/javascript"></script>
 </html>

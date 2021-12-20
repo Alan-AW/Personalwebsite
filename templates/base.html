@@ -100,8 +100,8 @@
     <!-- 左侧 -->
     <div class="all-left">
         <div class="welcome-box animsition" data-animsition-in-class="fade-in-left"
-             data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-             data-animsition-out-duration="800">
+             data-animsition-in-duration="300" data-animsition-out-class="fade-out-left"
+             data-animsition-out-duration="300">
             <div class="left-tip" style="background-color: rgba(0,0,0,0);">💛</div>
             <div class="left-welcome">
                 <h2 style="font-size: 20px;">欢迎来自<strong><span id="city" style="color: deepskyblue;"></span></strong>的朋友
@@ -110,8 +110,8 @@
         </div>
         <!-- 天气 -->
         <div class="weather-box animsition" data-animsition-in-class="fade-in-left"
-             data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-             data-animsition-out-duration="800">
+             data-animsition-in-duration="600" data-animsition-out-class="fade-out-left"
+             data-animsition-out-duration="600">
             <div class="left-tip"><strong>!</strong></div>
             <div class="left-one">
                 <div id="he-plugin-standard"></div>
@@ -120,7 +120,7 @@
         <!-- 动态诗句 -->
         <div class="ptry-box animsition" data-animsition-in-class="fade-in-left"
              data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left"
-             data-animsition-out-duration="800">
+             data-animsition-out-duration="1000">
             <div class="left-tip"><strong>!</strong></div>
             <div class="left-two">
                 <h3 id="left-title">知足且上进、温柔而坚定</h3>
@@ -177,6 +177,7 @@
 <script src="{% static 'blog/js/footer.js' %}"></script>
 <script src="{% static 'blog/js/get_city.js' %}"></script>
 <script src="{% static 'blog/js/site_title.js' %}"></script>
+<script src="{% static 'blog/js/timenow.js' %}"></script>
 <script src="{% static 'blog/js/animsition.js' %}"></script>
 {% block script %}
     <!-- 子页面js引入 -->

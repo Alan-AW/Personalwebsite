@@ -184,6 +184,7 @@ class ForgotPwd(View):
 class UserDetail(LoginRequiredMixin, View):
     # 用户详情页
     def get(self, request):
+        user_detail_dict = {}
         user_obj = request.user
         username = user_obj.username
         date_joined = user_obj.date_joined
@@ -193,4 +194,8 @@ class UserDetail(LoginRequiredMixin, View):
             qq_user_obj = OAuthRelationShip.objects.filter(user=user_obj).first()
             qq_nick_name = qq_user_obj.nickname
             qq_avatar = qq_user_obj.avatar
+        user_detail_dict = {}
         return render(request, 'users/user_detail.html', locals())
+
+    def post(self, request):
+        pass

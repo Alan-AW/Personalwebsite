@@ -1,0 +1,2 @@
+1.页面中分别引入css和js文件
+2.页面中使用pre标签包裹code标签，code标签的属性为：language-代码块语言

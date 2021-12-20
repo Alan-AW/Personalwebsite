@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load archive_tags %}
 {% block title %}
     <link rel="stylesheet" type="text/css" href="{% static 'essay/essay.css' %}">
 {% endblock %}
@@ -33,6 +34,10 @@
         </section>
     </div>
 
+{% endblock %}
+
+{% block right %}
+{% get_archive_style %}
 {% endblock %}
 
 {% block script %}

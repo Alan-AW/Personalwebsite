@@ -1,0 +1,127 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-color: whitesmoke;
+	background: url(/static/img/bg/user_detail_bg.jpg) fixed no-repeat center center;
+	background-size: cover;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+/* 用户头像box */
+.avatar-box {
+	position: relative;
+	top: 3.125rem;
+	margin: 0 auto;
+	z-index: 1;
+}
+
+.avatar-box,
+#avatar {
+	width: 13rem;
+	height: 13rem;
+	border-radius: 50%;
+}
+
+/* 头像图片 */
+#avatar {
+	border: 0.3125rem solid gold;
+}
+
+#username {
+	text-align: center;
+	font-size: 1.375rem;
+	color: indianred;
+}
+
+/* 用户详情div */
+.content {
+	width: 45%;
+	margin: 0 auto;
+	margin-top: 3.125rem;
+	background-color: rgba(245, 245, 245, .9);
+	border-radius: 0.625rem;
+	box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
+		rgba(17, 17, 26, 0.1) 0 16px 56px,
+		rgba(17, 17, 26, 0.1) 0 24px 80px;
+	padding-top: 2rem;
+}
+
+.user-msg {
+	width: 100%;
+	height: 100%;
+	padding: 5%;
+}
+
+.user-msg .msg-p {
+	text-align: left;
+	font-size: 1.25rem;
+	margin: 1rem;
+}
+
+/* 用户名修改 */
+.content .user-msg .msg-p input {
+	outline: none;
+	border: none;
+	border-radius: 0.3125rem;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 0.3125rem 0.5rem;
+	font-size: 1.125rem;
+}
+
+/* 底部 */
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.footer-fontent {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 0 0 1.25rem 0;
+	background-color: rgba(245, 245, 245, .8);
+}
+
+.nav ul {
+	width: 30%;
+	height: 3.125rem;
+	margin-left: 35%;
+	text-align: center;
+}
+
+.nav ul li {
+	float: left;
+	width: 23%;
+	margin: 0 1%;
+	line-height: 3.125rem;
+}
+
+.nav ul li a {
+	font-size: 1.375rem;
+	color: black;
+	transition: all 0.3s;
+}
+
+.nav ul li a:hover {
+	color: #7FFFD4;
+}
+
+.time-box {
+	width: 100%;
+	height: auto;
+	margin-top: 0.625rem;
+}

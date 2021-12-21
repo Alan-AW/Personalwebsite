@@ -13,9 +13,9 @@ def get_qq_user_msg(access_token, openid):
     }
     response = urlopen('https://graph.qq.com/user/get_user_info?' + urlencode(params))
     data = json.loads(response.read().decode('utf8'))
-    qq_avatar = data.get('figureurl_qq_1').replace('http', 'https')
+    qq_avatar = data.get('figureurl_qq_2').replace('http', 'https')
     params = {
         'qq_nickname': data.get('nickname'),  # QQ用户昵称
-        'qq_avatar': qq_avatar  # 40*40头像
+        'qq_avatar': qq_avatar  # 100*100头像
     }
     return params

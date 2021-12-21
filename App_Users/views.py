@@ -83,7 +83,12 @@ class QQLogin(View):
         if oauth_obj.filter(open_id=openid, oauth_type=1).exists():
             relation_ship = oauth_obj.get(open_id=openid, oauth_type=1)
             params = get_qq_user_msg(access_token, openid)
-            auth.login(request, relation_ship.user)  # 登陆
+            # 更新头像和昵称信息
+            relation_ship.avatar = params.get('qq_avatar')
+            relation_ship.nickname = params.get('qq_nickname')
+            relation_ship.save()
+            # 登陆
+            auth.login(request, relation_ship.user)
             return redirect(reverse('blog:home') + '?' + urlencode(params))
         else:
             # 获取QQ用户信息（昵称和头像）

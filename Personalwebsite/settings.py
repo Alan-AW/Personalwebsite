@@ -116,6 +116,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # 是否关闭浏览器使得Session过
 SESSION_SAVE_EVERY_REQUEST = False  # 是否每次请求都保存Session，默认修改之后才保存（默认）
 
 # 日志
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,  # 不禁用已经存在的log实例，确定日志输出到文件或者终端
@@ -135,6 +136,7 @@ LOGGING = {
         },
     }
 }
+"""
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

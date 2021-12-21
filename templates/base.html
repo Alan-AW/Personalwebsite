@@ -45,14 +45,14 @@
                    data-animsition-out-class="fade-out-right" data-animsition-out-duration="500">关于我</a></li>
             {% if request.user.is_authenticated %}
                 {% if qq_user_nickname %}
-                    <img src="{{ qq_user_avatar }}" alt="头像" class="qq_user_avatar">
+                    <img src="{{ qq_user_avatar }}" class="qq_user_avatar">
                     <a href="{% url 'users:user_detail' %}" class="nav-a animsition-link qq_user_nickname"
                        data-animsition-out-class="fade-out-left"
                        data-animsition-out-duration="500">{{ qq_user_nickname }}</a>
                 {% else %}
-                    <li>
-                        <a href="{% url 'users:user_detail' %}" class="nav-a animsition-link"
-                           data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">我的</a></li>
+                    <img src="{% static 'img/nav/default_avatar.jpg' %}" class="qq_user_avatar">
+                        <a href="{% url 'users:user_detail' %}" class="nav-a animsition-link qq_user_nickname"
+                           data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">{{ request.user.username }}</a>
                 {% endif %}
             {% else %}
                 <li><a href="{% url 'users:signin' %}" class="nav-a animsition-link"

@@ -10,6 +10,9 @@ from App_Users.models import OAuthRelationShip
 import json, random, string
 from random import shuffle
 from App_Users.tools.get_qq_msg import get_qq_user_msg
+from App_Blog.models import LeaveMsg
+from APP_Comment.models import Comment
+import time
 
 
 class BindQQ(object):
@@ -184,18 +187,67 @@ class ForgotPwd(View):
 class UserDetail(LoginRequiredMixin, View):
     # 用户详情页
     def get(self, request):
-        user_detail_dict = {}
         user_obj = request.user
+        user_detail_dict = {}
         username = user_obj.username
         date_joined = user_obj.date_joined
-        is_qq_user = OAuthRelationShip.objects.filter(user=user_obj).exists()
+        is_qq_user = OAuthRelationShip.objects.filter(user=user_obj)
         is_super = user_obj.is_superuser
         if is_qq_user:
             qq_user_obj = OAuthRelationShip.objects.filter(user=user_obj).first()
             qq_nick_name = qq_user_obj.nickname
             qq_avatar = qq_user_obj.avatar
-        user_detail_dict = {}
+        else:
+            qq_nick_name, qq_avatar = None, None
+        comment_count = Comment.objects.filter(user=user_obj).count()
+        leave_count = LeaveMsg.objects.filter(name=username).count()
+        user_detail_dict = {
+            'username': username,
+            'date_joined': date_joined,
+            'is_qq_user': is_qq_user,
+            'qq_nickname': qq_nick_name,
+            'qq_avatar': qq_avatar,
+            'date_count': self.get_date(user_obj),
+            'comment_count': comment_count,
+            'leave_count': leave_count
+        }
         return render(request, 'users/user_detail.html', locals())
 
     def post(self, request):
-        pass
+        if request.is_ajax():
+            response = {'statue': False}
+            pk = request.POST.get('pk')
+            name = request.POST.get('name')
+            try:
+                user_obj = User.objects.get(id=pk)
+            except Exception:
+                user_obj = None
+            if user_obj and user_obj.username == name:
+                response['error_msg'] = '与原用户名一致!'
+                return HttpResponse(json.dumps(response))
+            if len(name) >= 1:
+                try:
+                    user_obj.username = name
+                    user_obj.save()
+                    response['statue'] = True
+                    response['new_name'] = name
+                except Exception:
+                    response['error_msg'] = '用户不存在!'
+            else:
+                response['error_msg'] = '您的输入有误!请重新输入!'
+            return HttpResponse(json.dumps(response))
+
+    def get_date(self, user):
+        use_join = str(user.date_joined.date())
+        sys_time = time.gmtime()
+        sys_y, sys_m, sys_d = sys_time.tm_year, sys_time.tm_mon, sys_time.tm_mday
+        use_y, use_m, use_d = use_join.split('-')
+        year = int(sys_y) - int(use_y)
+        year = year * 365
+        month = max(int(use_m), int(sys_m)) - min(int(use_m), int(sys_m))
+        month = month * 30
+        day = max(int(use_d), int(sys_d)) - min(int(use_d), int(sys_d))
+        count = year + month + day
+        if count < 1:
+            return '还不到一天哦!'
+        return '已经有%s天了！' % count

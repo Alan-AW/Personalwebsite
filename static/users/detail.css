@@ -81,6 +81,39 @@ li {
 	font-size: 1.125rem;
 }
 
+.edit_username {
+	font-size: 16px;
+	margin-left: 15px;
+	color: #8000ff;
+	border: 1px solid #5EAF6F;
+	border-radius: 5px;
+	padding: 3px 5px;
+	transition: all 0.3s;
+}
+
+.hidden {
+	display: none;
+}
+
+.edit_username:hover {
+	background-color: #5EAF6F;
+	border-color: #8000ff;
+	color: whitesmoke;
+}
+
+.user-msg .msg-p .logout_btn {
+	color:#2dc26b;
+	transition: all 0.3s;
+}
+
+.user-msg .msg-p .logout_btn:hover {
+	color: red;
+}
+
+.user-msg .msg-p .username_input{
+	color: whitesmoke;
+}
+
 /* 底部 */
 .footer {
 	position: fixed;

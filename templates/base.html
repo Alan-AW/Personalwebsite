@@ -51,8 +51,9 @@
                        data-animsition-out-duration="500">{{ qq_user_nickname }}</a>
                 {% else %}
                     <img src="{% static 'img/nav/default_avatar.jpg' %}" class="qq_user_avatar">
-                        <a href="{% url 'users:user_detail' %}" class="nav-a animsition-link qq_user_nickname"
-                           data-animsition-out-class="fade-out-left" data-animsition-out-duration="500">{{ request.user.username }}</a>
+                    <a href="{% url 'users:user_detail' %}" class="nav-a animsition-link qq_user_nickname"
+                       data-animsition-out-class="fade-out-left"
+                       data-animsition-out-duration="500">{{ request.user.username }}</a>
                 {% endif %}
             {% else %}
                 <li><a href="{% url 'users:signin' %}" class="nav-a animsition-link"
@@ -148,10 +149,13 @@
 <div class="back-to-top" id="back-top" title="返回顶部"></div>
 
 <!-- 底部 -->
+<div class="footer-img">
+	<img src="{% static 'img/bg/qun.png' %}" class="footer_img">
+</div>
 <div class="all-footer animsition">
     <p>我也是有底线哒 ┑(￣Д ￣)┍</p>
-    <p class="ali"><span style="color: orangered">无聊的朋友请移步休闲区—></span><a href="{% url 'blog:ali' %}"
-                                                                         title="听听阿狸的告白吧~">阿狸的告白</a>
+    <p class="ali">
+        <a href="{% url 'blog:ali' %}" title="听听阿狸的告白吧~">阿狸的告白</a>
         <a href="{% url 'fishing' %}">捕鱼达人</a>
         <a href="{% url 'coreball' %}">见缝插针</a>
         <a href="{% url 'dogs' %}">舔狗日记</a>
@@ -165,9 +169,6 @@
             <span id="timeSecond" style="color: #5EAF6F"></span>秒
         </div>
     </div>
-    <p>本站部分素材图片源自网络，版权问题请移步<a href="{% url 'blog:about' %}" class="animsition-link"
-                              style="font-size: 20px;color: red;">关于</a>站长页面联系删除
-    </p>
     <p><img src="{% static 'img/nav/icp_icon.png' %}" alt="icp备案查询" width="20px">
         <a href="https://beian.miit.gov.cn/" title="icp备案查询" target="_blank">{{ icp_code }}</a>
     </p>

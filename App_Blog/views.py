@@ -5,7 +5,7 @@ from django.db.models import Count
 from django.db.models import F
 from django.db import transaction
 from django.core.paginator import Paginator
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 import json
 import threading
 from App_Blog.models import *
@@ -157,13 +157,15 @@ class LeaveMsgView(View):
             except:
                 return HttpResponse(json.dumps(status))
             # 另开线程发送通知邮件
-            t = threading.Thread(target=send_mail, args=(
-                '留言板新增一条留言',
-                content + '请点击查看内容：www.missyouc.cn/blog/leavemessage/',
-                sys.EMAIL_HOST_USER,
-                [sys.EMAIL_SELF_ATTR]
-            ))
-            t.start()
+            subject = '有新的留言消息'
+            send_content = """
+                        <p>留言板新增一条留言：</p>
+                        <p>%s说:%s</p>
+                        <p><a href='https://www.missyouc.cn/blog/leavemessage/'>去留言板看看</a></p>
+                    """ % (nickname, content)
+            msg = EmailMultiAlternatives(subject, send_content, sys.EMAIL_HOST_USER, [sys.EMAIL_SELF_ATTR, ])
+            msg.content_subtype = "html"
+            msg.send()
             # 返回信息
             return HttpResponse(json.dumps(status))
         else:
@@ -202,13 +204,15 @@ class AddNewLeave(View):
             if has_sql_root:
                 user_email = LeaveMsg.objects.filter(id=root_id).first().email
                 if user_email:
-                    t = threading.Thread(target=send_mail, args=(
-                        '您在“花有重开日，人无再少年”的网站留言收到了新的回复',
-                        content + '请点击查看内容：www.xumeijie.com/blog/leavemessage/',
-                        sys.EMAIL_HOST_USER,
-                        [email]
-                    ))
-                    t.start()
+                    subject = '您的留言有新的回复'
+                    send_content = """
+                                    <p>留言板新增一条留言：</p>
+                                    <p>%s说:%s</p>
+                                    <p><a href='https://www.missyouc.cn/blog/leavemessage/'>去留言板看看</a></p>
+                                """ % (name, content)
+                    msg = EmailMultiAlternatives(subject, send_content, sys.EMAIL_HOST_USER, [user_email, ])
+                    msg.content_subtype = "html"
+                    msg.send()
             # 构建出返回前端的数据
             status['replyToUser'] = rootUser
             status['rootId'] = root_id

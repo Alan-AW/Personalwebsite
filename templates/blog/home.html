@@ -12,9 +12,7 @@
 			<h1><a href="{% url 'blog:articles' articleId=article.pk %}" class="animsition-link">{{ article.title }}</a>
 			</h1>
 			<div class="article-desc">
-				<p><span>【话说】</span><a href="{% url 'blog:articles' articleId=article.pk %}"
-				                       class="article_desc_a  ">{{ article.desc }}...</a>
-				</p>
+				<p><span>【话说】</span>{{ article.desc }}...</p>
 			</div>
 			<p class="article-msg">
 				分类:<span style="color: orangered">{{ article.category }}</span>

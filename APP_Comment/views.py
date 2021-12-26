@@ -4,8 +4,9 @@ from django.db import transaction
 from django.db.models import F
 from django.views import View
 from Personalwebsite import settings as sys
-from django.core.mail import send_mail
-import json, threading
+from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.models import User
+import json
 from APP_Comment.models import *
 from App_Blog.models import Article
 
@@ -29,13 +30,15 @@ class AddComment(LoginRequiredMixin, View):
                 response['successComment'] = True
             except Exception:
                 response['successComment'] = False
-            t = threading.Thread(target=send_mail, args=(
-                '文章《%s》新增一条评论' % article_obj.first().title,
-                content,
-                sys.EMAIL_HOST_USER,
-                [sys.EMAIL_SELF_ATTR])
-                                 )
-            t.start()
+            subject = '文章《%s》有新的评论' % Article.objects.get(id=articleId).title
+            username = User.objects.get(id=userId).username
+            send_content = """
+                                <p>%s说:%s</p>
+                                <p><a href='https://www.missyouc.cn/blog/articles/%s'>去看看</a></p>
+                            """ % (username, content, articleId)
+            msg = EmailMultiAlternatives(subject, send_content, sys.EMAIL_HOST_USER, [sys.EMAIL_SELF_ATTR, ])
+            msg.content_subtype = "html"
+            msg.send()
             return HttpResponse(json.dumps(response))
         else:
             cnm = '您的本次请求存在违法信息，已被系统标记！'

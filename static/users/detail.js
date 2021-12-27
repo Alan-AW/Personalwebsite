@@ -27,21 +27,27 @@ $(document).ready(function () {
 
 // 修改用户名
 function change_uname() {
-	$('.username_input').focus(function () {
-		$('.edit_username').removeClass('hidden');
+	$('.change_name_input').focus(function () {
+		$('.change_name_link').removeClass('hidden');
 	});
 
-	$('.username_input').blur(function () {
-		// $('.edit_username').addClass('hidden');
+	$('.change_name').blur(function () {
+		// $('.change_link').addClass('hidden');
 	});
 
-	$('.username_input').on('input', function () {
+	$('.change_name').on('input', function () {
 		// alert('正在修改昵称');
 	})
 }
 
-change_uname();
+function change__email() {
+	$('.change_email_input').focus(function () {
+		$('.change_email_link').removeClass('hidden');
+	});
+}
 
+change_uname();
+change__email();
 
 function edit_username(pk) {
 	$.ajax({
@@ -50,14 +56,36 @@ function edit_username(pk) {
 		data: {
 			'csrfmiddlewaretoken': $("[name='csrfmiddlewaretoken']").val(),
 			'pk': pk,
-			'name': $('.username_input').val(),
+			'name': $('.change_name_input').val(),
 		},
 		success: function (data) {
 			let response = JSON.parse(data);
 			if (response.statue) {
 				alert('修改成功!');
-				$('.edit_username').addClass('hidden');
-				$('.username_input').val(response.new_name);
+				$('.change_name_link').addClass('hidden');
+				$('.change_name_input').val(response.new_name);
+			} else {
+				alert(response.error_msg);
+			}
+		}
+	})
+}
+
+function change_email(pk) {
+	$.ajax({
+		url: '',
+		type: 'post',
+		data: {
+			'csrfmiddlewaretoken': $("[name='csrfmiddlewaretoken']").val(),
+			'pk': pk,
+			'email': $('.change_email_input').val(),
+		},
+		success: function (data) {
+			let response = JSON.parse(data);
+			if (response.statue) {
+				alert('修改成功!');
+				$('.change_email_link').addClass('hidden');
+				$('.change_email_input').val(response.new_name);
 			} else {
 				alert(response.error_msg);
 			}

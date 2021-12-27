@@ -12,7 +12,7 @@ from random import shuffle
 from App_Users.tools.get_qq_msg import get_qq_user_msg
 from App_Blog.models import LeaveMsg
 from APP_Comment.models import Comment
-import time
+import time, re
 
 
 class BindQQ(object):
@@ -195,6 +195,7 @@ class UserDetail(LoginRequiredMixin, View):
         user_obj = request.user
         user_detail_dict = {}
         username = user_obj.username
+        email = user_obj.email
         date_joined = user_obj.date_joined
         is_qq_user = OAuthRelationShip.objects.filter(user=user_obj)
         is_super = user_obj.is_superuser
@@ -208,6 +209,7 @@ class UserDetail(LoginRequiredMixin, View):
         leave_count = LeaveMsg.objects.filter(name=username).count()
         user_detail_dict = {
             'username': username,
+            'email': email,
             'date_joined': date_joined,
             'is_qq_user': is_qq_user,
             'qq_nickname': qq_nick_name,
@@ -223,12 +225,27 @@ class UserDetail(LoginRequiredMixin, View):
             response = {'statue': False}
             pk = request.POST.get('pk')
             name = request.POST.get('name')
+            email = request.POST.get('email')
             try:
                 user_obj = User.objects.get(id=pk)
             except Exception:
                 user_obj = None
+            if user_obj and user_obj.email == email:
+                response['error_msg'] = '与原邮箱一致!'
+                return HttpResponse(json.dumps(response))
             if user_obj and user_obj.username == name:
                 response['error_msg'] = '与原用户名一致!'
+                return HttpResponse(json.dumps(response))
+            email_addrs = r'^[0-9a-zA-Z_]{1,19}@[0-9a-zA-Z]{1,13}\.[a-zA-Z]{2,3}$'
+            check_email = re.match(email_addrs, email)
+            if email and check_email:
+                try:
+                    user_obj.email = email
+                    user_obj.save()
+                    response['statue'] = True
+                    response['new_email'] = email
+                except Exception:
+                    response['error_msg'] = '数据错误!请稍后再试!'
                 return HttpResponse(json.dumps(response))
             if len(name) >= 1:
                 try:

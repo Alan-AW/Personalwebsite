@@ -47,9 +47,14 @@
 				style="color: red;">{{ user_detail_dict.date_count }}</span>希望我们能永远走下去~</p>
 		<p class="msg-p">您在本站的用户名是：
 			{% csrf_token %}
-			<input type="text" class="username_input" maxlength="10" value="{{ username }}"/><a
-					class="edit_username hidden"
+			<input type="text" class="change_name_input" maxlength="10" value="{{ username }}"/><a
+					class="change_name_link hidden"
 					href="javascript:edit_username({{ user_obj.pk }})">确认修改</a></p>
+		<p class="msg-p">您的邮箱是：
+			<input type="text" class="change_email_input" maxlength="32" value="{{ email }}" placeholder="设置一个邮箱可以接收到回复消息哦~"/><a
+					class="change_email_link hidden"
+					href="javascript:change_email({{ user_obj.pk }})">确认修改</a>
+		</p>
 		{% if user_detail_dict.qq_nickname %}
 			<p class="msg-p">您的QQ昵称是：<span style="color: #03a9f4;">{{ user_detail_dict.qq_nickname }}</span>&nbsp;&nbsp;真是个好听的名字呢~~
 			</p>

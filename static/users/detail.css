@@ -81,7 +81,7 @@ li {
 	font-size: 1.125rem;
 }
 
-.edit_username {
+.change_name_link, .change_email_link {
 	font-size: 16px;
 	margin-left: 15px;
 	color: #8000ff;

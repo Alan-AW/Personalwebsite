@@ -154,24 +154,24 @@
 </div>
 <div class="all-footer animsition">
     <p>我也是有底线哒 ┑(￣Д ￣)┍</p>
-    <p class="ali">
-        <a href="{% url 'blog:ali' %}" title="听听阿狸的告白吧~">阿狸的告白</a>
-        <a href="{% url 'fishing' %}">捕鱼达人</a>
-        <a href="{% url 'coreball' %}">见缝插针</a>
-        <a href="{% url 'dogs' %}">舔狗日记</a>
-    </p>
-    <div>
-        <div id="nowTime">
-            ψ(｀∇´)ψ本站已经稳定运行了:
-            <span id="timeDay" style="color: orangered;"></span>天
-            <span id="timeHour" style="color: greenyellow;"></span>时
-            <span id="timeMinute" style="color: #03a9f4;"></span>分
-            <span id="timeSecond" style="color: #5EAF6F"></span>秒
-        </div>
-    </div>
-    <p><img src="{% static 'img/nav/icp_icon.png' %}" alt="icp备案查询" width="20px">
-        <a href="https://beian.miit.gov.cn/" title="icp备案查询" target="_blank">{{ icp_code }}</a>
-    </p>
+	<p>Copyright &copy; 2021-2023 Personal Website Desined by 花有重开日，人无再少年</p>
+	<div>
+		<div id="nowTime">
+			ψ(｀∇´)ψ小破站已经稳定运行了:
+			<span id="timeDay" style="color: orangered;"></span>天
+			<span id="timeHour" style="color: greenyellow;"></span>时
+			<span id="timeMinute" style="color: #03a9f4;"></span>分
+			<span id="timeSecond" style="color: #5EAF6F"></span>秒
+		</div>
+	</div>
+	<p class="ali"><span style="color: orangered"><a href="{% url 'blog:ali' %}">阿狸的告白</a>
+		<a href="{% url 'fishing' %}">捕鱼达人</a>
+		<a href="{% url 'coreball' %}">见缝插针</a>
+		<a href="{% url 'dogs' %}">舔狗日记</a>
+	</p>
+	<p><img src="{% static 'img/nav/icp_icon.png' %}" alt="icp备案查询" width="20px">
+		<a href="https://beian.miit.gov.cn/" title="icp备案查询" target="_blank" style="color: #000;">{{ icp_code }}</a>
+	</p>
 </div>
 </body>
 <script src="{% static 'blog/js/navBase.js' %}"></script>

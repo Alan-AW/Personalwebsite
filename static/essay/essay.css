@@ -78,6 +78,28 @@
     height: 100%;
 }
 
+/* 分页 */
+.pagination {
+    margin-top: 30px;
+    text-align: center;
+    color: #5EAF6F;
+}
+
+.page_button {
+    color: #fff2fb;
+    background-color: #5EAF6F;
+    border-radius: 5px;
+    border: 1px solid #fff2fb;
+    padding: 5px 8px;
+    transition: all 0.3s;
+}
+
+.page_button:hover {
+    background-color: #fff2fb;
+    color: #5EAF6F;
+    border: 1px solid #5EAF6F;
+}
+
 /* ul内容展示 */
 *,
 *::before,

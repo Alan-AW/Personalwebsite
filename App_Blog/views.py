@@ -46,11 +46,9 @@ class Home(View):
         # 原理同上，调用了一个函数进行切割!!注意：该方法需要设置时区
         # dateList = Article.objects.annotate(month=TruncMonth('created_time')).values('month').annotate(c=Count('id')).values('month','c')
 
-
         # 置顶文章
         first_list = articleList.filter(id__in=sys.EXCLUDE_ARTICLE_ID_LIST)
         articleList = articleList.exclude(id__in=sys.EXCLUDE_ARTICLE_ID_LIST)  # 排除置顶文章
-
 
         # 分页
         paginator = Paginator(articleList, 10)  # Show 10 contacts per page.

@@ -80,22 +80,22 @@
 
 /* 分页 */
 .pagination {
-    float: right;
-    margin-right: 10px;
+    margin-top: 30px;
+    text-align: center;
+    color: #5EAF6F;
 }
 
 .page_button {
-    color: deeppink;
-    transition: all 0.3s;
-    border: 1px solid deeppink;
+    color: #fff2fb;
+    background-color: #5EAF6F;
     border-radius: 5px;
+    border: 1px solid #fff2fb;
+    padding: 5px 8px;
+    transition: all 0.3s;
 }
 
 .page_button:hover {
-    color: deepskyblue;
-    border: 1px solid deepskyblue;
-}
-
-.page_button:active {
-    border: 1px dotted gold;
+    background-color: #fff2fb;
+    color: #5EAF6F;
+    border: 1px solid #5EAF6F;
 }

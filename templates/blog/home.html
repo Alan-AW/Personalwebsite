@@ -7,6 +7,23 @@
 {% endblock %}
 
 {% block center %}
+	{% for article in first_list %}
+		<div class="article-list animsition">
+			<h1><a href="{% url 'blog:articles' articleId=article.pk %}" class="animsition-link">{{ article.title }}</a>
+			</h1>
+			<div class="article-desc">
+				<p><span>【置顶】</span>{{ article.desc }}...</p>
+			</div>
+			<p class="article-msg">
+				分类:<span style="color: orangered">{{ article.category }}</span>
+				&nbsp;浏览:<span style="color: greenyellow">{{ article.views }}</span>
+				&nbsp;点赞:<span style="color: skyblue">{{ article.greatCount }}</span>
+				&nbsp;发布日期:<span style="color: darkgreen">{{ article.created_time|date:'Y年m月d日' }}</span>
+			</p>
+		</div>
+	{% endfor %}
+
+
 	{% for article in pageObj %}
 		<div class="article-list animsition">
 			<h1><a href="{% url 'blog:articles' articleId=article.pk %}" class="animsition-link">{{ article.title }}</a>

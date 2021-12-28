@@ -162,3 +162,6 @@ QQ_APP_KEY = '205c92d28403e1f850727f888782953d'  # APP_KEY - 应该写入到环�
 # QQ_APP_KEY = os.environ['QQ_APP_KEY']  # 环境变量读取方法
 QQ_REDIRECT_URL = 'https://www.missyouc.cn/users/login_by_qq'  # (本站)回调域
 QQ_STATE = 'xcdh'  # 自定义字符串原样带回
+
+# 首页置顶文章ID配置
+EXCLUDE_ARTICLE_ID_LIST = [5, 6]

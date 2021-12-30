@@ -6,10 +6,9 @@ from django.db.models import F
 from django.db import transaction
 from django.core.paginator import Paginator
 from django.core.mail import EmailMultiAlternatives
-import json
-import threading
-from App_Blog.models import *
 from django.conf import settings as sys
+import json
+from App_Blog.models import *
 from APP_Comment.models import Comment
 from App_Users.models import OAuthRelationShip
 
@@ -26,9 +25,9 @@ class Home(View):
 
     def get(self, request, **kwargs):
         # 查询所有的文章传递给前端做展示
-        page = request.GET.get('page')
+        page = request.GET.get('page') or 1
         user = request.user
-        articleList = Article.objects.all()
+        articleList = Article.objects.all().order_by('-id')
         if kwargs:
             condition = kwargs['condition']
             params = kwargs['params']
@@ -45,16 +44,16 @@ class Home(View):
         # django 自带的日期分组查询:
         # 原理同上，调用了一个函数进行切割!!注意：该方法需要设置时区
         # dateList = Article.objects.annotate(month=TruncMonth('created_time')).values('month').annotate(c=Count('id')).values('month','c')
-
         # 置顶文章
-        first_list = articleList.filter(id__in=sys.EXCLUDE_ARTICLE_ID_LIST)
+        if int(page) <= 1:
+            first_list = articleList.filter(id__in=sys.EXCLUDE_ARTICLE_ID_LIST)
+        else:first_list = None
         articleList = articleList.exclude(id__in=sys.EXCLUDE_ARTICLE_ID_LIST)  # 排除置顶文章
 
         # 分页
         paginator = Paginator(articleList, 10)  # Show 10 contacts per page.
         pageObj = paginator.get_page(page)
-        icp_code = sys.ICP_CODE  # ICP备案信息
-        # 获取用户头像和昵称信息
+        icp_code = sys.ICP_CODE
         qq_user_nickname = request.GET.get('qq_nickname')
         qq_user_avatar = request.GET.get('qq_avatar')
         if all([qq_user_nickname, qq_user_avatar]):

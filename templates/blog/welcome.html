@@ -2,61 +2,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="徐小杰">
-	<meta name="Description" content="python,编程,web开发,前端,后端">
-	<meta name="keywords" content="花有重开日,人无再少年 徐小杰">
-	<meta name="website" content="https://www.missyouc.cn/">
-	<link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
-	<title> 🔴花有重开日🤍人无再少年💖 </title>
-	<link rel="stylesheet" type="text/css" href="{% static 'blog/css/welcome.css' %}">
-	<script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
-	        integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
-	        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
-	      integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
-	      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="徐小杰">
+    <meta name="Description" content="python,编程,web开发,前端,后端">
+    <meta name="keywords" content="花有重开日,人无再少年 徐小杰">
+    <meta name="website" content="https://www.missyouc.cn/">
+    <link rel="shortcut icon" href="{% static 'site_icon/mysite_couple_heart_love_icon.svg' %}"/>
+    <title> 🔴花有重开日🤍人无再少年💖 </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/welcome.css' %}">
+    <script src="https://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"
+            integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"
+          integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<!-- 背景 -->
-<video autoplay loop muted>
-	<source src="{% static 'img/bg/Starry.mp4' %}" type="video/mp4">
-	Your browser does not support the video tag
-</video>
-<!-- canvas -->
-<canvas class="cavs">
-This is a beautiful canvas starry sky animation. If you see this message, it means that your browser may not support the display of this animation. Simply put, your browser is too low!</canvas>
 <!-- 欢迎语 -->
-<p class="show-city">(｡･∀･)ﾉﾞ嗨!来自<span id="city"></span>的朋友</p>
-<div class="autotype" id="autotype">
-	<p class="one">：柴米油盐沁透着星辰大海,</p>
-	<p class="two">：锅碗瓢盆盛满了诗和远方</p>
-	<p class="three">：有趣的人生，</p>
-	<p class="four">：一半柴米油盐，一半星辰大海，</p>
-	<p class="five">：一半诗和远方，一半人间烟火。</p>
+<div class="body">
+    <p class="show-city">(｡･∀･)ﾉﾞ嗨!来自<span id="city"></span>的朋友</p>
+    <div class="autotype" id="autotype">
+        <p class="one">：柴米油盐沁透着星辰大海,</p>
+        <p class="two">：锅碗瓢盆盛满了诗和远方</p>
+        <p class="three">：有趣的人生，</p>
+        <p class="four">：一半柴米油盐，一半星辰大海，</p>
+        <p class="five">：一半诗和远方，一半人间烟火。</p>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav animsition" style="z-index: 1000;">
+        <ul class="nav-ul">
+            <li title="进入首页"><a href="{% url 'blog:home' %}" class="animsition-link">
+                <img class="nav-img" src="{% static 'img/nav/home.png' %}"
+                     style="width: 3.125rem;"></a></li>
+            <li title="GitHub"><a href="https://github.com/xumeijie?tab=repositories" class="animsition-link">
+                <img class="nav-img" src="{% static 'img/nav/GitHub.jpg' %}"
+                     style="width: 3.125rem;"></a></li>
+            <li title="世界硒都">
+                <a href="{% url 'blog:enshi' %}" class="animsition-link">
+                    <img class="nav-img" src="{% static 'img/nav/enshi.jpg' %}"
+                         style="width: 3.125rem;border-radius: 12px"></a></li>
+            <li title="关于我"><a href="{% url 'blog:about' %}" class="animsition-link">
+                <img class="nav-img" src="{% static 'img/nav/about.jpg' %}" style="width: 3.125rem;"></a></li>
+        </ul>
+    </div>
+    <!-- canvas -->
+    <canvas class="cavs">
+        This is a beautiful canvas starry sky animation. If you see this message, it means that your browser may not
+        support
+        the display of this animation. Simply put, your browser is too low!
+    </canvas>
+
 </div>
-<!-- 导航 -->
-<div class="nav animsition">
-	<ul class="nav-ul">
-		<li title="进入首页"><a href="{% url 'blog:home' %}" class="animsition-link">
-			<img src="{% static 'img/nav/home.png' %}"
-			     style="width: 3.125rem;"></a></li>
-		<li title="GitHub"><a href="https://github.com/xumeijie?tab=repositories" class="animsition-link">
-			<img src="{% static 'img/nav/GitHub.jpg' %}"
-			     style="width: 3.125rem;"></a></li>
-		<li title="世界硒都">
-			<a href="{% url 'blog:enshi' %}" class="animsition-link">
-				<img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/59/01/5c/59015cd8-c4f1-b602-e54b-ab2b25d4c94c/source/512x512bb.jpg"
-				     style="width: 3.125rem;border-radius: 12px"></a></li>
-		<li title="关于我"><a href="{% url 'blog:about' %}" class="animsition-link">
-			<img src="{% static 'img/nav/about.jpg' %}" style="width: 3.125rem;"></a></li>
-	</ul>
+
+<!-- 背景 -->
+<div class="container">
+    <ul id="scene">
+        <li class="layer" data-depth=".2"><img src="{% static 'img/welcome/planet1.png' %}"></li>
+        <li class="layer" data-depth=".3"><img src="{% static 'img/welcome/planet2.png' %}"></li>
+        <li class="layer" data-depth=".2"><img src="{% static 'img/welcome/man.png' %}"></li>
+        <li class="layer" data-depth=".5"><img src="{% static 'img/welcome/earth.png' %}"></li>
+        <li class="layer" data-depth=".4"><img src="{% static 'img/welcome/planet3.png' %}"></li>
+        <li class="layer" data-depth=".8"><img src="{% static 'img/welcome/planet4.png' %}"></li>
+        <li class="layer" data-depth="0"><img src="{% static 'img/welcome/planet5.png' %}"></li>
+    </ul>
 </div>
+
+
 <script src="{% static 'blog/js/welcome.js' %}"></script>
 <script src="{% static 'blog/js/animsition.js' %}"></script>
 <script src="{% static 'blog/js/get_city.js' %}"></script>
+<!-- 背景插件 -->
+<script src="{% static 'blog/js/parallax.js' %}"></script>
+<script>
+    var scene = document.getElementById('scene');
+    var parallax = new Parallax(scene);
+</script>
 </body>
 </html>

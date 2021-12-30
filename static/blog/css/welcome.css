@@ -4,11 +4,12 @@
     font-family: 楷体;
 }
 
-html, body {
+body {
     width: 100%;
-    height: 100%;
     overflow: hidden;
     cursor: url(/static/img/bg/S1.cur), auto !important;
+    background: url(/static/img/welcome/background.jpg);
+    background-attachment: fixed;
 }
 
 a, button, input, select, textarea {
@@ -23,35 +24,19 @@ li {
     list-style: none;
 }
 
-::selection {
-    background: #72d0eb;
-    color: #fff;
-    text-shadow: none
+/* 背景 */
+.container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
-::-moz-selection {
-    background: #72d0eb;
-    color: #fff;
-    text-shadow: none
-}
-
-/* 视频背景 */
-video {
+/* 主体内容 */
+.body {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    height: auto;
-    width: auto;
-    z-index: -9999;
-}
-
-source {
-    min-width: 100%;
-    min-height: 100%;
-    height: auto;
-    width: auto;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 /* canvas */
@@ -153,6 +138,6 @@ source {
     transform: scale(1.2);
 }
 
-img {
+.nav-img {
     border-radius: 50%;
 }

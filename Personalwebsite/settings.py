@@ -55,10 +55,10 @@ WSGI_APPLICATION = 'Personalwebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mywebsite',
-        'USER': 'root',
+        'NAME': 'blog',
+        'USER': 'xmj',
         'PASSWORD': 'xcdh560',
-        'HOST': '127.0.0.1',
+        'HOST': '47.93.242.253',
         'PORT': 3306,
     }
 }

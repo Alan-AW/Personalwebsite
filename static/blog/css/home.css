@@ -16,7 +16,7 @@
 
 .article-list:hover {
     top: -0.625rem;
-    box-shadow: 5px 10px 15px rgba(92, 172, 238, 0.6);
+    box-shadow: 0 7px 15px rgba(92, 172, 238, 0.6);
 }
 
 .article-list h1 {

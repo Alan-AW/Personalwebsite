@@ -4,7 +4,7 @@
     font-family: 楷体;
 }
 
-html, body {
+body {
     width: 100%;
     height: 100%;
     /*background: url(/static/img/bg/bgbgbgbgbg.jpg) fixed no-repeat center center;*/
@@ -294,6 +294,10 @@ header > .layer > img, header > .layer > video {
     background-color: rgba(255, 255, 255, .9);
     border-bottom: 1px solid #FF8C00;
     transition: all 0.3s;
+    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
+    rgba(17, 17, 26, 0.1) 0 16px 56px,
+    rgba(17, 17, 26, 0.1) 0 24px 80px;
+
 }
 
 .left-welcome:hover,
@@ -301,7 +305,7 @@ header > .layer > img, header > .layer > video {
 .left-two:hover,
 .left-three:hover {
     box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
+    rgba(255, 255, 255, 0.1) 0 16px 56px,
     rgba(17, 17, 26, 0.1) 0 24px 80px;
 }
 
@@ -370,13 +374,16 @@ header > .layer > img, header > .layer > video {
     border-radius: 0.75rem;
     border-bottom: 1px solid #FF8C00;
     transition: all 0.3s;
+    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
+    rgba(17, 17, 26, 0.1) 0 16px 56px,
+    rgba(17, 17, 26, 0.1) 0 24px 80px;
 }
 
 .tags-box:hover,
 .category-box:hover,
 .date-box:hover {
     box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
+    rgba(255,255,255, 0.1) 0 16px 56px,
     rgba(17, 17, 26, 0.1) 0 24px 80px;
 }
 
@@ -414,7 +421,7 @@ header > .layer > img, header > .layer > video {
 .all-footer {
     clear: both;
     width: 100%;
-    border-top: 1px solid #DDA0DD;
+    border-top: 1px solid rgb(255,188,207);
     text-align: center;
     padding: 5px 0;
     box-sizing: border-box;

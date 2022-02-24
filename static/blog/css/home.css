@@ -3,15 +3,16 @@
     top: 0;
     margin-bottom: 20px;
     width: 100%;
-    height: 11rem;
+    /*height: 11rem;*/
     border-radius: 12px;
     transition: all 0.3s;
     padding: 1.25rem;
     box-sizing: border-box;
     background: rgba(255, 255, 255, .9) url("/static/img/bg/ds.png") no-repeat right bottom;
-    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
-    rgba(17, 17, 26, 0.1) 0 24px 80px;
+    /*box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,*/
+    /*rgba(17, 17, 26, 0.1) 0 16px 56px,*/
+    /*rgba(17, 17, 26, 0.1) 0 24px 80px;*/
+    -webkit-box-shadow: 0 0 10px rgb(202 203 203 / 50%);
 }
 
 .article-list:hover {
@@ -26,6 +27,7 @@
 .article-list h1 a {
     color: black;
     transition: all 0.3s;
+    font-weight: 500;
 }
 
 .article-list h1 a::after {

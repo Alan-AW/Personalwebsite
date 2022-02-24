@@ -294,9 +294,10 @@ header > .layer > img, header > .layer > video {
     background-color: rgba(255, 255, 255, .9);
     border-bottom: 1px solid #FF8C00;
     transition: all 0.3s;
-    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
-    rgba(17, 17, 26, 0.1) 0 24px 80px;
+    /*box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,*/
+    /*rgba(17, 17, 26, 0.1) 0 16px 56px,*/
+    /*rgba(17, 17, 26, 0.1) 0 24px 80px;*/
+    -webkit-box-shadow: 0 0 10px rgb(202 203 203 / 50%);
 
 }
 
@@ -374,9 +375,10 @@ header > .layer > img, header > .layer > video {
     border-radius: 0.75rem;
     border-bottom: 1px solid #FF8C00;
     transition: all 0.3s;
-    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
-    rgba(17, 17, 26, 0.1) 0 24px 80px;
+    /*box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,*/
+    /*rgba(17, 17, 26, 0.1) 0 16px 56px,*/
+    /*rgba(17, 17, 26, 0.1) 0 24px 80px;*/
+    -webkit-box-shadow: 0 0 10px rgb(202 203 203 / 50%);
 }
 
 .tags-box:hover,

@@ -25,19 +25,20 @@
 /* 文章内容的显示 */
 .articleDesc {
     width: 100%;
-    background-color: rgba(245, 245, 245, .8);
+    background-color: rgb(245, 245, 245);
     padding: 20px;
     font-size: 22px;
     border-radius: 10px;
     transition: all 0.3s;
     overflow-y: auto;  /* 限制pre标签超出父元素宽度：锤子方向使用滚动条来兼容 */
+    -webkit-box-shadow: 0 0 10px rgb(202 203 203 / 50%);
 }
 
-.articleDesc:hover {
-    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,
-    rgba(17, 17, 26, 0.1) 0 16px 56px,
-    rgba(17, 17, 26, 0.1) 0 24px 80px;
-}
+/*.articleDesc:hover {*/
+/*    box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px,*/
+/*    rgba(17, 17, 26, 0.1) 0 16px 56px,*/
+/*    rgba(17, 17, 26, 0.1) 0 24px 80px;*/
+/*}*/
 
 .articleDesc img {
     max-width: 100%;
@@ -543,6 +544,3 @@ pre.line-numbers {
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }
-
-
-

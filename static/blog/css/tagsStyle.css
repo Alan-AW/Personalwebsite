@@ -1,0 +1,29 @@
+
+/* 标签云 */
+.red, .yellow, .skyblue, .green, .blue {
+    display: inline-block;
+    color: whitesmoke;
+    padding: 5px 8px;
+    border-radius: 15px;
+    margin: 3px;
+}
+
+.red {
+    background-color: #ff4500;
+}
+
+.yellow {
+    background-color: #F0AD4E;
+}
+
+.skyblue {
+    background-color: #5CC0DF;
+}
+
+.green {
+    background-color: #5DB85B;
+}
+
+.blue {
+    background-color: #337AB7;
+}

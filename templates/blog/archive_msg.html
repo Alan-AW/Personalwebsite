@@ -11,31 +11,31 @@
     <div class="show_msg">
       {% for cate in category %}
         {% if forloop.counter|add:0|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ cate.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}category/{{ cate.0 }}" class="animsition-link">
             <span class="red">{{ cate.0 }}({{ cate.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-1|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ cate.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}category/{{ cate.0 }}" class="animsition-link">
             <span class="yellow">{{ cate.0 }}({{ cate.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-2|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ cate.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}category/{{ cate.0 }}" class="animsition-link">
             <span class="skyblue">{{ cate.0 }}({{ cate.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-3|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ cate.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}category/{{ cate.0 }}" class="animsition-link">
             <span class="green">{{ cate.0 }}({{ cate.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-4|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ cate.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}category/{{ cate.0 }}" class="animsition-link">
             <span class="blue">{{ cate.0 }}({{ cate.1 }})</span>
           </a>
         {% endif %}
@@ -49,31 +49,31 @@
     <div class="show_msg">
       {% for tag in tags %}
         {% if forloop.counter|add:0|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}tags/{{ tag.0 }}" class="animsition-link">
             <span class="red">{{ tag.0 }}({{ tag.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-1|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}tags/{{ tag.0 }}" class="animsition-link">
             <span class="yellow">{{ tag.0 }}({{ tag.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-2|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}tags/{{ tag.0 }}" class="animsition-link">
             <span class="skyblue">{{ tag.0 }}({{ tag.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-3|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}tags/{{ tag.0 }}" class="animsition-link">
             <span class="green">{{ tag.0 }}({{ tag.1 }})</span>
           </a>
         {% endif %}
 
         {% if forloop.counter|add:-4|divisibleby:5 %}
-          <a href="/blog/home/tags/{{ tag.0 }}" class="animsition-link">
+          <a href="{% url 'blog:home' %}tags/{{ tag.0 }}" class="animsition-link">
             <span class="blue">{{ tag.0 }}({{ tag.1 }})</span>
           </a>
         {% endif %}

@@ -88,11 +88,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+# 两个方案，目前本方案在部署之后能运行，能收集静态文件，但是有博主换成了方式二的部署
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '/static/'),
 ]
+# 方式二
+# STATIC_URL = '/static/'
+# STATIC_ROOT = [
+#     os.path.join(BASE_DIR, '/static/'),
+# ]
+
 
 # 修改系统对于未登录的验证跳转地址
 LOGIN_URL = '/users/login/'

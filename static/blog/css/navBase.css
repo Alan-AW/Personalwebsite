@@ -312,7 +312,7 @@ header > .layer > img, header > .layer > video {
 
 .left-two {
     text-align: center;
-    height: 170px;
+    /*height: 170px;*/
 }
 
 .left-one {

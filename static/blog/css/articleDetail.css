@@ -26,12 +26,16 @@
 .articleDesc {
     width: 100%;
     background-color: rgb(245, 245, 245);
-    padding: 20px;
+    padding: 30px;
     font-size: 22px;
     border-radius: 10px;
     transition: all 0.3s;
     overflow-y: auto;  /* 限制pre标签超出父元素宽度：锤子方向使用滚动条来兼容 */
     -webkit-box-shadow: 0 0 10px rgb(202 203 203 / 50%);
+}
+
+.articleDesc p {
+    margin: 20px 0;
 }
 
 /*.articleDesc:hover {*/

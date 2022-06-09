@@ -3,8 +3,8 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tclrz8rvtqu%!%*evvs-)@-#0h1g#tm5i6__g78@z&o7^nl*#w'
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,10 +55,10 @@ WSGI_APPLICATION = 'Personalwebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        'USER': 'xmj',
-        'PASSWORD': 'xcdh560',
-        'HOST': '47.93.242.253',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': 3306,
     }
 }
@@ -97,7 +97,7 @@ STATICFILES_DIRS = [
 # 方式二
 # STATIC_URL = '/static/'
 # STATIC_ROOT = [
-#     os.path.join(BASE_DIR, '/static/'),
+#     os.path.join(BASE_DIR, 'static'),
 # ]
 
 
@@ -150,25 +150,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 发送邮件配置项
 EMAIL_HOST = 'smtp.qq.com'  # 发送邮件的邮箱 的 SMTP服务器
 EMAIL_PORT = 465  # smtp port
-EMAIL_HOST_USER = '1078312524@qq.com'  # email address
-EMAIL_SELF_ATTR = 'xcdh560@foxmail.com'
-EMAIL_HOST_PASSWORD = 'hpogwbjjuenzjcfi'  # pwd
+EMAIL_HOST_USER = ''  # email address
+EMAIL_SELF_ATTR = ''
+EMAIL_HOST_PASSWORD = ''  # pwd
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # default send email user
 EMAIL_USE_SSL = True  # 是否使用SSL加密
 
 # 同桌的你
 ETERNAL_KEY = 'tenyuxue'
-ETERNAL_NAME = '滕玉雪'
 
 # 备案号
 ICP_CODE = '鄂ICP备2021021476号-1'
 
 # QQ登陆配置项
-QQ_APP_ID = '101987994'  # app_id
-QQ_APP_KEY = '205c92d28403e1f850727f888782953d'  # APP_KEY - 应该写入到环境变量中
+QQ_APP_ID = ''  # app_id
+QQ_APP_KEY = ''  # APP_KEY - 应该写入到环境变量中
 # QQ_APP_KEY = os.environ['QQ_APP_KEY']  # 环境变量读取方法
-QQ_REDIRECT_URL = 'https://www.missyouc.cn/users/login_by_qq'  # (本站)回调域
-QQ_STATE = 'xcdh'  # 自定义字符串原样带回
+QQ_REDIRECT_URL = ''  # (本站)回调域
+QQ_STATE = ''  # 自定义字符串原样带回
 
 # 首页置顶文章ID配置
 EXCLUDE_ARTICLE_ID_LIST = [5, 6]
